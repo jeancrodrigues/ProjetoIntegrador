@@ -71,6 +71,7 @@ public class PessoaFisica implements Serializable {
     private Endereco endereco;
 
     public PessoaFisica() {
+        this.endereco = new Endereco();
     }
 
     public PessoaFisica(Integer idpessoafisica) {

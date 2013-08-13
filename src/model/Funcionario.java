@@ -69,6 +69,7 @@ public class Funcionario implements Serializable {
     private List<Venda> vendaList;
 
     public Funcionario() {
+        this.idpessoafisica = new PessoaFisica();
     }
 
     public Funcionario(Integer idfuncionario) {
