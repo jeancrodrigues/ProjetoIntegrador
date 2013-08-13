@@ -5,11 +5,10 @@
 package RN;
 
 import Persistencia.FuncionarioPers;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import model.Funcionario;
+import model.PessoaFisica;
 
 /**
  *
@@ -17,17 +16,14 @@ import model.Funcionario;
  */
 public class FuncionarioRN {
     private Funcionario func;
-    private FuncionarioPers pers;
-    
-    DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private FuncionarioPers pers;       
+    private List<String> errosValidacao;
 
-    public FuncionarioRN() {
+    public FuncionarioRN() {        
         pers = new FuncionarioPers();
         func = new Funcionario();
     }
-    
-    
+        
     public Funcionario getFunc() {
         return func;
     }
@@ -36,21 +32,44 @@ public class FuncionarioRN {
         this.func = func;
     }
     
-    public void gravar(){
-        pers.gravar(func);
-    }
-    
-    public Date stringToDate(String dado) throws ParseException {
-        if (!dado.equals(null)) {
-            Date data;
-      data = new Date(df.parse(dado).getTime());
-            return data;
+    public boolean gravar(){        
+        if(isFuncionarioValido(func)){
+            pers.gravar(func);        
+            return true;
         }
-        return null;
+        return false;
     }
     
-    public String dateToString(Date dado) {
-        String data = "";
-        return data = sdf.format(dado).trim();
+    public boolean isFuncionarioValido(Funcionario func){
+        if(func != null){
+            return isPessoaFisicaValida(func.getIdpessoafisica());
+        }
+        return false;
+    }
+    
+    public boolean isPessoaFisicaValida(PessoaFisica pf){
+        boolean valido = true;
+        errosValidacao = new ArrayList<>();        
+        if(pf != null){            
+            if(pf.getNome().trim().equals("")){
+                errosValidacao.add("Nome não pode ser vazio.");
+                valido = false;
+            }
+            if(pf.getCpf().trim().equals("")){
+                errosValidacao.add("Cpf não pode ser vazio.");
+                valido = false;
+            }
+            if(pf.getRg().trim().equals("")){
+                errosValidacao.add("RG não pode ser vazio.");
+                valido = false;
+            }            
+            return valido;
+        }
+        errosValidacao.add("Pessoa não pode ser nula");
+        return false;
+    }
+
+    public Object getErrosValidacao() {
+        return errosValidacao;
     }
 }
