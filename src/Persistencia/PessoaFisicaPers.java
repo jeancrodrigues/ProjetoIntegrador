@@ -1,6 +1,7 @@
 package Persistencia;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.PessoaFisica;
 
 /**
@@ -20,7 +21,6 @@ public class PessoaFisicaPers extends BasePers implements IPersistencia<PessoaFi
         beginTransaction();
         pf = getEm().merge(pf);
         commitTransaction();
-        
         return pf;
     }
 

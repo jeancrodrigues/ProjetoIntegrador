@@ -6,6 +6,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,27 +35,35 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PessoaJuridica.findByTelefone1", query = "SELECT p FROM PessoaJuridica p WHERE p.telefone1 = :telefone1"),
     @NamedQuery(name = "PessoaJuridica.findByTelefone2", query = "SELECT p FROM PessoaJuridica p WHERE p.telefone2 = :telefone2")})
 public class PessoaJuridica implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idpessoajuridica")
     private Integer idpessoajuridica;
+    
     @Column(name = "razaosocial")
     private String razaosocial;
+   
     @Column(name = "nomefantasia")
     private String nomefantasia;
+    
     @Column(name = "cnpj")
     private String cnpj;
+   
     @Column(name = "telefone1")
     private String telefone1;
+   
     @Column(name = "telefone2")
     private String telefone2;
+    
     @JoinColumn(name = "idendereco", referencedColumnName = "idendereco")
-    @ManyToOne
+    @ManyToOne  (cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Endereco idendereco;
 
     public PessoaJuridica() {
+        this.idendereco = new Endereco();
     }
 
     public PessoaJuridica(Integer idpessoajuridica) {
@@ -141,5 +150,4 @@ public class PessoaJuridica implements Serializable {
     public String toString() {
         return "model.PessoaJuridica[ idpessoajuridica=" + idpessoajuridica + " ]";
     }
-    
 }
