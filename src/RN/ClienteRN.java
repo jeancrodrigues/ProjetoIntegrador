@@ -4,46 +4,46 @@
  */
 package RN;
 
-import Persistencia.FuncionarioPers;
+import Persistencia.ClientePers;
+import model.Cliente;
 import java.util.ArrayList;
 import java.util.List;
-import model.Funcionario;
 import model.PessoaFisica;
-
 /**
  *
  * @author RAFAEL
  */
-public class FuncionarioRN {
-    private Funcionario func;
-    private FuncionarioPers pers;       
-    private List<String> errosValidacao;
+public class ClienteRN {
 
-    public FuncionarioRN() {        
-        pers = new FuncionarioPers();
-        func = new Funcionario();
-    }
+    private Cliente cli;
+    private ClientePers pers;
+    private List <String> errosValidacao;
+
+    public ClienteRN() {
+        cli = new Cliente(true);
+        pers = new ClientePers();
         
-    public Funcionario getFunc() {
-        return func;
     }
 
-    public void setFunc(Funcionario func) {
-        this.func = func;
+    public Cliente getCli() {
+        return cli;
+    }
+
+    public void setCli(Cliente cli) {
+        this.cli = cli;
     }
     
     public boolean gravar(){        
-        if(isFuncionarioValido(func)){
-            pers.gravar(func);        
+        if(isClienteValido(cli)){
+            pers.gravar(cli);        
             return true;
-            
         }
         return false;
     }
     
-    public boolean isFuncionarioValido(Funcionario func){
-        if(func != null){
-            return isPessoaFisicaValida(func.getIdpessoafisica());
+    public boolean isClienteValido(Cliente cli){
+        if(cli != null){
+            return isPessoaFisicaValida(cli.getIdpessoafisica());
         }
         return false;
     }

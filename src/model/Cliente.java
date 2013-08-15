@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente"),
     @NamedQuery(name = "Cliente.findByDatacadastro", query = "SELECT c FROM Cliente c WHERE c.datacadastro = :datacadastro")})
 public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +57,15 @@ public class Cliente implements Serializable {
     private PessoaFisica idpessoafisica;
 
     public Cliente() {
+    }
+
+    public Cliente(boolean isPessoaFisica) {
+        if (true){
+            this.idpessoafisica = new PessoaFisica();
+        }else{
+            this.idpessoajuridica = new PessoaJuridica();
+        }
+            
     }
 
     public Cliente(Integer idcliente) {
@@ -127,5 +137,4 @@ public class Cliente implements Serializable {
     public String toString() {
         return "model.Cliente[ idcliente=" + idcliente + " ]";
     }
-    
 }

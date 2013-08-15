@@ -5,28 +5,24 @@
 package Persistencia;
 
 import java.util.List;
-import javax.swing.JOptionPane;
-import model.Funcionario;
+import model.Cliente;
 
 /**
  *
  * @author RAFAEL
  */
-public class FuncionarioPers extends BasePers implements IPersistencia<Funcionario>{
+public class ClientePers extends BasePers implements IPersistencia<Cliente> {
 
-    public FuncionarioPers() {
+    public ClientePers() {
         super();
-    }  
-    
-    
+    }
+
     @Override
-    public Funcionario gravar(Funcionario func) {
+    public Cliente gravar(Cliente cli) {
         beginTransaction();
-        getEm().merge(func);
+        getEm().merge(cli);
         commitTransaction();
-        JOptionPane.showMessageDialog(null, "Funcionário Salvo com Sucesso!");
         return null;
-       
     }
 
     @Override
@@ -35,25 +31,22 @@ public class FuncionarioPers extends BasePers implements IPersistencia<Funcionar
     }
 
     @Override
-    public void deletar(Funcionario t) {
+    public void deletar(Cliente t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Funcionario atualizar(Funcionario t) {
+    public Cliente atualizar(Cliente t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Funcionario procurarPorId(int id) {
+    public Cliente procurarPorId(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Funcionario> getLista() {
+    public List<Cliente> getLista() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
 }
