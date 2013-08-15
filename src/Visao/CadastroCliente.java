@@ -84,7 +84,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         btnGravar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes - Pessoa Fisíca");
 
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
