@@ -1,23 +1,24 @@
-ProjetoIntegrador
-=================
+<h1>ProjetoIntegrador</h1>
+==================================
+<h3>Sistema para controle de uma locadora de veículos (wtf) =[</h3>
+
 Projeto Integrador 
 Tecnologia em Análise e Desenvolvimento de Sistemas
 4º Período
 UTFPR - PG
 
+==================================
 
-Sistema para controle de uma locadora de veículos (wtf) =[
-Tecnologis Utilizadas:
-
-Java :)
-Swing =( 
-Netbeans =( 
-Hibernate :) 
-JPA :) 
-MySql :)
+<p>Tecnologias Utilizadas:</p>
+<p>Java :)</p>
+<p>Swing =( </p>
+<p>Netbeans =( </p>
+<p>Hibernate :) </p>
+<p>JPA :)</p>
+<p>MySql :)</p>
 
 
-Colaboradores
-Jean Carlos Rodrigues - jeanrock
-Rafael Fernandes Siqueira - rafaelbrpg
-Elias Scheifer
+<h4>Colaboradores</h4>
+<p>Jean Carlos Rodrigues - <a href="https://github.com/jeanrock">jeanrock</a></p>
+<p>Rafael Fernandes Siqueira - <a href="https://github.com/rafaelbrpg">rafaelbrpg</a></p>
+<p>Elias Scheifer</p>
