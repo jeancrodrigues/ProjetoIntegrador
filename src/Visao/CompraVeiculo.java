@@ -5,6 +5,7 @@
 package Visao;
 
 import RN.CompraVeiculoRN;
+import model.Compra;
 import model.Veiculo;
 
 /**
@@ -60,11 +61,12 @@ public class CompraVeiculo extends javax.swing.JFrame {
         txtAnoMoldelo3 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAdicionaVeiculo = new javax.swing.JButton();
         pListaVeiculos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        btnGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Compra de Veiculos");
@@ -146,10 +148,10 @@ public class CompraVeiculo extends javax.swing.JFrame {
 
         jLabel15.setText("Valor");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionaVeiculo.setText("Adicionar");
+        btnAdicionaVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAdicionaVeiculoActionPerformed(evt);
             }
         });
 
@@ -166,7 +168,7 @@ public class CompraVeiculo extends javax.swing.JFrame {
                     .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(btnAdicionaVeiculo)
                             .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                                 .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -230,7 +232,7 @@ public class CompraVeiculo extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAdicionaVeiculo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -270,6 +272,13 @@ public class CompraVeiculo extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnGravar.setText("Gravar");
+        btnGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGravarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pPrincipalLayout = new javax.swing.GroupLayout(pPrincipal);
         pPrincipal.setLayout(pPrincipalLayout);
         pPrincipalLayout.setHorizontalGroup(
@@ -284,6 +293,10 @@ public class CompraVeiculo extends javax.swing.JFrame {
                     .addComponent(pDadosVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pListaVeiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGravar)
+                .addGap(120, 120, 120))
         );
         pPrincipalLayout.setVerticalGroup(
             pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +308,9 @@ public class CompraVeiculo extends javax.swing.JFrame {
                 .addComponent(pDadosVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pListaVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGravar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,7 +332,9 @@ public class CompraVeiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAdicionaVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaVeiculoActionPerformed
+
+        
         
         Veiculo veiculo = new Veiculo();
         veiculo.setChassi(txtChassi.getText().trim());
@@ -328,7 +345,14 @@ public class CompraVeiculo extends javax.swing.JFrame {
         
         compraRN.adicionaVeiculos(veiculo);
                 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
+
+    private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+
+        
+        
+        compraRN.gravar();
+    }//GEN-LAST:event_btnGravarActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -365,7 +389,8 @@ public class CompraVeiculo extends javax.swing.JFrame {
 //        });
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAdicionaVeiculo;
+    private javax.swing.JButton btnGravar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

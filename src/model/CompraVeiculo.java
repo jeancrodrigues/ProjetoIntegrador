@@ -38,6 +38,30 @@ public class CompraVeiculo implements Serializable{
     @JoinColumn(name = "idveiculo")
     private Veiculo veiculo;
 
+    public Integer getIdcompraveiculos() {
+        return idcompraveiculos;
+    }
+
+    public void setIdcompraveiculos(Integer idcompraveiculos) {
+        this.idcompraveiculos = idcompraveiculos;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
+
     public Integer getIdCompraVeiculo() {
         return this.idcompraveiculos;
     }
