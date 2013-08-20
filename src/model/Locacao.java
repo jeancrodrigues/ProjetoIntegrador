@@ -38,37 +38,47 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Locacao.findByDatadevolucao", query = "SELECT l FROM Locacao l WHERE l.datadevolucao = :datadevolucao")})
 public class Locacao implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idlocacao")
     private Integer idlocacao;
+    
     @Column(name = "datalocacao")
     @Temporal(TemporalType.DATE)
     private Date datalocacao;
+    
     @Column(name = "datadevolucao")
     @Temporal(TemporalType.DATE)
     private Date datadevolucao;
-    @OneToMany(mappedBy = "idlocacao")
+    
+    @OneToMany(mappedBy = "locacao")
     private List<Manutencao> manutencaoList;
+    
     @JoinColumn(name = "idveiculo", referencedColumnName = "idveiculo")
     @ManyToOne(optional = false)
-    private Veiculo idveiculo;
+    private Veiculo veiculo;
+    
     @JoinColumn(name = "idtipolocacao", referencedColumnName = "idtipolocacao")
     @ManyToOne(optional = false)
-    private Tipolocacao idtipolocacao;
+    private Tipolocacao tipolocacao;
+    
     @JoinColumn(name = "idpagamento", referencedColumnName = "idpagamento")
     @ManyToOne(optional = false)
-    private Pagamento idpagamento;
+    private Pagamento pagamento;
+    
     @JoinColumn(name = "idmotorista", referencedColumnName = "idmotorista")
     @ManyToOne(optional = false)
-    private Motorista idmotorista;
+    private Motorista motorista;
+    
     @JoinColumn(name = "idfuncionario", referencedColumnName = "idfuncionario")
     @ManyToOne(optional = false)
-    private Funcionario idfuncionario;
+    private Funcionario funcionario;
+    
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne(optional = false)
-    private Cliente idcliente;
+    private Cliente cliente;
 
     public Locacao() {
     }
@@ -110,52 +120,52 @@ public class Locacao implements Serializable {
         this.manutencaoList = manutencaoList;
     }
 
-    public Veiculo getIdveiculo() {
-        return idveiculo;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    public void setIdveiculo(Veiculo idveiculo) {
-        this.idveiculo = idveiculo;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
-    public Tipolocacao getIdtipolocacao() {
-        return idtipolocacao;
+    public Tipolocacao getTipolocacao() {
+        return tipolocacao;
     }
 
-    public void setIdtipolocacao(Tipolocacao idtipolocacao) {
-        this.idtipolocacao = idtipolocacao;
+    public void setTipolocacao(Tipolocacao tipolocacao) {
+        this.tipolocacao = tipolocacao;
     }
 
-    public Pagamento getIdpagamento() {
-        return idpagamento;
+    public Pagamento getPagamento() {
+        return pagamento;
     }
 
-    public void setIdpagamento(Pagamento idpagamento) {
-        this.idpagamento = idpagamento;
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
-    public Motorista getIdmotorista() {
-        return idmotorista;
+    public Motorista getMotorista() {
+        return motorista;
     }
 
-    public void setIdmotorista(Motorista idmotorista) {
-        this.idmotorista = idmotorista;
+    public void setMotorista(Motorista motorista) {
+        this.motorista = motorista;
     }
 
-    public Funcionario getIdfuncionario() {
-        return idfuncionario;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setIdfuncionario(Funcionario idfuncionario) {
-        this.idfuncionario = idfuncionario;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
-    public Cliente getIdcliente() {
-        return idcliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdcliente(Cliente idcliente) {
-        this.idcliente = idcliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override

@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Endereco.findByComplemento", query = "SELECT e FROM Endereco e WHERE e.complemento = :complemento"),
     @NamedQuery(name = "Endereco.findByCep", query = "SELECT e FROM Endereco e WHERE e.cep = :cep")})
 public class Endereco implements Serializable {
+    
     @OneToMany(mappedBy = "idendereco")
     private List<PessoaJuridica> pessoaJuridicaList;
     private static final long serialVersionUID = 1L;
@@ -173,7 +174,7 @@ public class Endereco implements Serializable {
         this.pessoaJuridicaList = pessoaJuridicaList;
     }
 
-    public void setNumero(int parseInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setNumero(int numero) {
+        this.numero = String.valueOf(numero);
     }
 }

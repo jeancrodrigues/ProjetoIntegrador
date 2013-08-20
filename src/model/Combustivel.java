@@ -33,14 +33,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Combustivel.findByNome", query = "SELECT c FROM Combustivel c WHERE c.nome = :nome")})
 public class Combustivel implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idcombustivel")
     private Integer idcombustivel;
+    
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcombustivel")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "combustivel")
     private List<Veiculo> veiculoList;
 
     public Combustivel() {

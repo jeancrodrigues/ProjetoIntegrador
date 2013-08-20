@@ -92,7 +92,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -140,11 +140,11 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                         .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
                                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(39, Short.MAX_VALUE))
+                                .addContainerGap(94, Short.MAX_VALUE))
                             .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
                                 .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDaDosFuncinarioLayout.createSequentialGroup()
@@ -349,7 +349,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 .addComponent(jpDaDosFuncinario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGravar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -367,28 +367,30 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         end.setCidade(txtCidade.getText());
         end.setUf(txtEstado.getText());
 
-        func.getIdpessoafisica().setEndereco(end);
-        func.getIdpessoafisica().setNome(txtNome.getText());
-        func.getIdpessoafisica().setCpf(txtCpf.getText());
-        func.getIdpessoafisica().setRg(txtRG.getText());
-        func.getIdpessoafisica().setTelefone1(txtCelular.getText());
-        func.getIdpessoafisica().setTelefone2(txtTelefone.getText());
+        func.getPessoafisica().setEndereco(end);
+        func.getPessoafisica().setNome(txtNome.getText());
+        func.getPessoafisica().setCpf(txtCpf.getText());
+        func.getPessoafisica().setRg(txtRG.getText());
+        func.getPessoafisica().setTelefone1(txtCelular.getText());
+        func.getPessoafisica().setTelefone2(txtTelefone.getText());
 
         try {
             Date dataNascimento = DataUtil.stringToDate(txtDataNascimento.getText().trim());
-            func.getIdpessoafisica().setDatanascimento(dataNascimento);
+            func.getPessoafisica().setDatanascimento(dataNascimento);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog( null , ex.getMessage());
             // TODO: mostrar mensagem de erro
         }
+        
         if(!rn.gravar()){
             String msgs= "Funcionário inválido";
             for(String msg: (List<String>)rn.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
             JOptionPane.showMessageDialog(null , msgs);
-        };
-        limpar();
+        }else{
+            limpar();
+        }
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void txtComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComplementoActionPerformed

@@ -43,7 +43,7 @@ public class FuncionarioRN {
     
     public boolean isFuncionarioValido(Funcionario func){
         if(func != null){
-            return isPessoaFisicaValida(func.getIdpessoafisica());
+            return isPessoaFisicaValida(func.getPessoafisica());
         }
         return false;
     }

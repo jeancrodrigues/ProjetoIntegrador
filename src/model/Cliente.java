@@ -39,31 +39,36 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idcliente")
     private Integer idcliente;
+    
     @Column(name = "datacadastro")
     @Temporal(TemporalType.DATE)
     private Date datacadastro;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Locacao> locacaoList;
+    
     @JoinColumn(name = "idpessoajuridica", referencedColumnName = "idpessoajuridica")
     @ManyToOne
-    private PessoaJuridica idpessoajuridica;
+    private PessoaJuridica pessoajuridica;
+    
     @JoinColumn(name = "idpessoafisica", referencedColumnName = "idpessoafisica")
     @ManyToOne
-    private PessoaFisica idpessoafisica;
+    private PessoaFisica pessoafisica;
 
     public Cliente() {
     }
 
     public Cliente(boolean isPessoaFisica) {
         if (true){
-            this.idpessoafisica = new PessoaFisica();
+            this.pessoafisica = new PessoaFisica();
         }else{
-            this.idpessoajuridica = new PessoaJuridica();
+            this.pessoajuridica = new PessoaJuridica();
         }
             
     }
@@ -97,20 +102,20 @@ public class Cliente implements Serializable {
         this.locacaoList = locacaoList;
     }
 
-    public PessoaJuridica getIdpessoajuridica() {
-        return idpessoajuridica;
+    public PessoaJuridica getPessoajuridica() {
+        return pessoajuridica;
     }
 
-    public void setIdpessoajuridica(PessoaJuridica idpessoajuridica) {
-        this.idpessoajuridica = idpessoajuridica;
+    public void setPessoajuridica(PessoaJuridica pessoajuridica) {
+        this.pessoajuridica = pessoajuridica;
     }
 
-    public PessoaFisica getIdpessoafisica() {
-        return idpessoafisica;
+    public PessoaFisica getPessoafisica() {
+        return pessoafisica;
     }
 
-    public void setIdpessoafisica(PessoaFisica idpessoafisica) {
-        this.idpessoafisica = idpessoafisica;
+    public void setPessoafisica(PessoaFisica pessoafisica) {
+        this.pessoafisica = pessoafisica;
     }
 
     @Override

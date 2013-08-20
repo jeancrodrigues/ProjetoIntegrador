@@ -38,22 +38,28 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Promocao.findByDatatermino", query = "SELECT p FROM Promocao p WHERE p.datatermino = :datatermino")})
 public class Promocao implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idpromocao")
     private Integer idpromocao;
+    
     @Column(name = "nome")
     private String nome;
+    
     @Column(name = "descricao")
     private String descricao;
+    
     @Column(name = "datainicio")
     @Temporal(TemporalType.DATE)
     private Date datainicio;
+    
     @Column(name = "datatermino")
     @Temporal(TemporalType.DATE)
     private Date datatermino;
-    @OneToMany(mappedBy = "idpromocao")
+    
+    @OneToMany(mappedBy = "promocao")
     private List<Pagamento> pagamentoList;
 
     public Promocao() {

@@ -47,6 +47,6 @@ public class ClientePers extends BasePers implements IPersistencia<Cliente> {
 
     @Override
     public List<Cliente> getLista() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (List<Cliente>) getEm().createNamedQuery("Cliente.findAll").getResultList();
     }
 }

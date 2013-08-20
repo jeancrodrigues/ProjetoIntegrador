@@ -5,10 +5,14 @@
 package RN;
 
 import Persistencia.ClientePers;
-import model.Cliente;
+import Util.ClienteTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import model.Cliente;
 import model.PessoaFisica;
+import org.hibernate.tool.stat.BeanTableModel;
 /**
  *
  * @author RAFAEL
@@ -22,7 +26,6 @@ public class ClienteRN {
     public ClienteRN() {
         cli = new Cliente(true);
         pers = new ClientePers();
-        
     }
 
     public Cliente getCli() {
@@ -43,7 +46,7 @@ public class ClienteRN {
     
     public boolean isClienteValido(Cliente cli){
         if(cli != null){
-            return isPessoaFisicaValida(cli.getIdpessoafisica());
+            return isPessoaFisicaValida(cli.getPessoafisica());
         }
         return false;
     }
@@ -76,5 +79,9 @@ public class ClienteRN {
 
     public Object getErrosValidacao() {
         return errosValidacao;
+    }
+
+    public TableModel getClienteTableModel() {                
+        return new ClienteTableModel(pers.getLista());
     }
 }

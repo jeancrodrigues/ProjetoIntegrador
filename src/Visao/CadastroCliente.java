@@ -84,7 +84,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         btnGravar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes - Pessoa Fisíca");
 
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -386,28 +386,30 @@ public class CadastroCliente extends javax.swing.JFrame {
         end.setCidade(txtCidade.getText());
         end.setUf(txtEstado.getText());
         
-        cli.getIdpessoafisica().setEndereco(end);
-        cli.getIdpessoafisica().setNome(txtNome.getText());
-        cli.getIdpessoafisica().setCpf(txtCpf.getText());
-        cli.getIdpessoafisica().setRg(txtRG.getText());
-        cli.getIdpessoafisica().setTelefone1(txtCelular.getText());
-        cli.getIdpessoafisica().setTelefone2(txtTelefone.getText());
+        cli.getPessoafisica().setEndereco(end);
+        cli.getPessoafisica().setNome(txtNome.getText());
+        cli.getPessoafisica().setCpf(txtCpf.getText());
+        cli.getPessoafisica().setRg(txtRG.getText());
+        cli.getPessoafisica().setTelefone1(txtCelular.getText());
+        cli.getPessoafisica().setTelefone2(txtTelefone.getText());
         
         try {
             Date dataNascimento = DataUtil.stringToDate(txtDataNascimento.getText().trim());
-            cli.getIdpessoafisica().setDatanascimento(dataNascimento);
+            cli.getPessoafisica().setDatanascimento(dataNascimento);
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog( null , ex.getMessage());
             // TODO: mostrar mensagem de erro
         }
+        
         if(!rn.gravar()){
             String msgs= "Cliente inválido";
             for(String msg: (List<String>)rn.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
             JOptionPane.showMessageDialog(null , msgs);
-        };
-        limpar();
+        }else{
+            limpar();
+        }              
     }//GEN-LAST:event_btnGravarActionPerformed
 
     /**

@@ -34,16 +34,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tipolocacao.findByDescricao", query = "SELECT t FROM Tipolocacao t WHERE t.descricao = :descricao")})
 public class Tipolocacao implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idtipolocacao")
     private Integer idtipolocacao;
+    
     @Column(name = "tipo")
     private String tipo;
+    
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipolocacao")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipolocacao")
     private List<Locacao> locacaoList;
 
     public Tipolocacao() {

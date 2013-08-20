@@ -35,23 +35,29 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Venda.findByValorvenda", query = "SELECT v FROM Venda v WHERE v.valorvenda = :valorvenda")})
 public class Venda implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    
     @Column(name = "idvenda")
     private Integer idvenda;
+    
     @Column(name = "datavenda")
     @Temporal(TemporalType.DATE)
     private Date datavenda;
+    
     @Column(name = "valorvenda")
     @Temporal(TemporalType.DATE)
     private Date valorvenda;
+    
     @JoinColumn(name = "idveiculo", referencedColumnName = "idveiculo")
     @ManyToOne(optional = false)
-    private Veiculo idveiculo;
+    private Veiculo veiculo;
+    
     @JoinColumn(name = "idfuncionario", referencedColumnName = "idfuncionario")
     @ManyToOne(optional = false)
-    private Funcionario idfuncionario;
+    private Funcionario funcionario;
 
     public Venda() {
     }
@@ -84,20 +90,20 @@ public class Venda implements Serializable {
         this.valorvenda = valorvenda;
     }
 
-    public Veiculo getIdveiculo() {
-        return idveiculo;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    public void setIdveiculo(Veiculo idveiculo) {
-        this.idveiculo = idveiculo;
+    public void setIdveiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
-    public Funcionario getIdfuncionario() {
-        return idfuncionario;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setIdfuncionario(Funcionario idfuncionario) {
-        this.idfuncionario = idfuncionario;
+    public void setIdfuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     @Override

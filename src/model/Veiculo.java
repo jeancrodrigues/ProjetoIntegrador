@@ -43,35 +43,46 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Veiculo.findByChassi", query = "SELECT v FROM Veiculo v WHERE v.chassi = :chassi")})
 public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idveiculo")
+    @Column(name = "idveiculo")    
     private Integer idveiculo;
-    @Column(name = "modelo")
+    
+    @Column(name = "modelo")    
     private String modelo;
+    
     @Column(name = "marca")
     private String marca;
+    
     @Column(name = "anomodelo")
     @Temporal(TemporalType.DATE)
     private Date anomodelo;
+    
     @Column(name = "anofabricacao")
-    @Temporal(TemporalType.DATE)
-    private Date anofabricacao;
+    private int anofabricacao;
+    
     @Column(name = "quilometragem")
     private Integer quilometragem;
+    
     @Column(name = "chassi")
     private String chassi;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idveiculo")
-    private List<Compra> compraList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idveiculo")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
+    private List<CompraVeiculo> compraList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
     private List<Manutencao> manutencaoList;
+    
     @JoinColumn(name = "idcombustivel", referencedColumnName = "idcombustivel")
     @ManyToOne(optional = false)
-    private Combustivel idcombustivel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idveiculo")
+    private Combustivel combustivel;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
     private List<Locacao> locacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idveiculo")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
     private List<Venda> vendaList;
 
     public Veiculo() {
@@ -113,11 +124,11 @@ public class Veiculo implements Serializable {
         this.anomodelo = anomodelo;
     }
 
-    public Date getAnofabricacao() {
+    public int getAnofabricacao() {
         return anofabricacao;
     }
 
-    public void setAnofabricacao(Date anofabricacao) {
+    public void setAnofabricacao(int anofabricacao) {
         this.anofabricacao = anofabricacao;
     }
 
@@ -138,11 +149,11 @@ public class Veiculo implements Serializable {
     }
 
     @XmlTransient
-    public List<Compra> getCompraList() {
+    public List<CompraVeiculo> getCompraList() {
         return compraList;
     }
 
-    public void setCompraList(List<Compra> compraList) {
+    public void setCompraList(List<CompraVeiculo> compraList) {
         this.compraList = compraList;
     }
 
@@ -155,12 +166,12 @@ public class Veiculo implements Serializable {
         this.manutencaoList = manutencaoList;
     }
 
-    public Combustivel getIdcombustivel() {
-        return idcombustivel;
+    public Combustivel getCombustivel() {
+        return combustivel;
     }
 
-    public void setIdcombustivel(Combustivel idcombustivel) {
-        this.idcombustivel = idcombustivel;
+    public void setCombustivel(Combustivel combustivel) {
+        this.combustivel = combustivel;
     }
 
     @XmlTransient
