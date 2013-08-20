@@ -9,19 +9,9 @@ package Visao;
  * @author RAFAEL
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form MenuPrincipal
-     */
-    CadastroCliente janelaCliente;
-    CadastroFuncionario janelaFuncionario;
-    CompraVeiculo janelaCompra;
     
-    public MenuPrincipal() {
+        public MenuPrincipal() {
         initComponents();
-        janelaCliente = new CadastroCliente();
-        janelaFuncionario = new CadastroFuncionario();
-        janelaCompra = new CompraVeiculo();
     }
 
     /**
@@ -34,91 +24,96 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        menuCadastro = new javax.swing.JMenu();
-        menuFuncionario = new javax.swing.JMenuItem();
-        MenuClientes = new javax.swing.JMenu();
-        itemMenuPessoaFisica = new javax.swing.JMenuItem();
-        itemMenuPessoaJuridica = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        entityManager1 = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("ProjetoIntegradorPU").createEntityManager();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem3.setText("jMenuItem3");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Rentstore");
+        setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        menuCadastro.setText("Cadastro");
+        jPanel1.setLayout(new java.awt.GridLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 63, -1, -1));
 
-        menuFuncionario.setText("Funcionários");
-        menuFuncionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuFuncionarioActionPerformed(evt);
-            }
-        });
-        menuCadastro.add(menuFuncionario);
+        jPanel2.setLayout(new java.awt.GridLayout());
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 500, -1, -1));
 
-        MenuClientes.setText("Clientes");
+        jLabel1.setBackground(new java.awt.Color(192, 192, 192));
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("RentStore - Sistema para Locadora de Veículos");
+        jLabel1.setToolTipText("");
+        jLabel1.setDoubleBuffered(true);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 11, 712, 46));
+        jLabel1.getAccessibleContext().setAccessibleName("txtLabel");
 
-        itemMenuPessoaFisica.setText("Pessoa Fisíca");
-        itemMenuPessoaFisica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemMenuPessoaFisicaActionPerformed(evt);
-            }
-        });
-        MenuClientes.add(itemMenuPessoaFisica);
+        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
 
-        itemMenuPessoaJuridica.setText("Pessoa Juridica");
-        MenuClientes.add(itemMenuPessoaJuridica);
+        jLabel2.setText("Cadastros");
 
-        menuCadastro.add(MenuClientes);
+        jButton2.setText("jButton2");
 
-        jMenuBar1.add(menuCadastro);
+        jButton3.setText("jButton2");
 
-        jMenu3.setText("Consultas");
-        jMenuBar1.add(jMenu3);
+        jButton4.setText("jButton2");
 
-        jMenu5.setText("Compras");
-
-        jMenuItem4.setText("Comprar Veiculo");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu5);
-
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 411, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton4)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
-        pack();
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 210));
+
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-752)/2, (screenSize.height-560)/2, 752, 560);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncionarioActionPerformed
-        janelaFuncionario.show();
-    }//GEN-LAST:event_menuFuncionarioActionPerformed
-
-    private void itemMenuPessoaFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuPessoaFisicaActionPerformed
-        janelaCliente.setVisible(true);
-    }//GEN-LAST:event_itemMenuPessoaFisicaActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        janelaCompra.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,15 +150,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuClientes;
-    private javax.swing.JMenuItem itemMenuPessoaFisica;
-    private javax.swing.JMenuItem itemMenuPessoaJuridica;
+    private javax.persistence.EntityManager entityManager1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenu menuCadastro;
-    private javax.swing.JMenuItem menuFuncionario;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
