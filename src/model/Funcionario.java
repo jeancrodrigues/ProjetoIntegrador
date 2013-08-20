@@ -38,38 +38,49 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Funcionario.findByUsuario", query = "SELECT f FROM Funcionario f WHERE f.usuario = :usuario")})
 public class Funcionario implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idfuncionario")
     private Integer idfuncionario;
+    
     @Column(name = "senha")
     private String senha;
+    
     @Column(name = "usuario")
     private String usuario;
+    
     @JoinTable(name = "funcionariosetor", joinColumns = {
-        @JoinColumn(name = "idfuncionario", referencedColumnName = "idfuncionario")}, inverseJoinColumns = {
-        @JoinColumn(name = "idsetor", referencedColumnName = "idsetor")})
+    @JoinColumn(name = "idfuncionario", referencedColumnName = "idfuncionario")}, inverseJoinColumns = {
+    @JoinColumn(name = "idsetor", referencedColumnName = "idsetor")})
     @ManyToMany
     private List<Setor> setorList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idfuncionario")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario")
     private List<Compra> compraList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idfunc")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario")
     private List<Manutencao> manutencaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idfuncemissor")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioEmissor")
     private List<Boleto> boletoList;
+    
     @JoinColumn(name = "idpessoafisica", referencedColumnName = "idpessoafisica")
     @ManyToOne(optional = false)
-    private PessoaFisica idpessoafisica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idfuncionario")
+    private PessoaFisica pessoafisica;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario")
     private List<Locacao> locacaoList;
-    @OneToMany(mappedBy = "idfuncbaixa")
+    
+    @OneToMany(mappedBy = "funcionarioBaixa")
     private List<Pagamento> pagamentoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idfuncionario")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario")
     private List<Venda> vendaList;
 
     public Funcionario() {
-        this.idpessoafisica = new PessoaFisica();
+        this.pessoafisica = new PessoaFisica();
     }
 
     public Funcionario(Integer idfuncionario) {
@@ -136,12 +147,12 @@ public class Funcionario implements Serializable {
         this.boletoList = boletoList;
     }
 
-    public PessoaFisica getIdpessoafisica() {
-        return idpessoafisica;
+    public PessoaFisica getPessoafisica() {
+        return pessoafisica;
     }
 
-    public void setIdpessoafisica(PessoaFisica idpessoafisica) {
-        this.idpessoafisica = idpessoafisica;
+    public void setPessoafisica(PessoaFisica pessoafisica) {
+        this.pessoafisica = pessoafisica;
     }
 
     @XmlTransient

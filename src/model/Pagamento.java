@@ -41,30 +41,38 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pagamento.findByDatapagamento", query = "SELECT p FROM Pagamento p WHERE p.datapagamento = :datapagamento")})
 public class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idpagamento")
     private Integer idpagamento;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Column(name = "valor")
     private BigDecimal valor;
+    
     @Column(name = "datalancamento")
     @Temporal(TemporalType.DATE)
     private Date datalancamento;
+    
     @Column(name = "datapagamento")
     @Temporal(TemporalType.DATE)
     private Date datapagamento;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpagamento")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pagamento")
     private List<Boleto> boletoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpagamento")
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pagamento")
     private List<Locacao> locacaoList;
+    
     @JoinColumn(name = "idpromocao", referencedColumnName = "idpromocao")
     @ManyToOne
-    private Promocao idpromocao;
+    private Promocao promocao;
+    
     @JoinColumn(name = "idfuncbaixa", referencedColumnName = "idfuncionario")
     @ManyToOne
-    private Funcionario idfuncbaixa;
+    private Funcionario funcionarioBaixa;
 
     public Pagamento() {
     }
@@ -123,20 +131,20 @@ public class Pagamento implements Serializable {
         this.locacaoList = locacaoList;
     }
 
-    public Promocao getIdpromocao() {
-        return idpromocao;
+    public Promocao getPromocao() {
+        return promocao;
     }
 
-    public void setIdpromocao(Promocao idpromocao) {
-        this.idpromocao = idpromocao;
+    public void setPromocao(Promocao promocao) {
+        this.promocao = promocao;
     }
 
-    public Funcionario getIdfuncbaixa() {
-        return idfuncbaixa;
+    public Funcionario getFuncionarioBaixa() {
+        return funcionarioBaixa;
     }
 
-    public void setIdfuncbaixa(Funcionario idfuncbaixa) {
-        this.idfuncbaixa = idfuncbaixa;
+    public void setFuncionarioBaixa(Funcionario funcbaixa) {
+        this.funcionarioBaixa = funcbaixa;
     }
 
     @Override

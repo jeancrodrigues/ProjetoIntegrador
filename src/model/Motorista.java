@@ -40,23 +40,29 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Motorista.findByDatavalidade", query = "SELECT m FROM Motorista m WHERE m.datavalidade = :datavalidade")})
 public class Motorista implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idmotorista")
     private Integer idmotorista;
+    
     @Column(name = "registro")
     private String registro;
+    
     @Column(name = "dataemissao")
     @Temporal(TemporalType.DATE)
     private Date dataemissao;
+    
     @Column(name = "datavalidade")
     @Temporal(TemporalType.DATE)
     private Date datavalidade;
+    
     @JoinColumn(name = "idpessoafisica", referencedColumnName = "idpessoafisica")
     @ManyToOne(optional = false)
-    private PessoaFisica idpessoafisica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idmotorista")
+    private PessoaFisica pessoafisica;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "motorista")
     private List<Locacao> locacaoList;
 
     public Motorista() {
@@ -98,12 +104,12 @@ public class Motorista implements Serializable {
         this.datavalidade = datavalidade;
     }
 
-    public PessoaFisica getIdpessoafisica() {
-        return idpessoafisica;
+    public PessoaFisica getPessoafisica() {
+        return pessoafisica;
     }
 
-    public void setIdpessoafisica(PessoaFisica idpessoafisica) {
-        this.idpessoafisica = idpessoafisica;
+    public void setPessoafisica(PessoaFisica pessoafisica) {
+        this.pessoafisica = pessoafisica;
     }
 
     @XmlTransient

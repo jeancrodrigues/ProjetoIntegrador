@@ -32,13 +32,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Setor.findByNome", query = "SELECT s FROM Setor s WHERE s.nome = :nome")})
 public class Setor implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idsetor")
     private Integer idsetor;
+    
     @Column(name = "nome")
     private String nome;
+    
     @ManyToMany(mappedBy = "setorList")
     private List<Funcionario> funcionarioList;
 

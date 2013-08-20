@@ -39,33 +39,41 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Boleto.findByDatapagamento", query = "SELECT b FROM Boleto b WHERE b.datapagamento = :datapagamento")})
 public class Boleto implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idboleto")
     private Integer idboleto;
+    
     @Column(name = "codigobarras")
     private String codigobarras;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valor")
     private BigDecimal valor;
+    
     @Column(name = "valorpago")
     private BigDecimal valorpago;
+    
     @Column(name = "datavencimento")
     @Temporal(TemporalType.DATE)
     private Date datavencimento;
+    
     @Column(name = "datapagamento")
     @Temporal(TemporalType.DATE)
     private Date datapagamento;
+    
     @JoinColumn(name = "idpessoajuridica", referencedColumnName = "idpessoajuridica")
     @ManyToOne(optional = false)
-    private PessoaJuridica idpessoajuridica;
+    private PessoaJuridica pessoajuridica;
+    
     @JoinColumn(name = "idpagamento", referencedColumnName = "idpagamento")
     @ManyToOne(optional = false)
-    private Pagamento idpagamento;
+    private Pagamento pagamento;
+    
     @JoinColumn(name = "idfuncemissor", referencedColumnName = "idfuncionario")
     @ManyToOne(optional = false)
-    private Funcionario idfuncemissor;
+    private Funcionario funcionarioEmissor;
 
     public Boleto() {
     }
@@ -122,28 +130,28 @@ public class Boleto implements Serializable {
         this.datapagamento = datapagamento;
     }
 
-    public PessoaJuridica getIdpessoajuridica() {
-        return idpessoajuridica;
+    public PessoaJuridica getPessoajuridica() {
+        return pessoajuridica;
     }
 
-    public void setIdpessoajuridica(PessoaJuridica idpessoajuridica) {
-        this.idpessoajuridica = idpessoajuridica;
+    public void setPessoajuridica(PessoaJuridica pessoajuridica) {
+        this.pessoajuridica = pessoajuridica;
     }
 
     public Pagamento getIdpagamento() {
-        return idpagamento;
+        return pagamento;
     }
 
     public void setIdpagamento(Pagamento idpagamento) {
-        this.idpagamento = idpagamento;
+        this.pagamento = idpagamento;
     }
 
     public Funcionario getIdfuncemissor() {
-        return idfuncemissor;
+        return funcionarioEmissor;
     }
 
     public void setIdfuncemissor(Funcionario idfuncemissor) {
-        this.idfuncemissor = idfuncemissor;
+        this.funcionarioEmissor = idfuncemissor;
     }
 
     @Override
@@ -172,3 +180,4 @@ public class Boleto implements Serializable {
     }
     
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

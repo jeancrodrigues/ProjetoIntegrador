@@ -6,9 +6,12 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,29 +33,34 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "compra")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c"),
-    @NamedQuery(name = "Compra.findByIdcompra", query = "SELECT c FROM Compra c WHERE c.idcompra = :idcompra"),
-    @NamedQuery(name = "Compra.findByDatacompra", query = "SELECT c FROM Compra c WHERE c.datacompra = :datacompra"),
-    @NamedQuery(name = "Compra.findByValorcompra", query = "SELECT c FROM Compra c WHERE c.valorcompra = :valorcompra")})
+@NamedQuery(name = "Compra.findAll", query = "SELECT c FROM Compra c"),
+@NamedQuery(name = "Compra.findByIdcompra", query = "SELECT c FROM Compra c WHERE c.idcompra = :idcompra"),
+@NamedQuery(name = "Compra.findByDatacompra", query = "SELECT c FROM Compra c WHERE c.datacompra = :datacompra"),
+@NamedQuery(name = "Compra.findByValorcompra", query = "SELECT c FROM Compra c WHERE c.valorcompra = :valorcompra")})
 public class Compra implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idcompra")
     private Integer idcompra;
+    
     @Column(name = "datacompra")
     @Temporal(TemporalType.DATE)
     private Date datacompra;
+    
     @Column(name = "valorcompra")
     @Temporal(TemporalType.DATE)
     private Date valorcompra;
-    @JoinColumn(name = "idveiculo", referencedColumnName = "idveiculo")
-    @ManyToOne(optional = false)
-    private Veiculo idveiculo;
+    
+    @JoinColumn(name = "idcompra", referencedColumnName = "idcompra")
+    @OneToMany(targetEntity=CompraVeiculo.class, fetch= FetchType.EAGER , cascade={CascadeType.MERGE, CascadeType.PERSIST} )
+    private List<CompraVeiculo> veiculos;
+    
     @JoinColumn(name = "idfuncionario", referencedColumnName = "idfuncionario")
     @ManyToOne(optional = false)
-    private Funcionario idfuncionario;
+    private Funcionario funcionario;
 
     public Compra() {
     }
@@ -84,20 +93,12 @@ public class Compra implements Serializable {
         this.valorcompra = valorcompra;
     }
 
-    public Veiculo getIdveiculo() {
-        return idveiculo;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setIdveiculo(Veiculo idveiculo) {
-        this.idveiculo = idveiculo;
-    }
-
-    public Funcionario getIdfuncionario() {
-        return idfuncionario;
-    }
-
-    public void setIdfuncionario(Funcionario idfuncionario) {
-        this.idfuncionario = idfuncionario;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     @Override

@@ -36,28 +36,35 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Manutencao.findByObservacoes", query = "SELECT m FROM Manutencao m WHERE m.observacoes = :observacoes")})
 public class Manutencao implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idmanutencao")
     private Integer idmanutencao;
+    
     @Column(name = "datainicio")
     @Temporal(TemporalType.DATE)
     private Date datainicio;
+    
     @Column(name = "datatermino")
     @Temporal(TemporalType.DATE)
     private Date datatermino;
+    
     @Column(name = "observacoes")
     private String observacoes;
+    
     @JoinColumn(name = "idveiculo", referencedColumnName = "idveiculo")
     @ManyToOne(optional = false)
-    private Veiculo idveiculo;
+    private Veiculo veiculo;
+    
     @JoinColumn(name = "idlocacao", referencedColumnName = "idlocacao")
     @ManyToOne
-    private Locacao idlocacao;
+    private Locacao locacao;
+    
     @JoinColumn(name = "idfunc", referencedColumnName = "idfuncionario")
     @ManyToOne(optional = false)
-    private Funcionario idfunc;
+    private Funcionario funcionario;
 
     public Manutencao() {
     }
@@ -98,28 +105,28 @@ public class Manutencao implements Serializable {
         this.observacoes = observacoes;
     }
 
-    public Veiculo getIdveiculo() {
-        return idveiculo;
+    public Veiculo getVeiculo() {
+        return veiculo;
     }
 
-    public void setIdveiculo(Veiculo idveiculo) {
-        this.idveiculo = idveiculo;
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
-    public Locacao getIdlocacao() {
-        return idlocacao;
+    public Locacao getLocacao() {
+        return locacao;
     }
 
-    public void setIdlocacao(Locacao idlocacao) {
-        this.idlocacao = idlocacao;
+    public void setIdlocacao(Locacao locacao) {
+        this.locacao = locacao;
     }
 
-    public Funcionario getIdfunc() {
-        return idfunc;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public void setIdfunc(Funcionario idfunc) {
-        this.idfunc = idfunc;
+    public void setIdfunc(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     @Override
