@@ -29,6 +29,17 @@ public class CompraVeiculo implements Serializable{
     @Column(name = "idcompraveiculo", unique = true, nullable = false)
     private Integer idcompraveiculos;
     private String nome;
+    
+     @Column(name = "valor")
+    private Double valor;
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
 
     @ManyToOne(targetEntity=Compra.class)
     @JoinColumn(name = "idcompra")

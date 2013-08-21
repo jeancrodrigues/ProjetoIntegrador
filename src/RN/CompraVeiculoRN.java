@@ -21,28 +21,20 @@ public class CompraVeiculoRN {
     CompraPers pers;
     private Compra compra;
     CompraVeiculo comprav;
-    Double valor;
     private List<String> errosValidacao;
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor + valor;
-    }
 
     public CompraVeiculoRN() {
         compra = new Compra();
         pers = new CompraPers();
     }
 
-    public boolean adicionaVeiculos(Veiculo veiculo) {
+    public boolean adicionaVeiculos(Veiculo veiculo, Double valor) {
         comprav = new CompraVeiculo();
         
-        if (isVeiculoValido(veiculo)) {
+        if (isVeiculoValido(veiculo )) {
             comprav.setVeiculo(veiculo);
             compra.getVeiculos().add(comprav);
+            comprav.setValor(valor);
             JOptionPane.showMessageDialog(null, "Carro Adicionado com Sucesso");
             return true;
         }
@@ -71,7 +63,7 @@ public class CompraVeiculoRN {
                 errosValidacao.add("Chassi não pode ser vazio.");
                 valido = false;
             }
-            if (veiculo.getQuilometragem().toString().isEmpty()) {
+            if (veiculo.getQuilometragem().equals(null)) {
                 errosValidacao.add("Kilometragem não pode ser vazio.");
                 valido = false;
             }

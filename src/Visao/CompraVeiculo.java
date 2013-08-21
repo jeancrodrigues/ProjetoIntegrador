@@ -8,8 +8,6 @@ import RN.CompraVeiculoRN;
 import Util.DataUtil;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Compra;
 import model.Veiculo;
@@ -358,11 +356,12 @@ public class CompraVeiculo extends javax.swing.JFrame {
         veiculo.setModelo(txtModelo.getText().trim());
         //veiculo.setCombustivel(txtCombustivel.getText().trim());
         veiculo.setMarca(txtMarca.getText().trim());
-        veiculo.setQuilometragem(Integer.parseInt(txtKilometragem.getText().trim()));
+        if(!txtKilometragem.getText().trim().equals("")){
+            veiculo.setQuilometragem(Integer.parseInt(txtKilometragem.getText().trim()));
+        }
+        Double valorVeiculo = Double.parseDouble(txtValorVeiculo.getText());
         
-        
-        
-        if(!compraRN.adicionaVeiculos(veiculo)){
+        if(!compraRN.adicionaVeiculos(veiculo ,valorVeiculo)){
             String msgs= "Veiculo Inválido";
             for(String msg: (List<String>)compraRN.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
@@ -370,7 +369,6 @@ public class CompraVeiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null , msgs);
         }else{
             limpar();
-            compraRN.setValor(Double.parseDouble(txtValorVeiculo.getText()));
         } 
     }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
     
@@ -382,7 +380,7 @@ public class CompraVeiculo extends javax.swing.JFrame {
         } catch (ParseException ex) {
            JOptionPane.showMessageDialog( null , ex.getMessage());
         }
-        compra.setValorcompra(compraRN.getValor());
+       
         txtValorTotalCompra.setText(String.valueOf(compra.getValorcompra()));
         
         compraRN.gravar();
