@@ -57,10 +57,10 @@ public class Veiculo implements Serializable {
     private String marca;
     
     @Column(name = "anomodelo")
-    private int anomodelo;
+    private Integer anomodelo;
     
     @Column(name = "anofabricacao")
-    private int anofabricacao;
+    private Integer anofabricacao;
     
     @Column(name = "quilometragem")
     private Integer quilometragem;

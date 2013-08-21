@@ -52,8 +52,7 @@ public class Compra implements Serializable {
     private Date datacompra;
     
     @Column(name = "valorcompra")
-    @Temporal(TemporalType.DATE)
-    private Date valorcompra;
+    private Double valorcompra;
     
     @JoinColumn(name = "idcompra", referencedColumnName = "idcompra")
     @OneToMany(targetEntity=CompraVeiculo.class, fetch= FetchType.EAGER , cascade={CascadeType.MERGE, CascadeType.PERSIST} )
@@ -95,11 +94,11 @@ public class Compra implements Serializable {
         this.datacompra = datacompra;
     }
 
-    public Date getValorcompra() {
+    public Double getValorcompra() {
         return valorcompra;
     }
 
-    public void setValorcompra(Date valorcompra) {
+    public void setValorcompra(Double valorcompra) {
         this.valorcompra = valorcompra;
     }
 

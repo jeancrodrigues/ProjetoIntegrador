@@ -110,7 +110,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtIdCompra1" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="txtFuncionario" min="-2" pref="139" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -134,7 +134,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIdCompra1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtData" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -159,13 +159,16 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtValorTotalCompra">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Funcionario"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtIdCompra1">
+            <Component class="javax.swing.JTextField" name="txtFuncionario">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
@@ -225,12 +228,12 @@
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="txtAnoMoldelo1" min="-2" pref="64" max="-2" attributes="0"/>
+                                                      <Component id="txtAnoFabricacao" min="-2" pref="64" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="txtAnoMoldelo3" min="-2" pref="128" max="-2" attributes="0"/>
+                                                      <Component id="txtCombustivel" min="-2" pref="128" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -239,11 +242,11 @@
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txtAnoMoldelo2" min="-2" pref="118" max="-2" attributes="0"/>
+                                              <Component id="txtKilometragem" min="-2" pref="118" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jTextField1" pref="122" max="32767" attributes="0"/>
+                                              <Component id="txtValorVeiculo" pref="122" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -265,23 +268,23 @@
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtAnoMoldelo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAnoMoldelo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAnoFabricacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAnoMoldelo3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCombustivel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtMarca" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAnoMoldelo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtKilometragem" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtValorVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnAdicionaVeiculo" min="-2" max="-2" attributes="0"/>
@@ -340,20 +343,20 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtAnoMoldelo">
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAnoMoldelo1">
+            <Component class="javax.swing.JTextField" name="txtAnoFabricacao">
             </Component>
             <Component class="javax.swing.JTextField" name="txtMarca">
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAnoMoldelo2">
+            <Component class="javax.swing.JTextField" name="txtKilometragem">
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAnoMoldelo3">
+            <Component class="javax.swing.JTextField" name="txtCombustivel">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Valor"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="txtValorVeiculo">
             </Component>
             <Component class="javax.swing.JButton" name="btnAdicionaVeiculo">
               <Properties>
