@@ -57,8 +57,7 @@ public class Veiculo implements Serializable {
     private String marca;
     
     @Column(name = "anomodelo")
-    @Temporal(TemporalType.DATE)
-    private Date anomodelo;
+    private int anomodelo;
     
     @Column(name = "anofabricacao")
     private int anofabricacao;
@@ -116,11 +115,11 @@ public class Veiculo implements Serializable {
         this.marca = marca;
     }
 
-    public Date getAnomodelo() {
+    public int getAnomodelo() {
         return anomodelo;
     }
 
-    public void setAnomodelo(Date anomodelo) {
+    public void setAnomodelo(int anomodelo) {
         this.anomodelo = anomodelo;
     }
 
