@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -57,12 +58,21 @@ public class Compra implements Serializable {
     @JoinColumn(name = "idcompra", referencedColumnName = "idcompra")
     @OneToMany(targetEntity=CompraVeiculo.class, fetch= FetchType.EAGER , cascade={CascadeType.MERGE, CascadeType.PERSIST} )
     private List<CompraVeiculo> veiculos;
+
+    public List<CompraVeiculo> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(List<CompraVeiculo> veiculos) {
+        this.veiculos = veiculos;
+    }
     
     @JoinColumn(name = "idfuncionario", referencedColumnName = "idfuncionario")
     @ManyToOne(optional = false)
     private Funcionario funcionario;
 
     public Compra() {
+        veiculos = new ArrayList<>();
     }
 
     public Compra(Integer idcompra) {
