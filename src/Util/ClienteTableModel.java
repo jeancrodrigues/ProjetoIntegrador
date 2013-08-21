@@ -63,7 +63,7 @@ public class ClienteTableModel implements TableModel{
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     @Override
@@ -74,6 +74,10 @@ public class ClienteTableModel implements TableModel{
     @Override
     public void removeTableModelListener(TableModelListener l) {
         
+    }
+
+    public Cliente getCliente(int index) {
+        return clientes.get(index);
     }
     
 }

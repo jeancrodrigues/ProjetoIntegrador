@@ -19,26 +19,27 @@ import org.hibernate.tool.stat.BeanTableModel;
  */
 public class ClienteRN {
 
-    private Cliente cli;
+    private Cliente cliente;
     private ClientePers pers;
     private List <String> errosValidacao;
+    private ClienteTableModel clienteTableModel;
 
     public ClienteRN() {
-        cli = new Cliente(true);
+        cliente = new Cliente(true);
         pers = new ClientePers();
     }
 
-    public Cliente getCli() {
-        return cli;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCli(Cliente cli) {
-        this.cli = cli;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     public boolean gravar(){        
-        if(isClienteValido(cli)){
-            pers.gravar(cli);        
+        if(isClienteValido(cliente)){
+            pers.gravar(cliente);        
             return true;
         }
         return false;
@@ -81,7 +82,18 @@ public class ClienteRN {
         return errosValidacao;
     }
 
-    public TableModel getClienteTableModel() {                
-        return new ClienteTableModel(pers.getLista());
+    public ClienteTableModel getClienteTableModel() {
+        if(clienteTableModel==null){
+            clienteTableModel = new ClienteTableModel(pers.getLista());
+        }        
+        return clienteTableModel;
+    }
+
+    public void setClienteTableModel(ClienteTableModel clienteTableModel) {
+        this.clienteTableModel = clienteTableModel;
+    }
+    
+    public Cliente getClienteFromTableModel(int index){
+        return this.clienteTableModel.getCliente(index);
     }
 }
