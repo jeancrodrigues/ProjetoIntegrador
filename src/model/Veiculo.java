@@ -5,7 +5,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,8 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -57,13 +54,13 @@ public class Veiculo implements Serializable {
     private String marca;
     
     @Column(name = "anomodelo")
-    private Integer anomodelo;
+    private int anomodelo;
     
     @Column(name = "anofabricacao")
-    private Integer anofabricacao;
+    private int anofabricacao;
     
     @Column(name = "quilometragem")
-    private Integer quilometragem;
+    private int quilometragem;
     
     @Column(name = "chassi")
     private String chassi;
@@ -131,11 +128,11 @@ public class Veiculo implements Serializable {
         this.anofabricacao = anofabricacao;
     }
 
-    public Integer getQuilometragem() {
+    public int getQuilometragem() {
         return quilometragem;
     }
 
-    public void setQuilometragem(Integer quilometragem) {
+    public void setQuilometragem(int quilometragem) {
         this.quilometragem = quilometragem;
     }
 

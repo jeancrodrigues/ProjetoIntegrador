@@ -4,10 +4,12 @@
  */
 package RN;
 
+import Persistencia.CombustivelPers;
 import Persistencia.CompraPers;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.Combustivel;
 import model.Compra;
 import model.CompraVeiculo;
 import model.Veiculo;
@@ -58,20 +60,20 @@ public class CompraVeiculoRN {
     public boolean isVeiculoValido(Veiculo veiculo) {
         boolean valido = true;
         errosValidacao = new ArrayList<>();
-        if (veiculo != null) {
-            if (veiculo.getChassi().trim().equals("")) {
+        if( veiculo != null ) {
+            if( veiculo.getChassi().trim().equals("")) {
                 errosValidacao.add("Chassi não pode ser vazio.");
                 valido = false;
             }
-            if (veiculo.getQuilometragem().equals(null)) {
-                errosValidacao.add("Kilometragem não pode ser vazio.");
+            if( veiculo.getQuilometragem() < 0) {
+                errosValidacao.add("Quilometragem inválida.");
                 valido = false;
             }
-            if (veiculo.getModelo().trim().equals("")) {
+            if( veiculo.getModelo().trim().equals("")) {
                 errosValidacao.add("Modelo não pode ser vazio.");
                 valido = false;
             }
-            if (veiculo.getMarca().trim().equals("")) {
+            if( veiculo.getMarca().trim().equals("")) {
                 errosValidacao.add("Modelo não pode ser vazio.");
                 valido = false;
             }
@@ -83,5 +85,10 @@ public class CompraVeiculoRN {
     
     public Object getErrosValidacao() {
         return errosValidacao;
+    }
+
+    public Iterable<Combustivel> getListaCombustivel() {
+        CombustivelPers combustivelPers = new CombustivelPers();
+        return combustivelPers.getLista();
     }
 }

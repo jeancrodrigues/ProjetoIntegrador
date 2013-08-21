@@ -100,7 +100,7 @@ public class Combustivel implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Combustivel[ idcombustivel=" + idcombustivel + " ]";
+        return nome;
     }
     
 }

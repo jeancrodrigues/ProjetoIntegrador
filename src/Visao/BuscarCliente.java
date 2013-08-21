@@ -6,7 +6,6 @@ package Visao;
 
 import RN.ClienteRN;
 import Util.ClienteTableModel;
-import javax.swing.table.TableModel;
 import model.Cliente;
 /**
  *

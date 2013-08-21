@@ -17,7 +17,7 @@ import model.PessoaFisica;
 public class ClienteTableModel implements TableModel{
 
     private List<Cliente> clientes;
-
+    
     public ClienteTableModel(List<Cliente> clientes) {
         this.clientes = clientes;
     }    
