@@ -72,6 +72,7 @@ public class Compra implements Serializable {
 
     public Compra() {
         veiculos = new ArrayList<>();
+        valorcompra = 0.0;
     }
 
     public Compra(Integer idcompra) {

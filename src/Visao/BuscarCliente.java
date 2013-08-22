@@ -18,7 +18,7 @@ public class BuscarCliente extends javax.swing.JFrame {
     
     public BuscarCliente() {
         initComponents();  
-        cliRN = new ClienteRN();
+        cliRN = new ClienteRN(true);
         ClienteTableModel clienteTableModel = cliRN.getClienteTableModel(); 
         tbClientes.setModel(clienteTableModel);
     }
@@ -57,6 +57,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 windowClosedHandler(evt);

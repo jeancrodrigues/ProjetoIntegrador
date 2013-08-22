@@ -5,6 +5,7 @@
 package Persistencia;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Compra;
 
 /**
@@ -18,6 +19,7 @@ public class CompraPers extends BasePers implements IPersistencia<Compra> {
         beginTransaction();        
         compra = getEm().merge(compra);
         commitTransaction();
+        JOptionPane.showMessageDialog(null, "Compra Inserida Com Sucesso!");
         return compra;
     }
 

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import model.Cliente;
 import model.PessoaFisica;
+import model.PessoaJuridica;
 import org.hibernate.tool.stat.BeanTableModel;
 /**
  *
@@ -24,8 +25,8 @@ public class ClienteRN {
     private List <String> errosValidacao;
     private ClienteTableModel clienteTableModel;
 
-    public ClienteRN() {
-        cliente = new Cliente(true);
+    public ClienteRN(boolean tipo) {
+        cliente = new Cliente(tipo);
         pers = new ClientePers();
     }
 
@@ -37,17 +38,22 @@ public class ClienteRN {
         this.cliente = cliente;
     }
     
-    public boolean gravar(){        
-        if(isClienteValido(cliente)){
+    public boolean gravar(boolean tipo){        
+        if(isClienteValido(cliente, tipo)){
             pers.gravar(cliente);        
             return true;
         }
         return false;
     }
     
-    public boolean isClienteValido(Cliente cli){
+    public boolean isClienteValido(Cliente cli , boolean tipo){
         if(cli != null){
-            return isPessoaFisicaValida(cli.getPessoafisica());
+            if(tipo){
+                return isPessoaFisicaValida(cli.getPessoafisica());
+            }else{
+                return isPessoaJuridicaValida(cli.getPessoajuridica());
+            }
+            
         }
         return false;
     }
@@ -77,7 +83,33 @@ public class ClienteRN {
         errosValidacao.add("Pessoa não pode ser nula");
         return false;
     }
-
+    
+    public boolean isPessoaJuridicaValida(PessoaJuridica pj){
+        boolean valido = true;
+        errosValidacao = new ArrayList<>();        
+        if(pj != null){            
+            if(pj.getRazaosocial().trim().equals("")){
+                errosValidacao.add("Razão Social não pode ser vazio.");
+                valido = false;
+            }
+            if(pj.getNomefantasia().trim().equals("")){
+                errosValidacao.add("Nome Fantasia não pode ser vazio.");
+                valido = false;
+            }
+            if(pj.getCnpj().trim().equals("")){
+                errosValidacao.add("CNPJ não pode ser vazio.");
+                valido = false;
+            }
+            if(pj.getIdendereco().getCep().trim().equals("")){
+                errosValidacao.add("Cep não pode ser vazio.");
+                valido = false;
+            }
+            return valido;
+        }
+        errosValidacao.add("Pessoa não pode ser nula");
+        return false;
+    }
+    
     public Object getErrosValidacao() {
         return errosValidacao;
     }

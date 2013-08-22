@@ -47,7 +47,7 @@ public class Veiculo implements Serializable {
     @Column(name = "idveiculo")    
     private Integer idveiculo;
     
-    @Column(name = "modelo")    
+    @Column(name = "modelo")
     private String modelo;
     
     @Column(name = "marca")

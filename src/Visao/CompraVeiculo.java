@@ -6,32 +6,38 @@ package Visao;
 
 import RN.CompraVeiculoRN;
 import Util.DataUtil;
-import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Combustivel;
 import model.Compra;
 import model.Veiculo;
 
+
 /**
  *
  * @author RAFAEL
  */
 public class CompraVeiculo extends javax.swing.JFrame {
-    
+
     CompraVeiculoRN compraRN;
 
     /**
      * Creates new form CompraVeiculo
      */
     public CompraVeiculo() {
-        initComponents();        
-        compraRN = new CompraVeiculoRN();
-        for(Combustivel cb:compraRN.getListaCombustivel()){
-            cmbCombustivel.addItem(cb);
-        }        
+        initComponents();
+        inicizalizar();
     }
-
+    public void inicizalizar(){
+       compraRN = new CompraVeiculoRN();
+       for (Combustivel cb : compraRN.getListaCombustivel()) {
+            cmbCombustivel.addItem(cb);
+        }
+       txtValorTotalCompra.setText(null);
+      txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
+       btnGravar.setEnabled(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +84,7 @@ public class CompraVeiculo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Compra de Veiculos");
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -87,6 +94,8 @@ public class CompraVeiculo extends javax.swing.JFrame {
         pDadosCompras.setToolTipText("");
 
         jLabel3.setText("Data");
+
+        txtData.setEnabled(false);
 
         jLabel4.setText("Valor Total");
 
@@ -108,16 +117,16 @@ public class CompraVeiculo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFuncionario)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtValorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addComponent(txtValorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
             .addGroup(pDadosComprasLayout.createSequentialGroup()
                 .addComponent(jLabel7)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -341,7 +350,8 @@ public class CompraVeiculo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void limpar(){
+
+    public void limpar() {
         txtChassi.setText(null);
         txtAnoMoldelo.setText(null);
         txtAnoFabricacao.setText(null);
@@ -354,41 +364,62 @@ public class CompraVeiculo extends javax.swing.JFrame {
 
         Veiculo veiculo = new Veiculo();
         veiculo.setChassi(txtChassi.getText().trim());
-        veiculo.setAnomodelo(Integer.parseInt(txtAnoMoldelo.getText().trim()));
-        veiculo.setAnofabricacao(Integer.parseInt(txtAnoFabricacao.getText().trim()));
-        veiculo.setModelo(txtModelo.getText().trim());
-        
-        veiculo.setCombustivel((Combustivel)cmbCombustivel.getSelectedItem());
-        
-        veiculo.setMarca(txtMarca.getText().trim());
-        if(!txtKilometragem.getText().trim().equals("")){
-            veiculo.setQuilometragem(Integer.parseInt(txtKilometragem.getText().trim()));
+        try {
+            veiculo.setAnomodelo(Integer.parseInt(txtAnoMoldelo.getText().trim()));
+        } catch (NumberFormatException ex) {
+            veiculo.setAnomodelo(-1);
         }
-        Double valorVeiculo = Double.parseDouble(txtValorVeiculo.getText());
-        
-        if(!compraRN.adicionaVeiculos(veiculo ,valorVeiculo)){
-            String msgs= "Veiculo Inválido";
-            for(String msg: (List<String>)compraRN.getErrosValidacao()){
+        try {
+            veiculo.setAnofabricacao(Integer.parseInt(txtAnoFabricacao.getText().trim()));
+        } catch (NumberFormatException ex) {
+            veiculo.setAnofabricacao(-1);
+        }
+        veiculo.setModelo(txtModelo.getText().trim());
+
+        veiculo.setCombustivel((Combustivel) cmbCombustivel.getSelectedItem());
+
+        veiculo.setMarca(txtMarca.getText().trim());
+
+        try {
+            veiculo.setQuilometragem(Integer.parseInt(txtKilometragem.getText()));
+        } catch (NumberFormatException ex) {
+            veiculo.setQuilometragem(-1);
+        }
+        Double valorVeiculo;
+        try {
+            valorVeiculo = Double.parseDouble(txtValorVeiculo.getText());
+        } catch (NumberFormatException ex) {
+            valorVeiculo=-1.0;
+        }
+
+        if (!compraRN.adicionaVeiculos(veiculo, valorVeiculo)) {
+            String msgs = "Veiculo Inválido";
+            for (String msg : (List<String>) compraRN.getErrosValidacaoVeiculo()) {
                 msgs = msgs + "\n" + msg;
             }
-            JOptionPane.showMessageDialog(null , msgs);
-        }else{
+            JOptionPane.showMessageDialog(null, msgs);
+        } else {
             limpar();
-        } 
+            btnGravar.setEnabled(true);
+            txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));
+        }
     }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
-    
+
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         Compra compra = compraRN.getCompra();
-        
-        try {
-            compra.setDatacompra(DataUtil.stringToDate(txtData.getText()));
-        } catch (ParseException ex) {
-           JOptionPane.showMessageDialog( null , ex.getMessage());
+
+        compra.setDatacompra(Calendar.getInstance().getTime());
+
+        if (!compraRN.gravar()) {
+            String msgs = "Compra Inválida.";
+            for (String msg : (List<String>) compraRN.getErrosValidacaoCompra()) {
+                msgs = msgs + "\n" + msg;
+            }
+            JOptionPane.showMessageDialog(null, msgs);
+        }else{
+            inicizalizar();
         }
-       
-        txtValorTotalCompra.setText(String.valueOf(compra.getValorcompra()));
         
-        compraRN.gravar();
     }//GEN-LAST:event_btnGravarActionPerformed
 //    /**
 //     * @param args the command line arguments

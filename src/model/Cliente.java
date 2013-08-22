@@ -65,7 +65,7 @@ public class Cliente implements Serializable {
     }
 
     public Cliente(boolean isPessoaFisica) {
-        if (true){
+        if (isPessoaFisica){
             this.pessoafisica = new PessoaFisica();
         }else{
             this.pessoajuridica = new PessoaJuridica();
