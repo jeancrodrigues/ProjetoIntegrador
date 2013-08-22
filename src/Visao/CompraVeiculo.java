@@ -18,14 +18,15 @@ import model.Veiculo;
  *
  * @author RAFAEL
  */
-public class CompraVeiculo extends javax.swing.JFrame {
+public class CompraVeiculo extends javax.swing.JDialog {
 
     CompraVeiculoRN compraRN;
 
     /**
      * Creates new form CompraVeiculo
      */
-    public CompraVeiculo() {
+    public CompraVeiculo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         inicizalizar();
     }

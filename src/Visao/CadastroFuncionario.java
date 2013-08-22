@@ -17,12 +17,13 @@ import model.Funcionario;
  *
  * @author RAFAEL
  */
-public class CadastroFuncionario extends javax.swing.JFrame {
+public class CadastroFuncionario extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;
 
     private FuncionarioRN rn;
 
-    public CadastroFuncionario() {
+    public CadastroFuncionario(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         rn = new FuncionarioRN();
     }

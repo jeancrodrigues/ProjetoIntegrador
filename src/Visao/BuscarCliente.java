@@ -11,12 +11,13 @@ import model.Cliente;
  *
  * @author Jean
  */
-public class BuscarCliente extends javax.swing.JFrame {
+public class BuscarCliente extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;
     
     private ClienteRN cliRN;
     
-    public BuscarCliente() {
+    public BuscarCliente(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();  
         cliRN = new ClienteRN(true);
         ClienteTableModel clienteTableModel = cliRN.getClienteTableModel(); 

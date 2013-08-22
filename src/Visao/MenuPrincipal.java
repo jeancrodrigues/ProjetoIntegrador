@@ -227,28 +227,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-        CadastroCliente janelaCadastroCli = new CadastroCliente();
+        CadastroCliente janelaCadastroCli = new CadastroCliente(this,true);
         janelaCadastroCli.setVisible(true);
                 
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario();
+        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this,true);
         janelaCadastroFunc.setVisible(true);
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnCompraVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraVeiculosActionPerformed
-        CompraVeiculo janelaComprarVeiculo = new CompraVeiculo();
+        CompraVeiculo janelaComprarVeiculo = new CompraVeiculo(this,true);
         janelaComprarVeiculo.setVisible(true);
     }//GEN-LAST:event_btnCompraVeiculosActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        BuscarCliente janelabusBuscarCliente = new BuscarCliente();
+        BuscarCliente janelabusBuscarCliente = new BuscarCliente(this,true);
         janelabusBuscarCliente.setVisible(true);
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CadastroClientePJ janelaCadastroClientePJ = new CadastroClientePJ();
+        CadastroClientePJ janelaCadastroClientePJ = new CadastroClientePJ(this,true);
         janelaCadastroClientePJ.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

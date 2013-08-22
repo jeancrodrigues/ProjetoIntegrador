@@ -17,11 +17,12 @@ import model.Endereco;
  *
  * @author RAFAEL
  */
-public class CadastroCliente extends javax.swing.JFrame {
+public class CadastroCliente extends javax.swing.JDialog {
 
     private ClienteRN rn;
     
-    public CadastroCliente() {
+    public CadastroCliente(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         rn = new ClienteRN(true);
     }
