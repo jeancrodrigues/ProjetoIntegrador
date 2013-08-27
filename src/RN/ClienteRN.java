@@ -4,15 +4,14 @@
  */
 package RN;
 
+import Exception.ClienteException;
 import Persistencia.ClientePers;
+import Wrapper.ClientePfWrapper;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import model.Cliente;
 import model.PessoaFisica;
 import model.PessoaJuridica;
-import org.hibernate.tool.stat.BeanTableModel;
 /**
  *
  * @author RAFAEL
@@ -23,8 +22,8 @@ public class ClienteRN {
     private ClientePers pers;
     private List <String> errosValidacao;
 
-    public ClienteRN(boolean tipo) {
-        cliente = new Cliente(tipo);
+    public ClienteRN(boolean isPessoaFisica) {
+        cliente = new Cliente(isPessoaFisica);
         pers = new ClientePers();
     }
 
@@ -110,5 +109,13 @@ public class ClienteRN {
     
     public Object getErrosValidacao() {
         return errosValidacao;
+    }
+
+    public List<ClientePfWrapper> getClienteWrapperList() throws ClienteException {
+        List<ClientePfWrapper> lista = new ArrayList<>();
+        for (Cliente cliente : pers.getLista()) {
+            lista.add(new ClientePfWrapper(cliente));
+        }
+        return lista;
     }
 }

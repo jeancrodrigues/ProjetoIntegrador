@@ -4,10 +4,13 @@
  */
 package Visao;
 
+import Exception.ClienteException;
 import RN.ClienteRN;
+import Wrapper.ClientePfWrapper;
 import com.towel.el.FieldResolver;
 import com.towel.el.annotation.AnnotationResolver;
 import com.towel.swing.table.ObjectTableModel;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import sun.misc.Cleaner;
 /**
@@ -17,15 +20,20 @@ import sun.misc.Cleaner;
 public class BuscarCliente extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;    
     private ClienteRN cliRN;
-    private ObjectTableModel<Cliente> clientesModel;
+    private ObjectTableModel<ClientePfWrapper> clientesModel;
     
-    public BuscarCliente(java.awt.Frame parent, boolean modal){
+    public BuscarCliente(java.awt.Frame parent, boolean modal) throws ClienteException{
         super(parent, modal);
         initComponents();  
-        AnnotationResolver resolver = new AnnotationResolver(Cliente.class);
-        clientesModel = new ObjectTableModel(resolver,"Nome,Cpf,Cnpj,Telefone");
-        clientesModel.setData(null);
-        tbClientes.setModel(clientesModel);
+        cliRN = new ClienteRN(true);
+        try{                
+            clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
+            clientesModel.setData(cliRN.getClienteWrapperList());
+            tbClientes.setModel(clientesModel);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Erro ao abrir tela.");
+            ex.printStackTrace();                        
+        }
     }   
     
     @SuppressWarnings("unchecked")
