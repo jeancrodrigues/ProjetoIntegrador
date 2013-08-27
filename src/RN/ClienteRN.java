@@ -5,7 +5,6 @@
 package RN;
 
 import Persistencia.ClientePers;
-import Util.ClienteTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +22,6 @@ public class ClienteRN {
     private Cliente cliente;
     private ClientePers pers;
     private List <String> errosValidacao;
-    private ClienteTableModel clienteTableModel;
 
     public ClienteRN(boolean tipo) {
         cliente = new Cliente(tipo);
@@ -112,20 +110,5 @@ public class ClienteRN {
     
     public Object getErrosValidacao() {
         return errosValidacao;
-    }
-
-    public ClienteTableModel getClienteTableModel() {
-        if(clienteTableModel==null){
-            clienteTableModel = new ClienteTableModel(pers.getLista());
-        }        
-        return clienteTableModel;
-    }
-
-    public void setClienteTableModel(ClienteTableModel clienteTableModel) {
-        this.clienteTableModel = clienteTableModel;
-    }
-    
-    public Cliente getClienteFromTableModel(int index){
-        return this.clienteTableModel.getCliente(index);
     }
 }

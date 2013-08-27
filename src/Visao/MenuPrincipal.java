@@ -221,21 +221,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this,true);
-        janelaCadastroFunc.setLocationRelativeTo(null);
-        janelaCadastroFunc.setVisible(true);
+        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this,true,true,null);
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnCompraVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraVeiculosActionPerformed
-        CompraVeiculo janelaComprarVeiculo = new CompraVeiculo(this,true);
-        janelaComprarVeiculo.setLocationRelativeTo(null);
-        janelaComprarVeiculo.setVisible(true);
+        CompraVeiculo janelaComprarVeiculo = new CompraVeiculo(this,true,true,null);
     }//GEN-LAST:event_btnCompraVeiculosActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        BuscarCliente janelabusBuscarCliente = new BuscarCliente(this,true);
-        janelabusBuscarCliente.setLocationRelativeTo(null);
-        janelabusBuscarCliente.setVisible(true);
+        BuscarCliente buscarCliente = new BuscarCliente(this, true);
+        buscarCliente.setVisible(true);
+        
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -265,16 +261,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             public void run() {
                 super.run();
                 new MenuPrincipal().setVisible(true);
-            }
-            
+            }            
         });
-        
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                new MenuPrincipal().setVisible(true);
-//            }
-//        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;

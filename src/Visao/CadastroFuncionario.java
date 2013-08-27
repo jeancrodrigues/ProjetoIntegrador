@@ -6,9 +6,15 @@ package Visao;
 
 import RN.FuncionarioRN;
 import Util.DataUtil;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import java.awt.Component;
+import java.awt.TrayIcon;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Endereco;
 import model.Funcionario;
@@ -21,12 +27,20 @@ public class CadastroFuncionario extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;
 
     private FuncionarioRN rn;
-
+   
+    CadastroFuncionario(java.awt.Frame parent, boolean modal, boolean visible,Component component ) {
+        super(parent,modal);
+        initComponents();
+        rn = new FuncionarioRN();
+        this.setVisible(visible);
+        this.setLocationRelativeTo(component);
+    }
+    
     public CadastroFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         rn = new FuncionarioRN();
-    }
+    }   
 
     public void limpar() {
         txtNome.setText(null);
@@ -97,9 +111,25 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         setResizable(false);
 
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpDaDosFuncinario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jpDaDosFuncinarioFocusLost(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Dados Pessoais");
+
+        txtDataNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataNascimentoActionPerformed(evt);
+            }
+        });
+        txtDataNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDataNascimentoFocusLost(evt);
+            }
+        });
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,9 +171,9 @@ public class CadastroFuncionario extends javax.swing.JDialog {
                         .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
                                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                                 .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(94, Short.MAX_VALUE))
                             .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
@@ -172,25 +202,26 @@ public class CadastroFuncionario extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addGap(3, 3, 3)
                 .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14))))
                     .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)
                         .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -347,7 +378,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
                 .addComponent(jpDaDosFuncinario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addComponent(jpDaDosFuncinario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btnGravar)
                 .addContainerGap())
         );
@@ -356,6 +387,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+        
         Funcionario func = rn.getFunc();
         Endereco end = new Endereco();
 
@@ -378,18 +410,18 @@ public class CadastroFuncionario extends javax.swing.JDialog {
             Date dataNascimento = DataUtil.stringToDate(txtDataNascimento.getText().trim());
             func.getPessoafisica().setDatanascimento(dataNascimento);
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog( null , ex.getMessage());
-            // TODO: mostrar mensagem de erro
+            JOptionPane.showMessageDialog(this, "Data de nascimento inválida");
         }
         
-        if(!rn.gravar()){
-            String msgs= "Funcionário inválido";
+        if(rn.gravar()){
+            limpar();
+            JOptionPane.showMessageDialog(this, "Funcionário gravado com sucesso.");
+        }else{
+            String msgs = "Funcionário inválido";
             for(String msg: (List<String>)rn.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
-            JOptionPane.showMessageDialog(null , msgs);
-        }else{
-            limpar();
+            JOptionPane.showMessageDialog(this , msgs);
         }
     }//GEN-LAST:event_btnGravarActionPerformed
 
@@ -421,40 +453,24 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(CadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new CadastroFuncionario().setVisible(true);
-//            }
-//        });
-//    }
+    private void jpDaDosFuncinarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpDaDosFuncinarioFocusLost
+                  
+    }//GEN-LAST:event_jpDaDosFuncinarioFocusLost
+
+    private void txtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataNascimentoActionPerformed
+
+    private void txtDataNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataNascimentoFocusLost
+        try {
+            DataUtil.stringToDate( txtDataNascimento.getText() );
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Data Inválida");
+            txtDataNascimento.setText("");
+        }          
+    }//GEN-LAST:event_txtDataNascimentoFocusLost
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CEP;
     private javax.swing.JButton btnGravar;

@@ -62,7 +62,7 @@ public class CompraVeiculoRN {
     public Object popularTabelaVeiculo(){
         return compra.getVeiculos();
     }
-    public boolean adicionaVeiculos(Veiculo veiculo, Double valor) {
+    public boolean adicionaVeiculo(Veiculo veiculo, Double valor) {
         comprav = new CompraVeiculo();
 
         if (isVeiculoValido(veiculo, valor)) {
@@ -71,7 +71,6 @@ public class CompraVeiculoRN {
             Double total = compra.getValorcompra();
             compra.setValorcompra(total + valor);
             comprav.setValor(valor);
-            JOptionPane.showMessageDialog(null, "Carro Adicionado com Sucesso");
             return true;
         }
         return false;

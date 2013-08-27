@@ -4,10 +4,15 @@
  */
 package Visao;
 
+import Exception.AnoVeiculoException;
 import RN.CompraVeiculoRN;
 import Util.DataUtil;
+import Util.Util;
+import java.awt.Component;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Combustivel;
 import model.Compra;
@@ -29,6 +34,14 @@ public class CompraVeiculo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         inicizalizar();
+    }
+
+    CompraVeiculo(java.awt.Frame parent, boolean modal,boolean visible, Component component) {
+        super(parent, modal);
+        initComponents();
+        inicizalizar();
+        this.setVisible(visible);
+        this.setLocationRelativeTo(component);
     }
     public void inicizalizar(){
        compraRN = new CompraVeiculoRN();
@@ -69,7 +82,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         txtChassi = new javax.swing.JTextField();
         txtModelo = new javax.swing.JTextField();
-        txtAnoMoldelo = new javax.swing.JTextField();
+        txtAnoModelo = new javax.swing.JTextField();
         txtAnoFabricacao = new javax.swing.JTextField();
         txtMarca = new javax.swing.JTextField();
         txtKilometragem = new javax.swing.JTextField();
@@ -204,7 +217,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
                                             .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                                                 .addComponent(jLabel10)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtAnoMoldelo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jLabel11))
                                             .addGroup(pDadosVeiculoLayout.createSequentialGroup()
@@ -234,7 +247,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
                     .addComponent(jLabel13)
                     .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(txtAnoMoldelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -354,55 +367,52 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
     public void limpar() {
         txtChassi.setText(null);
-        txtAnoMoldelo.setText(null);
+        txtAnoModelo.setText(null);
         txtAnoFabricacao.setText(null);
         txtModelo.setText(null);
         txtMarca.setText(null);
         txtKilometragem.setText(null);
         txtValorVeiculo.setText(null);
     }
-    private void btnAdicionaVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaVeiculoActionPerformed
-
+    
+    private Veiculo lePropriedadesVeiculoTela() throws NumberFormatException{
+                
+        int anoFabricacao = Integer.parseInt(txtAnoFabricacao.getText().trim());
+        int anoModelo = Integer.parseInt(txtAnoModelo.getText().trim());        
+        int quilometragem = Integer.parseInt(txtKilometragem.getText());
+        
         Veiculo veiculo = new Veiculo();
-        veiculo.setChassi(txtChassi.getText().trim());
-        try {
-            veiculo.setAnomodelo(Integer.parseInt(txtAnoMoldelo.getText().trim()));
-        } catch (NumberFormatException ex) {
-            veiculo.setAnomodelo(-1);
-        }
-        try {
-            veiculo.setAnofabricacao(Integer.parseInt(txtAnoFabricacao.getText().trim()));
-        } catch (NumberFormatException ex) {
-            veiculo.setAnofabricacao(-1);
-        }
-        veiculo.setModelo(txtModelo.getText().trim());
-
-        veiculo.setCombustivel((Combustivel) cmbCombustivel.getSelectedItem());
-
+        
+        veiculo.setChassi(txtChassi.getText().trim());                  
         veiculo.setMarca(txtMarca.getText().trim());
-
-        try {
-            veiculo.setQuilometragem(Integer.parseInt(txtKilometragem.getText()));
-        } catch (NumberFormatException ex) {
-            veiculo.setQuilometragem(-1);
-        }
-        Double valorVeiculo;
-        try {
-            valorVeiculo = Double.parseDouble(txtValorVeiculo.getText());
-        } catch (NumberFormatException ex) {
-            valorVeiculo=-1.0;
-        }
-
-        if (!compraRN.adicionaVeiculos(veiculo, valorVeiculo)) {
-            String msgs = "Veiculo Inválido";
-            for (String msg : (List<String>) compraRN.getErrosValidacaoVeiculo()) {
-                msgs = msgs + "\n" + msg;
-            }
-            JOptionPane.showMessageDialog(null, msgs);
-        } else {
-            limpar();
-            btnGravar.setEnabled(true);
-            txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));
+        veiculo.setModelo(txtModelo.getText().trim());
+        veiculo.setCombustivel((Combustivel) cmbCombustivel.getSelectedItem());
+                
+        veiculo.setQuilometragem(quilometragem);
+        veiculo.setAnomodelo(anoModelo);                                    
+        veiculo.setAnofabricacao(anoFabricacao);
+        
+        return veiculo;
+    }
+    
+    private void btnAdicionaVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaVeiculoActionPerformed
+        try{
+            Veiculo veiculo = lePropriedadesVeiculoTela();
+            Double valorVeiculo = Double.parseDouble(txtValorVeiculo.getText().trim());
+            if(compraRN.adicionaVeiculo(veiculo, valorVeiculo)) {
+                JOptionPane.showMessageDialog(this, "Carro Adicionado com Sucesso");
+                limpar();
+                btnGravar.setEnabled(true);
+                txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));  
+            }else{                
+                String msgs = "Veiculo Inválido";
+                for (String msg : compraRN.getErrosValidacaoVeiculo()) {
+                    msgs = msgs + "\n" + msg;
+                }
+                JOptionPane.showMessageDialog(this, msgs);
+            } 
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Dados do veículo inválidos.");
         }
     }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
 
@@ -416,46 +426,13 @@ public class CompraVeiculo extends javax.swing.JDialog {
             for (String msg : (List<String>) compraRN.getErrosValidacaoCompra()) {
                 msgs = msgs + "\n" + msg;
             }
-            JOptionPane.showMessageDialog(null, msgs);
+            JOptionPane.showMessageDialog(this, msgs);
         }else{
             inicizalizar();
+            JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
         }
         
     }//GEN-LAST:event_btnGravarActionPerformed
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(CompraVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(CompraVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(CompraVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(CompraVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new CompraVeiculo().setVisible(true);
-//            }
-//        });
-//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionaVeiculo;
     private javax.swing.JButton btnGravar;
@@ -482,7 +459,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private javax.swing.JPanel pListaVeiculos;
     private javax.swing.JPanel pPrincipal;
     private javax.swing.JTextField txtAnoFabricacao;
-    private javax.swing.JTextField txtAnoMoldelo;
+    private javax.swing.JTextField txtAnoModelo;
     private javax.swing.JTextField txtChassi;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtFuncionario;

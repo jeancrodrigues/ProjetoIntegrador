@@ -4,6 +4,7 @@
  */
 package model;
 
+import Exception.ClienteException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -141,5 +142,16 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "model.Cliente[ idcliente=" + idcliente + " ]";
+    }
+
+    public boolean isPessoaFisica() throws ClienteException {
+        if(pessoafisica == null && pessoajuridica == null){
+            throw new ClienteException("Cliente não é pessoa fisica nem juridica.");
+        }else if(pessoafisica != null){
+            return true;
+        }else if(pessoajuridica==null){
+            return false;
+        }
+        return false;
     }
 }

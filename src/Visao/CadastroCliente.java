@@ -417,7 +417,7 @@ public class CadastroCliente extends javax.swing.JDialog {
             for(String msg: (List<String>)rn.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
-            JOptionPane.showMessageDialog(null , msgs);
+            JOptionPane.showMessageDialog(this , msgs);
         }else{
             limpar();
         }              

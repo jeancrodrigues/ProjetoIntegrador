@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.towel.el.annotation.Resolvable;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -34,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PessoaJuridica.findByCnpj", query = "SELECT p FROM PessoaJuridica p WHERE p.cnpj = :cnpj"),
     @NamedQuery(name = "PessoaJuridica.findByTelefone1", query = "SELECT p FROM PessoaJuridica p WHERE p.telefone1 = :telefone1"),
     @NamedQuery(name = "PessoaJuridica.findByTelefone2", query = "SELECT p FROM PessoaJuridica p WHERE p.telefone2 = :telefone2")})
-public class PessoaJuridica implements Serializable {
+public class PessoaJuridica implements Serializable, Pessoa {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,18 +45,23 @@ public class PessoaJuridica implements Serializable {
     private Integer idpessoajuridica;
     
     @Column(name = "razaosocial")
+    @Resolvable(colName="razaosocial")
     private String razaosocial;
    
     @Column(name = "nomefantasia")
+    @Resolvable(colName = "nomefantasia")
     private String nomefantasia;
     
     @Column(name = "cnpj")
+    @Resolvable(colName="Cnpj")
     private String cnpj;
    
     @Column(name = "telefone1")
+    @Resolvable(colName="Telefone")
     private String telefone1;
    
     @Column(name = "telefone2")
+    @Resolvable(colName="Telefone 2")
     private String telefone2;
     
     @JoinColumn(name = "idendereco", referencedColumnName = "idendereco")

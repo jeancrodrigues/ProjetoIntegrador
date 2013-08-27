@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.towel.el.annotation.Resolvable;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -38,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PessoaFisica.findByRg", query = "SELECT p FROM PessoaFisica p WHERE p.rg = :rg"),
     @NamedQuery(name = "PessoaFisica.findByTelefone1", query = "SELECT p FROM PessoaFisica p WHERE p.telefone1 = :telefone1"),
     @NamedQuery(name = "PessoaFisica.findByTelefone2", query = "SELECT p FROM PessoaFisica p WHERE p.telefone2 = :telefone2")})
-public class PessoaFisica implements Serializable {
+public class PessoaFisica implements Serializable, Pessoa {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -48,22 +49,28 @@ public class PessoaFisica implements Serializable {
     private Integer idpessoafisica;
     
     @Column(name = "nome")
+    @Resolvable(colName="Nome")
     private String nome;
     
     @Column(name = "datanascimento")
     @Temporal(TemporalType.DATE)
+    @Resolvable(colName="Data Nascimento")
     private Date datanascimento;
     
     @Column(name = "cpf")
+    @Resolvable(colName="Cpf")
     private String cpf;
     
     @Column(name = "rg")
+    @Resolvable(colName="Rg")
     private String rg;
     
     @Column(name = "telefone1")
+    @Resolvable(colName="Telefone")
     private String telefone1;
     
     @Column(name = "telefone2")
+    @Resolvable(colName="Telefone2")
     private String telefone2;
     
     @JoinColumn(name = "idendereco", referencedColumnName = "idendereco")
