@@ -26,14 +26,9 @@ public class BuscarCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();  
         cliRN = new ClienteRN(true);
-        try{                
-            clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
-            clientesModel.setData(cliRN.getClienteWrapperList());
-            tbClientes.setModel(clientesModel);
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Erro ao abrir tela.");
-            ex.printStackTrace();                        
-        }
+        clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
+        clientesModel.setData(cliRN.getClienteWrapperList());
+        tbClientes.setModel(clientesModel);        
     }   
     
     @SuppressWarnings("unchecked")

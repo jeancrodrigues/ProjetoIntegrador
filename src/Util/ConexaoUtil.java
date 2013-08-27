@@ -7,6 +7,8 @@ package Util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,6 +21,15 @@ import java.sql.SQLException;
 public class ConexaoUtil {
     
     private static Connection conexao;
+
+    public static void fechaConexao() {
+        try {
+            conexao.rollback();
+            conexao.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();            
+        }
+    }
     
     private ConexaoUtil(){
         try {

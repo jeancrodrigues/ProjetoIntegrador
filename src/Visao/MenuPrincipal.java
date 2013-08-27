@@ -4,6 +4,10 @@
  */
 package Visao;
 
+import Exception.ClienteException;
+import Util.ConexaoUtil;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author RAFAEL
@@ -57,6 +61,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setTitle("Rentstore");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -209,8 +218,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel1.getAccessibleContext().setAccessibleName("txtLabel");
 
-        setSize(new java.awt.Dimension(723, 511));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-723)/2, (screenSize.height-511)/2, 723, 511);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
@@ -229,9 +238,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCompraVeiculosActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        BuscarCliente buscarCliente = new BuscarCliente(this, true);
-        buscarCliente.setVisible(true);
         
+        try {
+            BuscarCliente buscarCliente = new BuscarCliente(this, true);
+            buscarCliente.setVisible(true);
+        } catch (ClienteException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao abrir tela de busca de cliente.");
+        }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -239,6 +252,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         janelaCadastroClientePJ.setLocationRelativeTo(null);
         janelaCadastroClientePJ.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        ConexaoUtil.fechaConexao();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
