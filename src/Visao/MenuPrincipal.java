@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author RAFAEL
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    
+
     public MenuPrincipal() {
         initComponents();
     }
@@ -41,7 +41,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnCadastrarCliente = new javax.swing.JButton();
         btnCadastrarFuncionario = new javax.swing.JButton();
         btnCompraVeiculos = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCadastrarClientePJ = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnBuscarCliente = new javax.swing.JButton();
@@ -105,10 +105,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cadastro de Clientes Pessoa Jurídica");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarClientePJ.setText("Cadastro de Clientes Pessoa Jurídica");
+        btnCadastrarClientePJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarClientePJActionPerformed(evt);
             }
         });
 
@@ -121,7 +121,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCadastrarClientePJ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCompraVeiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -138,7 +138,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(btnCadastrarClientePJ, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -218,40 +218,37 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel1.getAccessibleContext().setAccessibleName("txtLabel");
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-723)/2, (screenSize.height-511)/2, 723, 511);
+        setSize(new java.awt.Dimension(723, 511));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClienteActionPerformed
-        CadastroCliente janelaCadastroCli = new CadastroCliente(this,true);
-        janelaCadastroCli.setLocationRelativeTo(null);
-        janelaCadastroCli.setVisible(true);
-                
+        CadastroCliente janelaCadastroCli = new CadastroCliente(this, true, true, null);
+
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this,true,true,null);
+        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this, true, true, null);
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnCompraVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraVeiculosActionPerformed
-        CompraVeiculo janelaComprarVeiculo = new CompraVeiculo(this,true,true,null);
+        CompraVeiculo janelaComprarVeiculo = new CompraVeiculo(this, true, true, null);
     }//GEN-LAST:event_btnCompraVeiculosActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        
+
         try {
             BuscarCliente buscarCliente = new BuscarCliente(this, true);
+            buscarCliente.setLocationRelativeTo(null);
             buscarCliente.setVisible(true);
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao abrir tela de busca de cliente.");
         }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CadastroClientePJ janelaCadastroClientePJ = new CadastroClientePJ(this,true);
-        janelaCadastroClientePJ.setLocationRelativeTo(null);
-        janelaCadastroClientePJ.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCadastrarClientePJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarClientePJActionPerformed
+        CadastroClientePJ janelaCadastroClientePJ = new CadastroClientePJ(this, true, true, null);
+    }//GEN-LAST:event_btnCadastrarClientePJActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         ConexaoUtil.fechaConexao();
@@ -271,23 +268,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        java.awt.EventQueue.invokeLater(new Thread(){
 
+        java.awt.EventQueue.invokeLater(new Thread() {
             @Override
             public void run() {
                 super.run();
                 new MenuPrincipal().setVisible(true);
-            }            
+            }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnCadastrarCliente;
+    private javax.swing.JButton btnCadastrarClientePJ;
     private javax.swing.JButton btnCadastrarFuncionario;
     private javax.swing.JButton btnCompraVeiculos;
     private javax.persistence.EntityManager entityManager1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

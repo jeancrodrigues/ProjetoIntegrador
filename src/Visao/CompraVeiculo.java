@@ -21,7 +21,6 @@ import model.Combustivel;
 import model.Compra;
 import model.Veiculo;
 
-
 /**
  *
  * @author RAFAEL
@@ -29,33 +28,32 @@ import model.Veiculo;
 public class CompraVeiculo extends javax.swing.JDialog {
 
     CompraVeiculoRN compraRN;
-    private ObjectTableModel <VeiculoWrapper> veiculoModel;
+    private ObjectTableModel<VeiculoWrapper> veiculoModel;
 
     /**
      * Creates new form CompraVeiculo
      */
-    public CompraVeiculo(java.awt.Frame parent, boolean modal) {
+
+
+    public CompraVeiculo(java.awt.Frame parent, boolean modal, boolean visible, Component component) {
         super(parent, modal);
         initComponents();
         inicizalizar();
+        this.setLocationRelativeTo(component);
+        this.setVisible(visible);
+        
     }
 
-    CompraVeiculo(java.awt.Frame parent, boolean modal,boolean visible, Component component) {
-        super(parent, modal);
-        initComponents();
-        inicizalizar();
-        this.setVisible(visible);
-        this.setLocationRelativeTo(component);
-    }
-    public void inicizalizar(){
-       compraRN = new CompraVeiculoRN();
-       for (Combustivel cb : compraRN.getListaCombustivel()) {
+    public void inicizalizar() {
+        compraRN = new CompraVeiculoRN();
+        for (Combustivel cb : compraRN.getListaCombustivel()) {
             cmbCombustivel.addItem(cb);
         }
-       txtValorTotalCompra.setText(null);
-      txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
-       btnGravar.setEnabled(false);
+        txtValorTotalCompra.setText(null);
+        txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
+        btnGravar.setEnabled(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,6 +191,12 @@ public class CompraVeiculo extends javax.swing.JDialog {
         btnAdicionaVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionaVeiculoActionPerformed(evt);
+            }
+        });
+
+        cmbCombustivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCombustivelActionPerformed(evt);
             }
         });
 
@@ -382,49 +386,50 @@ public class CompraVeiculo extends javax.swing.JDialog {
         txtKilometragem.setText(null);
         txtValorVeiculo.setText(null);
     }
-    
-    private Veiculo lePropriedadesVeiculoTela() throws NumberFormatException{
-                
+
+    private Veiculo lePropriedadesVeiculoTela() throws NumberFormatException {
+
         int anoFabricacao = Integer.parseInt(txtAnoFabricacao.getText().trim());
-        int anoModelo = Integer.parseInt(txtAnoModelo.getText().trim());        
+        int anoModelo = Integer.parseInt(txtAnoModelo.getText().trim());
         int quilometragem = Integer.parseInt(txtKilometragem.getText());
-        
+
         Veiculo veiculo = new Veiculo();
-        
-        veiculo.setChassi(txtChassi.getText().trim());                  
+
+        veiculo.setChassi(txtChassi.getText().trim());
         veiculo.setMarca(txtMarca.getText().trim());
         veiculo.setModelo(txtModelo.getText().trim());
         veiculo.setCombustivel((Combustivel) cmbCombustivel.getSelectedItem());
-                
+
         veiculo.setQuilometragem(quilometragem);
-        veiculo.setAnomodelo(anoModelo);                                    
+        veiculo.setAnomodelo(anoModelo);
         veiculo.setAnofabricacao(anoFabricacao);
-        
+
         return veiculo;
     }
-    public void inicializaTabelaVeiculo(){
+
+    public void inicializaTabelaVeiculo() {
         veiculoModel = new ObjectTableModel(VeiculoWrapper.class, "chassi,anoModelo,anoFabricacao,modelo,marca,quilometragem,valor");
-                veiculoModel.setData(compraRN.getVeiculoWrapperList());
-                tbVeiculo.setModel(veiculoModel);
+        veiculoModel.setData(compraRN.getVeiculoWrapperList());
+        tbVeiculo.setModel(veiculoModel);
     }
     private void btnAdicionaVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaVeiculoActionPerformed
-        try{
+        try {
             Veiculo veiculo = lePropriedadesVeiculoTela();
             Double valorVeiculo = Double.parseDouble(txtValorVeiculo.getText().trim());
-            if(compraRN.adicionaVeiculo(veiculo, valorVeiculo)) {
+            if (compraRN.adicionaVeiculo(veiculo, valorVeiculo)) {
                 JOptionPane.showMessageDialog(this, "Carro Adicionado com Sucesso");
                 limpar();
                 btnGravar.setEnabled(true);
                 txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));
-                inicializaTabelaVeiculo();        
-            }else{                
+                inicializaTabelaVeiculo();
+            } else {
                 String msgs = "Veiculo Inválido";
                 for (String msg : compraRN.getErrosValidacaoVeiculo()) {
                     msgs = msgs + "\n" + msg;
                 }
                 JOptionPane.showMessageDialog(this, msgs);
-            } 
-        }catch(NumberFormatException ex){
+            }
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Dados do veículo inválidos.");
         }
     }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
@@ -440,13 +445,17 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 msgs = msgs + "\n" + msg;
             }
             JOptionPane.showMessageDialog(this, msgs);
-        }else{
+        } else {
             inicizalizar();
             JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
             inicializaTabelaVeiculo();
         }
-        
+
     }//GEN-LAST:event_btnGravarActionPerformed
+
+    private void cmbCombustivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCombustivelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCombustivelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionaVeiculo;
     private javax.swing.JButton btnGravar;

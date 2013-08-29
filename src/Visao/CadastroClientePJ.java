@@ -7,6 +7,7 @@ package Visao;
 import RN.ClienteRN;
 import Util.DataUtil;
 import Util.OnlyNumberFieldUtil;
+import java.awt.Component;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -22,23 +23,15 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
     private ClienteRN rn;
     
-    public CadastroClientePJ(java.awt.Frame parent, boolean modal) {
+    public CadastroClientePJ(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
         initComponents();
         rn = new ClienteRN(false);
+        this.setLocationRelativeTo(component);
+        this.setVisible(visible);  
     }
     
     public void limpar() {
-        
-//          doh , doesn't workauti
-//        for(Component c : getComponents()){
-//            System.out.println(c.getName());
-//            if(c instanceof JTextField){
-//                JTextField jtxt = (JTextField)c;
-//                jtxt.setText("");
-//            }
-//        }
-        
         txtRazaoSocial.setText(null);
         txtNomeFantasia.setText(null);
         txtCnpj.setText(null);

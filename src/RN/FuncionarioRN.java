@@ -4,11 +4,14 @@
  */
 package RN;
 
+import Persistencia.CombustivelPers;
 import Persistencia.FuncionarioPers;
+import Persistencia.SetorPers;
 import java.util.ArrayList;
 import java.util.List;
 import model.Funcionario;
 import model.PessoaFisica;
+import model.Setor;
 
 /**
  *
@@ -76,5 +79,10 @@ public class FuncionarioRN {
 
     public Object getErrosValidacao() {
         return errosValidacao;
+    }
+    
+    public Iterable<Setor> getListaSetor() {
+        SetorPers setorPers = new SetorPers();
+        return setorPers.getLista();
     }
 }

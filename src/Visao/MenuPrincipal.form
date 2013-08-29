@@ -161,7 +161,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton1" max="32767" attributes="0"/>
+                              <Component id="btnCadastrarClientePJ" max="32767" attributes="0"/>
                               <Component id="btnCadastrarCliente" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnCadastrarFuncionario" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnCompraVeiculos" alignment="0" max="32767" attributes="0"/>
@@ -184,7 +184,7 @@
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCadastrarCliente" pref="26" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" pref="26" max="32767" attributes="0"/>
+                  <Component id="btnCadastrarClientePJ" pref="26" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnCadastrarFuncionario" pref="26" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -227,12 +227,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompraVeiculosActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnCadastrarClientePJ">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastro de Clientes Pessoa Jur&#xed;dica"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarClientePJActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
