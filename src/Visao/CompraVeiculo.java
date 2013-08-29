@@ -7,6 +7,7 @@ package Visao;
 import Exception.AnoVeiculoException;
 import RN.CompraVeiculoRN;
 import Util.DataUtil;
+import Util.OnlyNumberFieldUtil;
 import Util.Util;
 import java.awt.Component;
 import java.util.Calendar;
@@ -178,6 +179,10 @@ public class CompraVeiculo extends javax.swing.JDialog {
         jLabel13.setText("Chassi");
 
         jLabel14.setText("Combustivel");
+
+        txtAnoModelo.setDocument(new OnlyNumberFieldUtil(4));
+
+        txtAnoFabricacao.setDocument(new OnlyNumberFieldUtil(4));
 
         jLabel15.setText("Valor");
 

@@ -8,6 +8,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -181,8 +182,14 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefone2ActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtTelefone2.setDocument(new OnlyNumberFieldUtil(10));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTelefone1">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtTelefone1.setDocument(new OnlyNumberFieldUtil(10));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -190,6 +197,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCnpj">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtCnpj.setDocument(new OnlyNumberFieldUtil(14));"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -295,6 +305,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCEP">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtCEP.setDocument(new OnlyNumberFieldUtil(8));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -317,6 +330,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumero">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNumero.setDocument(new OnlyNumberFieldUtil(5));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="CEP">
           <Properties>

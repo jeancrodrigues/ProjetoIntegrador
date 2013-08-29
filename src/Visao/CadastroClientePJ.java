@@ -6,6 +6,7 @@ package Visao;
 
 import RN.ClienteRN;
 import Util.DataUtil;
+import Util.OnlyNumberFieldUtil;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -114,13 +115,18 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
         jLabel6.setText("Telefone 2");
 
+        txtTelefone2.setDocument(new OnlyNumberFieldUtil(10));
         txtTelefone2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefone2ActionPerformed(evt);
             }
         });
 
+        txtTelefone1.setDocument(new OnlyNumberFieldUtil(10));
+
         jLabel7.setText("Nome Fantasia");
+
+        txtCnpj.setDocument(new OnlyNumberFieldUtil(14));
 
         javax.swing.GroupLayout jpDaDosFuncinarioLayout = new javax.swing.GroupLayout(jpDaDosFuncinario);
         jpDaDosFuncinario.setLayout(jpDaDosFuncinarioLayout);
@@ -188,6 +194,8 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Endereço");
 
+        txtCEP.setDocument(new OnlyNumberFieldUtil(8));
+
         jLabel10.setText("Estado");
 
         jLabel11.setText("Numero");
@@ -199,6 +207,8 @@ public class CadastroClientePJ extends javax.swing.JDialog {
                 txtCidadeActionPerformed(evt);
             }
         });
+
+        txtNumero.setDocument(new OnlyNumberFieldUtil(5));
 
         CEP.setText("CEP");
 

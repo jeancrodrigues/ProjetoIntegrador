@@ -6,6 +6,7 @@ package Visao;
 
 import RN.ClienteRN;
 import Util.DataUtil;
+import Util.OnlyNumberFieldUtil;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -117,13 +118,20 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel6.setText("Telefone");
 
+        txtTelefone.setDocument(new OnlyNumberFieldUtil(10));
         txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefoneActionPerformed(evt);
             }
         });
 
+        txtCelular.setDocument(new OnlyNumberFieldUtil(10));
+
         jLabel7.setText("Data Nascimento");
+
+        txtCpf.setDocument(new OnlyNumberFieldUtil(11));
+
+        txtRG.setDocument(new OnlyNumberFieldUtil(9));
 
         jLabel14.setText("RG");
 
@@ -201,6 +209,8 @@ public class CadastroCliente extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Endereço");
 
+        txtCEP.setDocument(new OnlyNumberFieldUtil(8));
+
         jLabel10.setText("Estado");
 
         jLabel11.setText("Numero");
@@ -212,6 +222,8 @@ public class CadastroCliente extends javax.swing.JDialog {
                 txtCidadeActionPerformed(evt);
             }
         });
+
+        txtNumero.setDocument(new OnlyNumberFieldUtil(5));
 
         CEP.setText("CEP");
 
