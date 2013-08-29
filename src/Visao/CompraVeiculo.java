@@ -9,6 +9,8 @@ import RN.CompraVeiculoRN;
 import Util.DataUtil;
 import Util.OnlyNumberFieldUtil;
 import Util.Util;
+import Wrapper.VeiculoWrapper;
+import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
 import java.util.Calendar;
 import java.util.List;
@@ -27,6 +29,7 @@ import model.Veiculo;
 public class CompraVeiculo extends javax.swing.JDialog {
 
     CompraVeiculoRN compraRN;
+    private ObjectTableModel <VeiculoWrapper> veiculoModel;
 
     /**
      * Creates new form CompraVeiculo
@@ -93,7 +96,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
         cmbCombustivel = new javax.swing.JComboBox();
         pListaVeiculos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbVeiculo = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnGravar = new javax.swing.JButton();
 
@@ -276,15 +279,15 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         pListaVeiculos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbVeiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+                {}
             },
             new String [] {
-                "Chassi", "AnoModelo", "AnoFabricação", "Modelo", "Combustivel", "Marca", "Kilometragem", "Valor"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbVeiculo);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Veiculos da Compra");
@@ -399,7 +402,11 @@ public class CompraVeiculo extends javax.swing.JDialog {
         
         return veiculo;
     }
-    
+    public void inicializaTabelaVeiculo(){
+        veiculoModel = new ObjectTableModel(VeiculoWrapper.class, "chassi,anoModelo,anoFabricacao,modelo,marca,quilometragem,valor");
+                veiculoModel.setData(compraRN.getVeiculoWrapperList());
+                tbVeiculo.setModel(veiculoModel);
+    }
     private void btnAdicionaVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionaVeiculoActionPerformed
         try{
             Veiculo veiculo = lePropriedadesVeiculoTela();
@@ -408,7 +415,8 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Carro Adicionado com Sucesso");
                 limpar();
                 btnGravar.setEnabled(true);
-                txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));  
+                txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));
+                inicializaTabelaVeiculo();        
             }else{                
                 String msgs = "Veiculo Inválido";
                 for (String msg : compraRN.getErrosValidacaoVeiculo()) {
@@ -435,6 +443,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
         }else{
             inicizalizar();
             JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
+            inicializaTabelaVeiculo();
         }
         
     }//GEN-LAST:event_btnGravarActionPerformed
@@ -458,11 +467,11 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pDadosCompras;
     private javax.swing.JPanel pDadosVeiculo;
     private javax.swing.JPanel pListaVeiculos;
     private javax.swing.JPanel pPrincipal;
+    private javax.swing.JTable tbVeiculo;
     private javax.swing.JTextField txtAnoFabricacao;
     private javax.swing.JTextField txtAnoModelo;
     private javax.swing.JTextField txtChassi;

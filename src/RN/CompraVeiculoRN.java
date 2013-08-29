@@ -7,6 +7,7 @@ package RN;
 import Persistencia.CombustivelPers;
 import Persistencia.CompraPers;
 import Util.DataUtil;
+import Wrapper.VeiculoWrapper;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class CompraVeiculoRN {
     public void setErrosValidacaoCompra(List<String> errosValidacaoCompra) {
         this.errosValidacaoCompra = errosValidacaoCompra;
     }
-    public Object popularTabelaVeiculo(){
+    public List popularTabelaVeiculo(){
         return compra.getVeiculos();
     }
     public boolean adicionaVeiculo(Veiculo veiculo, Double valor) {
@@ -151,5 +152,13 @@ public class CompraVeiculoRN {
     public Iterable<Combustivel> getListaCombustivel() {
         CombustivelPers combustivelPers = new CombustivelPers();
         return combustivelPers.getLista();
+    }
+    
+    public List<VeiculoWrapper> getVeiculoWrapperList() {
+        List<VeiculoWrapper> lista = new ArrayList<>();
+        for (int i = 0 ; i< compra.getVeiculos().size();i++) {
+            lista.add(new VeiculoWrapper(compra.getVeiculos().get(i)));
+        }
+        return lista;
     }
 }
