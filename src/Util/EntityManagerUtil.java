@@ -39,8 +39,12 @@ public class EntityManagerUtil {
     }
     
     public static void finalizaEntityManager(){
-        em.close();
-        emf.close();
+        if(em != null ){
+            em.close();
+        }
+        if(emf != null){
+            emf.close();
+        }
     }
     
     /* 

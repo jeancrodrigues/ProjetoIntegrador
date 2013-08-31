@@ -7,17 +7,12 @@ package Visao;
 import Exception.ClienteException;
 import RN.ClienteRN;
 import Wrapper.ClientePfWrapper;
-import com.towel.el.FieldResolver;
-import com.towel.el.annotation.AnnotationResolver;
 import com.towel.swing.table.ObjectTableModel;
-import javax.swing.JOptionPane;
-import model.Cliente;
-import sun.misc.Cleaner;
 /**
  *
  * @author Jean
  */
-public class BuscarCliente extends javax.swing.JDialog {
+public class BuscarCliente extends FrameDisposable {
     private static final long serialVersionUID = 1L;    
     private ClienteRN cliRN;
     private ObjectTableModel<ClientePfWrapper> clientesModel;
@@ -120,7 +115,7 @@ public class BuscarCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void windowClosedHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosedHandler
-        this.dispose();
+        
     }//GEN-LAST:event_windowClosedHandler
 
     private void btnClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClick

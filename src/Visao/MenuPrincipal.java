@@ -5,7 +5,7 @@
 package Visao;
 
 import Exception.ClienteException;
-import Util.ConexaoUtil;
+import Util.EntityManagerUtil;
 import javax.swing.JOptionPane;
 
 /**
@@ -251,7 +251,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarClientePJActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        ConexaoUtil.fechaConexao();
+        EntityManagerUtil.finalizaEntityManager();
     }//GEN-LAST:event_formWindowClosed
 
     /**
