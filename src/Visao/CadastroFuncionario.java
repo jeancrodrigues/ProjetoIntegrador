@@ -511,12 +511,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDataNascimentoActionPerformed
 
     private void txtDataNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataNascimentoFocusLost
-        try {
-            DataUtil.stringToDate( txtDataNascimento.getText() );
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Data Inválida");
-            txtDataNascimento.setText("");
-        }          
+       
     }//GEN-LAST:event_txtDataNascimentoFocusLost
 
 

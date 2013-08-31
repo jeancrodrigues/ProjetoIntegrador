@@ -8,6 +8,7 @@ import Exception.AnoVeiculoException;
 import RN.CompraVeiculoRN;
 import Util.DataUtil;
 import Util.OnlyNumberFieldUtil;
+import Util.OnlyUpperCaseUtil;
 import Util.Util;
 import Wrapper.VeiculoWrapper;
 import com.towel.swing.table.ObjectTableModel;
@@ -83,7 +84,6 @@ public class CompraVeiculo extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtChassi = new javax.swing.JTextField();
-        txtModelo = new javax.swing.JTextField();
         txtAnoModelo = new javax.swing.JTextField();
         txtAnoFabricacao = new javax.swing.JTextField();
         txtMarca = new javax.swing.JTextField();
@@ -92,6 +92,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
         txtValorVeiculo = new javax.swing.JTextField();
         btnAdicionaVeiculo = new javax.swing.JButton();
         cmbCombustivel = new javax.swing.JComboBox();
+        txtModelo = new javax.swing.JTextField();
         pListaVeiculos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVeiculo = new javax.swing.JTable();
@@ -200,6 +201,8 @@ public class CompraVeiculo extends javax.swing.JDialog {
             }
         });
 
+        txtModelo.setDocument(new OnlyUpperCaseUtil(30));
+
         javax.swing.GroupLayout pDadosVeiculoLayout = new javax.swing.GroupLayout(pDadosVeiculo);
         pDadosVeiculo.setLayout(pDadosVeiculoLayout);
         pDadosVeiculoLayout.setHorizontalGroup(
@@ -221,9 +224,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(pDadosVeiculoLayout.createSequentialGroup()
-                                        .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtChassi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                                            .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtChassi, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                                            .addComponent(txtModelo))
                                         .addGap(18, 18, 18)
                                         .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(pDadosVeiculoLayout.createSequentialGroup()
@@ -265,9 +268,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(cmbCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)

@@ -6,8 +6,10 @@ package RN;
 
 import Exception.ClienteException;
 import Persistencia.ClientePers;
+import Util.DataUtil;
 import Wrapper.ClientePfWrapper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Cliente;
 import model.PessoaFisica;
@@ -60,19 +62,23 @@ public class ClienteRN {
         errosValidacao = new ArrayList<>();        
         if(pf != null){            
             if(pf.getNome().trim().equals("")){
-                errosValidacao.add("Nome não pode ser vazio.");
+                errosValidacao.add("-  Nome não pode ser vazio.");
                 valido = false;
             }
-            if(pf.getCpf().trim().equals("")){
-                errosValidacao.add("Cpf não pode ser vazio.");
+            if(pf.getDatanascimento() == null){
+                errosValidacao.add("-  Data de Nascimento não pode ser vazio.");
+                valido = false;
+            }
+            if(pf.getCpf().endsWith(" ")){
+                errosValidacao.add("-  Cpf não pode ser vazio.");
                 valido = false;
             }
             if(pf.getRg().trim().equals("")){
-                errosValidacao.add("RG não pode ser vazio.");
+                errosValidacao.add("-  RG não pode ser vazio.");
                 valido = false;
             }
-            if(pf.getEndereco().getCep().trim().equals("")){
-                errosValidacao.add("Cep não pode ser vazio.");
+            if(pf.getEndereco().getCep().endsWith(" ")){
+                errosValidacao.add("-  Cep não pode ser vazio.");
                 valido = false;
             }
             return valido;

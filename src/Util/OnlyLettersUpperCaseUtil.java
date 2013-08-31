@@ -4,35 +4,28 @@
  */
 package Util;
 
-/**
- *
- * @author RAFAEL
- */
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
 /**
- * Restringe a digitação de apenas numeros em um componentes de texto como o
- * JTextField Uso: setDocument(new OnlyNumberField());
  *
- * @author Eduardo Costa - www.dimensaotech.com
- * 
-*/
-public class OnlyNumberFieldUtil extends PlainDocument {
+ * @author RAFAEL
+ */
+public class OnlyLettersUpperCaseUtil extends PlainDocument {
 
     private int maxlength;
-    
-    public OnlyNumberFieldUtil(int maxlength) {
+
+    public OnlyLettersUpperCaseUtil(int maxlength) {
         this.maxlength = maxlength;
     }
-    
-     @Override
+
+    @Override
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
         try {
             boolean fixedLengh = (!((getLength() + str.length()) > maxlength));
             if (maxlength == 0 || fixedLengh) {
-                super.insertString(offs, str.toUpperCase().replaceAll("[^0-9]", ""), a);
+                super.insertString(offs, str.toUpperCase().replaceAll("[^A-Z|^ a-z|^ ]", ""), a);
             }
         } catch (BadLocationException e) {
             e.printStackTrace();
