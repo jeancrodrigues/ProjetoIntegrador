@@ -29,6 +29,15 @@ public class CadastroCliente extends javax.swing.JDialog {
 
     private ClienteRN rn;
     
+    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, Cliente cliente){
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(component);
+        this.setVisible(visible);              
+        rn.setCliente(cliente);
+                
+    }
+    
     public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
         initComponents();
@@ -38,15 +47,6 @@ public class CadastroCliente extends javax.swing.JDialog {
     }
     
     public void limpar() {
-        
-//          doh , doesn't workauti
-//        for(Component c : getComponents()){
-//            System.out.println(c.getName());
-//            if(c instanceof JTextField){
-//                JTextField jtxt = (JTextField)c;
-//                jtxt.setText("");
-//            }
-//        }
         
         txtNome.setText(null);
         txtDataNascimento.setText(null);
@@ -387,7 +387,7 @@ public class CadastroCliente extends javax.swing.JDialog {
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         
         Cliente cli = rn.getCliente();
-        Endereco end = new Endereco();
+        Endereco end = cli.getEndereco();
         
         end.setLogradouro(txtRua.getText());
         end.setComplemento(txtComplemento.getText());

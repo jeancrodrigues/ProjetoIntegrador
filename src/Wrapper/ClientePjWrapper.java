@@ -13,6 +13,8 @@ import model.Cliente;
  * @author Jean
  */
 public class ClientePjWrapper {
+    private Integer id;
+    
     @Resolvable(colName="Nome Fantasia")
     private String nomeFantasia;
     @Resolvable(colName="Razão Social")
@@ -25,12 +27,14 @@ public class ClientePjWrapper {
     private String telefone2;
 
     public ClientePjWrapper(Cliente cliente) throws ClienteException {
-        if(cliente != null && !!cliente.isPessoaFisica()){
-           this.nomeFantasia = cliente.getPessoajuridica().getNomefantasia();
-           this.razaoSocial = cliente.getPessoajuridica().getRazaosocial();
-           this.telefone1 = cliente.getPessoajuridica().getTelefone1();
-           this.telefone2 = cliente.getPessoajuridica().getTelefone2();
-        }          
+        if(cliente != null && !cliente.isPessoaFisica()){
+            this.id = cliente.getIdcliente();
+            this.nomeFantasia = cliente.getPessoajuridica().getNomefantasia();
+            this.razaoSocial = cliente.getPessoajuridica().getRazaosocial();
+            this.cnpj = cliente.getPessoajuridica().getCnpj();
+            this.telefone1 = cliente.getPessoajuridica().getTelefone1();
+            this.telefone2 = cliente.getPessoajuridica().getTelefone2();
+        }        
     }    
 
     public String getNomeFantasia() {
@@ -52,4 +56,12 @@ public class ClientePjWrapper {
     public String getTelefone2() {
         return telefone2;
     }    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

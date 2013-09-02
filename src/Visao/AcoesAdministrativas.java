@@ -8,12 +8,12 @@ package Visao;
  *
  * @author rafael
  */
-public class AçõesAdministrativas extends javax.swing.JDialog {
+public class AcoesAdministrativas extends javax.swing.JDialog {
 
     /**
-     * Creates new form AçõesAdministrativas
+     * Creates new form AcoesAdministrativas
      */
-    public AçõesAdministrativas(java.awt.Frame parent, boolean modal) {
+    public AcoesAdministrativas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }

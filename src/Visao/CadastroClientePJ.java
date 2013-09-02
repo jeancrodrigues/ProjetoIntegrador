@@ -387,7 +387,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         end.setCidade(txtCidade.getText());
         end.setUf(txtEstado.getText());
         
-        cli.getPessoajuridica().setIdendereco(end);
+        cli.getPessoajuridica().setEndereco(end);
         cli.getPessoajuridica().setRazaosocial(txtRazaoSocial.getText());
         cli.getPessoajuridica().setNomefantasia(txtNomeFantasia.getText());
         cli.getPessoajuridica().setCnpj(txtCnpj.getText());

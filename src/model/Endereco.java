@@ -38,10 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Endereco.findByCep", query = "SELECT e FROM Endereco e WHERE e.cep = :cep")})
 public class Endereco implements Serializable {
     
-    @OneToMany(mappedBy = "idendereco")
-    private List<PessoaJuridica> pessoaJuridicaList;
-    private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -164,7 +160,11 @@ public class Endereco implements Serializable {
     public String toString() {
         return "Endereco{" + "idendereco=" + idendereco + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", uf=" + uf + ", complemento=" + complemento + ", cep=" + cep + '}';
     }
-
+    
+    @OneToMany(mappedBy = "endereco")
+    private List<PessoaJuridica> pessoaJuridicaList;
+    private static final long serialVersionUID = 1L;
+    
     @XmlTransient
     public List<PessoaJuridica> getPessoaJuridicaList() {
         return pessoaJuridicaList;

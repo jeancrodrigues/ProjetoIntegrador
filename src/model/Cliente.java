@@ -86,6 +86,13 @@ public class Cliente implements Serializable {
         this.idcliente = idcliente;
     }
 
+    public Endereco getEndereco() throws ClienteException{
+        if(isPessoaFisica()){
+            return pessoafisica.getEndereco();
+        }
+        return pessoajuridica.getEndereco();        
+    }
+    
     public Date getDatacadastro() {
         return datacadastro;
     }

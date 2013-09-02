@@ -23,11 +23,15 @@ public class ClienteRN {
     private ClientePers pers;
     private List <String> errosValidacao;
 
+    public ClienteRN() {
+        pers = new ClientePers();
+    }
+    
     public ClienteRN(boolean isPessoaFisica) {
         cliente = new Cliente(isPessoaFisica);
         pers = new ClientePers();
     }
-
+    
     public Cliente getCliente() {
         return cliente;
     }
@@ -102,7 +106,7 @@ public class ClienteRN {
                 errosValidacao.add("CNPJ não pode ser vazio.");
                 valido = false;
             }
-            if(pj.getIdendereco().getCep().trim().equals("")){
+            if(pj.getEndereco().getCep().trim().equals("")){
                 errosValidacao.add("Cep não pode ser vazio.");
                 valido = false;
             }
@@ -119,12 +123,20 @@ public class ClienteRN {
     public List<ClientePfWrapper> getClienteWrapperList() throws ClienteException {
         List<ClientePfWrapper> lista = new ArrayList<>();
         for (Cliente cliente : pers.getLista()) {
-            lista.add(new ClientePfWrapper(cliente));
+            if(cliente.isPessoaFisica()){
+                lista.add(new ClientePfWrapper(cliente));
+            }
         }
         return lista;
     }
 
-    public List<ClientePjWrapper> getClientePjWrapperList() {
-        return null;
+    public List<ClientePjWrapper> getClientePjWrapperList() throws ClienteException {
+        List<ClientePjWrapper> lista = new ArrayList<>();
+        for (Cliente cliente : pers.getLista()) {
+            if(!cliente.isPessoaFisica()){
+                lista.add(new ClientePjWrapper(cliente));
+            }
+        }
+        return lista;
     }
 }

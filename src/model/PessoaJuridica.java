@@ -66,10 +66,10 @@ public class PessoaJuridica implements Serializable, Pessoa {
     
     @JoinColumn(name = "idendereco", referencedColumnName = "idendereco")
     @ManyToOne  (cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    private Endereco idendereco;
+    private Endereco endereco;
 
     public PessoaJuridica() {
-        this.idendereco = new Endereco();
+        this.endereco = new Endereco();
     }
 
     public PessoaJuridica(Integer idpessoajuridica) {
@@ -124,12 +124,12 @@ public class PessoaJuridica implements Serializable, Pessoa {
         this.telefone2 = telefone2;
     }
 
-    public Endereco getIdendereco() {
-        return idendereco;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setIdendereco(Endereco idendereco) {
-        this.idendereco = idendereco;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override

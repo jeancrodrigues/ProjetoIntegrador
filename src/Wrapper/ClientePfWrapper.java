@@ -14,6 +14,8 @@ import model.Cliente;
  */
 public class ClientePfWrapper {
     
+    private Integer id;
+    
     @Resolvable(colName="Nome")
     private String nome;
     @Resolvable(colName="Cpf")
@@ -27,6 +29,7 @@ public class ClientePfWrapper {
 
     public ClientePfWrapper(Cliente cliente) throws ClienteException {
         if(cliente != null && cliente.isPessoaFisica()){
+           this.id = cliente.getIdcliente();
            this.nome = cliente.getPessoafisica().getNome();
            this.cpf = cliente.getPessoafisica().getCpf();
            this.rg = cliente.getPessoafisica().getRg();
@@ -53,5 +56,9 @@ public class ClientePfWrapper {
 
     public String getTelefone2() {
         return telefone2;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }
