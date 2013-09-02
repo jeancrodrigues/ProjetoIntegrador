@@ -4,13 +4,11 @@
  */
 package Visao;
 
-import Exception.AnoVeiculoException;
 import RN.CompraVeiculoRN;
 import Util.DataUtil;
 import Util.OnlyLettersUpperCaseUtil;
 import Util.OnlyNumberFieldUtil;
 import Util.OnlyUpperCaseUtil;
-import Util.Util;
 import Wrapper.VeiculoWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
@@ -33,7 +31,8 @@ import model.Veiculo;
  */
 public class CompraVeiculo extends javax.swing.JDialog {
 
-    CompraVeiculoRN compraRN;
+    private Compra compra;
+    private CompraVeiculoRN compraRN;
     private ObjectTableModel<VeiculoWrapper> veiculoModel;
 
     /**
@@ -56,6 +55,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
         txtValorTotalCompra.setText(null);
         txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
         btnGravar.setEnabled(false);
+        compra = compraRN.getCompra();
+        limparVeiculo();
+        limparCompra();
     }
 
     /**
@@ -95,20 +97,21 @@ public class CompraVeiculo extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtChassi = new javax.swing.JTextField();
-        txtAnoModelo = new javax.swing.JTextField();
-        txtAnoFabricacao = new javax.swing.JTextField();
         txtMarca = new javax.swing.JTextField();
-        txtKilometragem = new javax.swing.JTextField();
+        txtQuilometragem = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtValorVeiculo = new javax.swing.JTextField();
         btnAdicionaVeiculo = new javax.swing.JButton();
         cmbCombustivel = new javax.swing.JComboBox();
         txtModelo = new javax.swing.JTextField();
+        txtAnoModelo = new javax.swing.JFormattedTextField();
+        txtAnoFabricacao = new javax.swing.JFormattedTextField();
         pListaVeiculos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbVeiculo = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnGravar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Compra de Veiculos");
@@ -179,7 +182,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
                     .addGroup(pDadosComprasLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                        .addComponent(txtFuncionario))
                     .addGroup(pDadosComprasLayout.createSequentialGroup()
                         .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
@@ -250,7 +253,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         jLabel11.setText("Ano Fabricação");
 
-        jLabel12.setText("Kilometragem");
+        jLabel12.setText("Quilometragem");
 
         jLabel13.setText("Chassi");
 
@@ -258,11 +261,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         txtChassi.setDocument( new OnlyUpperCaseUtil(17));
 
-        txtAnoModelo.setDocument(new OnlyNumberFieldUtil(4));
-
-        txtAnoFabricacao.setDocument(new OnlyNumberFieldUtil(4));
-
         txtMarca.setDocument( new OnlyLettersUpperCaseUtil(20));
+
+        txtQuilometragem.setDocument( new OnlyNumberFieldUtil(6));
 
         jLabel15.setText("Valor");
 
@@ -280,6 +281,18 @@ public class CompraVeiculo extends javax.swing.JDialog {
         });
 
         txtModelo.setDocument(new OnlyUpperCaseUtil(30));
+
+        try {
+            txtAnoModelo.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("####")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CompraVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            txtAnoFabricacao.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("####")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CompraVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         javax.swing.GroupLayout pDadosVeiculoLayout = new javax.swing.GroupLayout(pDadosVeiculo);
         pDadosVeiculo.setLayout(pDadosVeiculoLayout);
@@ -300,7 +313,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel13))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                                         .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtChassi, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
@@ -310,26 +323,26 @@ public class CompraVeiculo extends javax.swing.JDialog {
                                             .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                                                 .addComponent(jLabel10)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(27, 27, 27)
                                                 .addComponent(jLabel11))
                                             .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                                                 .addComponent(jLabel14)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(cmbCombustivel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pDadosVeiculoLayout.createSequentialGroup()
                                         .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtKilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtValorVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                        .addComponent(txtValorVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pDadosVeiculoLayout.setVerticalGroup(
             pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,8 +353,8 @@ public class CompraVeiculo extends javax.swing.JDialog {
                     .addComponent(jLabel13)
                     .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(txtAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
+                    .addComponent(txtAnoModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pDadosVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -354,7 +367,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
                     .addComponent(jLabel9)
                     .addComponent(jLabel12)
                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtKilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(txtValorVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -383,7 +396,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
             pListaVeiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pListaVeiculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(pListaVeiculosLayout.createSequentialGroup()
                 .addComponent(jLabel2)
@@ -405,6 +418,13 @@ public class CompraVeiculo extends javax.swing.JDialog {
             }
         });
 
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pPrincipalLayout = new javax.swing.GroupLayout(pPrincipal);
         pPrincipal.setLayout(pPrincipalLayout);
         pPrincipalLayout.setHorizontalGroup(
@@ -417,12 +437,13 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pDadosCompras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pDadosVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pListaVeiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pListaVeiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pPrincipalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGravar)
-                .addGap(120, 120, 120))
         );
         pPrincipalLayout.setVerticalGroup(
             pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,7 +456,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pListaVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGravar)
+                .addGroup(pPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGravar)
+                    .addComponent(btnSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -458,21 +481,32 @@ public class CompraVeiculo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void limpar() {
+    public void limparVeiculo() {
         txtChassi.setText(null);
         txtAnoModelo.setText(null);
         txtAnoFabricacao.setText(null);
         txtModelo.setText(null);
         txtMarca.setText(null);
-        txtKilometragem.setText(null);
+        txtQuilometragem.setText(null);
         txtValorVeiculo.setText(null);
+        txtRazaoSocial.setText(null);
+        txtNomeFantasia.setText(null);
+        txtCNPJ.setText(null);
+        txtTelefone.setText(null);
+    }
+
+    public void limparCompra() {
+        txtRazaoSocial.setText(null);
+        txtNomeFantasia.setText(null);
+        txtCNPJ.setText(null);
+        txtTelefone.setText(null);
     }
 
     private Veiculo lePropriedadesVeiculoTela() throws NumberFormatException {
 
         int anoFabricacao = Integer.parseInt(txtAnoFabricacao.getText().trim());
         int anoModelo = Integer.parseInt(txtAnoModelo.getText().trim());
-        int quilometragem = Integer.parseInt(txtKilometragem.getText());
+        int quilometragem = Integer.parseInt(txtQuilometragem.getText());
 
         Veiculo veiculo = new Veiculo();
 
@@ -499,7 +533,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
             Double valorVeiculo = Double.parseDouble(txtValorVeiculo.getText().trim());
             if (compraRN.adicionaVeiculo(veiculo, valorVeiculo)) {
                 JOptionPane.showMessageDialog(this, "Carro Adicionado com Sucesso");
-                limpar();
+                limparVeiculo();
                 btnGravar.setEnabled(true);
                 txtValorTotalCompra.setText(String.valueOf(compraRN.getCompra().getValorcompra()));
                 inicializaTabelaVeiculo();
@@ -511,7 +545,20 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, msgs);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Dados do veículo inválidos.");
+            String msgs = "Campos Inválidos";
+            if (txtAnoFabricacao.getText().endsWith(" ")) {
+                msgs = msgs + "\n-Ano Fabricação";
+            }
+            if (txtAnoModelo.getText().endsWith(" ")) {
+                msgs = msgs + "\n-Ano Modelo ";
+            }
+            if (txtQuilometragem.getText().equals("")) {
+                msgs = msgs + "\n-Quilometragem ";
+            }
+            if (txtValorVeiculo.getText().equals("")) {
+                msgs = msgs + "\n-Valor ";
+            }
+            JOptionPane.showMessageDialog(this, msgs);
         }
     }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
 
@@ -526,22 +573,21 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
 
-        Compra compra = compraRN.getCompra();
+        if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {            
+            compra.setVendedor(lePessoaJuridica());
 
-        compra.setVendedor(lePessoaJuridica());
-
-        if (!compraRN.gravar()) {
-            String msgs = "Compra Inválida.";
-            for (String msg : (List<String>) compraRN.getErrosValidacaoCompra()) {
-                msgs = msgs + "\n" + msg;
+            if (!compraRN.gravar()) {
+                String msgs = "Compra Inválida.";
+                for (String msg : (List<String>) compraRN.getErrosValidacaoCompra()) {
+                    msgs = msgs + "\n" + msg;
+                }
+                JOptionPane.showMessageDialog(this, msgs);
+            } else {
+                inicizalizar();
+                JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
+                inicializaTabelaVeiculo();
             }
-            JOptionPane.showMessageDialog(this, msgs);
-        } else {
-            inicizalizar();
-            JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
-            inicializaTabelaVeiculo();
         }
-
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void cmbCombustivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCombustivelActionPerformed
@@ -551,9 +597,22 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private void txtNomeFantasiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeFantasiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeFantasiaActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        if (compra.getVeiculos().isEmpty()){
+            dispose();
+        }
+        else{
+            if(JOptionPane.showConfirmDialog(this, "Deseja Sair?") == 0){
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionaVeiculo;
     private javax.swing.JButton btnGravar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JComboBox cmbCombustivel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -580,16 +639,16 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private javax.swing.JPanel pListaVeiculos;
     private javax.swing.JPanel pPrincipal;
     private javax.swing.JTable tbVeiculo;
-    private javax.swing.JTextField txtAnoFabricacao;
-    private javax.swing.JTextField txtAnoModelo;
+    private javax.swing.JFormattedTextField txtAnoFabricacao;
+    private javax.swing.JFormattedTextField txtAnoModelo;
     private javax.swing.JFormattedTextField txtCNPJ;
     private javax.swing.JTextField txtChassi;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtFuncionario;
-    private javax.swing.JTextField txtKilometragem;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNomeFantasia;
+    private javax.swing.JTextField txtQuilometragem;
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JTextField txtValorTotalCompra;

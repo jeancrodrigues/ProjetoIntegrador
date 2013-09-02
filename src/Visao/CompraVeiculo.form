@@ -60,13 +60,14 @@
                       <Component id="pDadosCompras" alignment="1" max="32767" attributes="0"/>
                       <Component id="pDadosVeiculo" max="32767" attributes="0"/>
                       <Component id="pListaVeiculos" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnGravar" min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnSair" min="-2" pref="65" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnGravar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -81,7 +82,10 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="pListaVeiculos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnGravar" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnGravar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSair" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -119,7 +123,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtFuncionario" pref="187" max="32767" attributes="0"/>
+                              <Component id="txtFuncionario" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -309,7 +313,7 @@
                                           <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="txtChassi" pref="239" max="32767" attributes="0"/>
@@ -320,8 +324,8 @@
                                                   <Group type="102" attributes="0">
                                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="txtAnoModelo" min="-2" pref="76" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="txtAnoModelo" min="-2" pref="59" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
@@ -331,25 +335,25 @@
                                                   </Group>
                                               </Group>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txtAnoFabricacao" min="-2" pref="64" max="-2" attributes="0"/>
+                                              <Component id="txtAnoFabricacao" min="-2" pref="59" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="txtMarca" min="-2" pref="173" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txtKilometragem" min="-2" pref="118" max="-2" attributes="0"/>
+                                              <Component id="txtQuilometragem" min="-2" pref="118" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txtValorVeiculo" pref="122" max="32767" attributes="0"/>
+                                              <Component id="txtValorVeiculo" min="-2" pref="122" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -362,8 +366,8 @@
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtChassi" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAnoModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtAnoModelo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtAnoFabricacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -378,7 +382,7 @@
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtMarca" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtKilometragem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtQuilometragem" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtValorVeiculo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -420,7 +424,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Kilometragem"/>
+                <Property name="text" type="java.lang.String" value="Quilometragem"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
@@ -438,22 +442,15 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtChassi.setDocument( new OnlyUpperCaseUtil(17));"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtAnoModelo">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtAnoModelo.setDocument(new OnlyNumberFieldUtil(4));"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtAnoFabricacao">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtAnoFabricacao.setDocument(new OnlyNumberFieldUtil(4));"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JTextField" name="txtMarca">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtMarca.setDocument( new OnlyLettersUpperCaseUtil(20));"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtKilometragem">
+            <Component class="javax.swing.JTextField" name="txtQuilometragem">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtQuilometragem.setDocument( new OnlyNumberFieldUtil(6));"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
@@ -485,6 +482,16 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtModelo.setDocument(new OnlyUpperCaseUtil(30));"/>
               </AuxValues>
             </Component>
+            <Component class="javax.swing.JFormattedTextField" name="txtAnoModelo">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try {&#xa;        txtAnoModelo.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter(&quot;####&quot;)));&#xa;    } catch (ParseException ex) {&#xa;        Logger.getLogger(CompraVeiculo.class.getName()).log(Level.SEVERE, null, ex);&#xa;    }"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="txtAnoFabricacao">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="try {&#xa;        txtAnoFabricacao.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter(&quot;####&quot;)));&#xa;    } catch (ParseException ex) {&#xa;        Logger.getLogger(CompraVeiculo.class.getName()).log(Level.SEVERE, null, ex);&#xa;    }"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pListaVeiculos">
@@ -501,7 +508,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="609" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -560,6 +567,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGravarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSair">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sair"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

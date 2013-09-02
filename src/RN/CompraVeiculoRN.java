@@ -11,6 +11,7 @@ import Wrapper.VeiculoWrapper;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Combustivel;
@@ -36,7 +37,7 @@ public class CompraVeiculoRN {
         compra = new Compra();
         pers = new CompraPers();
     }
-    
+
     public CompraVeiculo getComprav() {
         return comprav;
     }
@@ -44,7 +45,7 @@ public class CompraVeiculoRN {
     public void setComprav(CompraVeiculo comprav) {
         this.comprav = comprav;
     }
-    
+
     public List<String> getErrosValidacaoVeiculo() {
         return errosValidacaoVeiculo;
     }
@@ -60,9 +61,11 @@ public class CompraVeiculoRN {
     public void setErrosValidacaoCompra(List<String> errosValidacaoCompra) {
         this.errosValidacaoCompra = errosValidacaoCompra;
     }
-    public List popularTabelaVeiculo(){
+
+    public List popularTabelaVeiculo() {
         return compra.getVeiculos();
     }
+
     public boolean adicionaVeiculo(Veiculo veiculo, Double valor) {
         comprav = new CompraVeiculo();
 
@@ -106,9 +109,10 @@ public class CompraVeiculoRN {
                 errosValidacaoCompra.add("Telefone não Pode ser vazio");
                 valida = false;
             }
+            return valida;
         }
         errosValidacaoCompra.add("Compra não pode ser nula");
-        return valida;
+        return false;
     }
 
     public Compra getCompra() {
@@ -139,6 +143,10 @@ public class CompraVeiculoRN {
                 errosValidacaoVeiculo.add("O Ano do Modelo é Superior ao Ano de fabricação.");
                 valido = false;
             }
+            if (veiculo.getAnofabricacao() > Calendar.getInstance().get(Calendar.YEAR)) {
+                errosValidacaoVeiculo.add("O ano de Fabricação não pode ser maior que o Ano Atual.");
+                valido = false;
+            }
             if (veiculo.getQuilometragem() < 0) {
                 errosValidacaoVeiculo.add("Quilometragem inválida.");
                 valido = false;
@@ -165,10 +173,10 @@ public class CompraVeiculoRN {
         CombustivelPers combustivelPers = new CombustivelPers();
         return combustivelPers.getLista();
     }
-    
+
     public List<VeiculoWrapper> getVeiculoWrapperList() {
         List<VeiculoWrapper> lista = new ArrayList<>();
-        for (int i = 0 ; i< compra.getVeiculos().size();i++) {
+        for (int i = 0; i < compra.getVeiculos().size(); i++) {
             lista.add(new VeiculoWrapper(compra.getVeiculos().get(i)));
         }
         return lista;
