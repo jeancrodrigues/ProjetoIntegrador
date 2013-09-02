@@ -20,11 +20,13 @@
     <class>model.PessoaFisica</class>
     <class>model.PessoaJuridica</class>
     <class>model.CompraVeiculo</class>
+    <class>model.TipoVeiculo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3366/locadoraveiculos?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="1234"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
   </persistence-unit>
 </persistence>

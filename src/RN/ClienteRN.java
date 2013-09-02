@@ -6,10 +6,9 @@ package RN;
 
 import Exception.ClienteException;
 import Persistencia.ClientePers;
-import Util.DataUtil;
+import Wrapper.ClientePjWrapper;
 import Wrapper.ClientePfWrapper;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import model.Cliente;
 import model.PessoaFisica;
@@ -123,5 +122,9 @@ public class ClienteRN {
             lista.add(new ClientePfWrapper(cliente));
         }
         return lista;
+    }
+
+    public List<ClientePjWrapper> getClientePjWrapperList() {
+        return null;
     }
 }
