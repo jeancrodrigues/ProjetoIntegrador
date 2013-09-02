@@ -7,19 +7,24 @@ package Visao;
 import Exception.AnoVeiculoException;
 import RN.CompraVeiculoRN;
 import Util.DataUtil;
+import Util.OnlyLettersUpperCaseUtil;
 import Util.OnlyNumberFieldUtil;
 import Util.OnlyUpperCaseUtil;
 import Util.Util;
 import Wrapper.VeiculoWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import model.Combustivel;
 import model.Compra;
+import model.PessoaJuridica;
 import model.Veiculo;
 
 /**
@@ -34,15 +39,13 @@ public class CompraVeiculo extends javax.swing.JDialog {
     /**
      * Creates new form CompraVeiculo
      */
-
-
     public CompraVeiculo(java.awt.Frame parent, boolean modal, boolean visible, Component component) {
         super(parent, modal);
         initComponents();
         inicizalizar();
         this.setLocationRelativeTo(component);
         this.setVisible(visible);
-        
+
     }
 
     public void inicizalizar() {
@@ -74,6 +77,14 @@ public class CompraVeiculo extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtFuncionario = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtRazaoSocial = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtNomeFantasia = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txtCNPJ = new javax.swing.JFormattedTextField();
+        jLabel19 = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JFormattedTextField();
         pDadosVeiculo = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -126,27 +137,78 @@ public class CompraVeiculo extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Dados Compra");
 
+        jLabel16.setText("Fornecedor");
+
+        txtRazaoSocial.setDocument(new OnlyUpperCaseUtil(30));
+
+        jLabel17.setText("Nome Fantasia");
+
+        txtNomeFantasia.setDocument( new OnlyUpperCaseUtil(30));
+        txtNomeFantasia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeFantasiaActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("CNPJ");
+
+        try {
+            txtCNPJ.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("##.###.###/####-##")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        jLabel19.setText("Telefone");
+
+        try {
+            txtTelefone.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("(###)####-####")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         javax.swing.GroupLayout pDadosComprasLayout = new javax.swing.GroupLayout(pDadosCompras);
         pDadosCompras.setLayout(pDadosComprasLayout);
         pDadosComprasLayout.setHorizontalGroup(
             pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pDadosComprasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtFuncionario)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtValorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
-            .addGroup(pDadosComprasLayout.createSequentialGroup()
                 .addComponent(jLabel7)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pDadosComprasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pDadosComprasLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                    .addGroup(pDadosComprasLayout.createSequentialGroup()
+                        .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRazaoSocial)
+                            .addComponent(txtCNPJ))))
+                .addGap(18, 18, 18)
+                .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pDadosComprasLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtValorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pDadosComprasLayout.createSequentialGroup()
+                        .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomeFantasia)
+                            .addGroup(pDadosComprasLayout.createSequentialGroup()
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(22, 22, 22))
         );
         pDadosComprasLayout.setVerticalGroup(
             pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +222,19 @@ public class CompraVeiculo extends javax.swing.JDialog {
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtValorTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17)
+                    .addComponent(txtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pDadosComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pDadosVeiculo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -182,9 +256,13 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         jLabel14.setText("Combustivel");
 
+        txtChassi.setDocument( new OnlyUpperCaseUtil(17));
+
         txtAnoModelo.setDocument(new OnlyNumberFieldUtil(4));
 
         txtAnoFabricacao.setDocument(new OnlyNumberFieldUtil(4));
+
+        txtMarca.setDocument( new OnlyLettersUpperCaseUtil(20));
 
         jLabel15.setText("Valor");
 
@@ -305,7 +383,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
             pListaVeiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pListaVeiculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(pListaVeiculosLayout.createSequentialGroup()
                 .addComponent(jLabel2)
@@ -315,8 +393,8 @@ public class CompraVeiculo extends javax.swing.JDialog {
             pListaVeiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pListaVeiculosLayout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -352,9 +430,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addGap(22, 22, 22)
                 .addComponent(pDadosCompras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(pDadosVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pListaVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGravar)
@@ -437,10 +515,20 @@ public class CompraVeiculo extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAdicionaVeiculoActionPerformed
 
+    private PessoaJuridica lePessoaJuridica() {
+        PessoaJuridica p = new PessoaJuridica();
+        p.setRazaosocial(txtRazaoSocial.getText());
+        p.setNomefantasia(txtNomeFantasia.getText());
+        p.setCnpj(txtCNPJ.getText());
+        p.setTelefone1(txtTelefone.getText());
+        return p;
+    }
+
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
+
         Compra compra = compraRN.getCompra();
 
-        compra.setDatacompra(Calendar.getInstance().getTime());
+        compra.setVendedor(lePessoaJuridica());
 
         if (!compraRN.gravar()) {
             String msgs = "Compra Inválida.";
@@ -459,6 +547,10 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private void cmbCombustivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCombustivelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCombustivelActionPerformed
+
+    private void txtNomeFantasiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeFantasiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeFantasiaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionaVeiculo;
     private javax.swing.JButton btnGravar;
@@ -470,6 +562,10 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -486,12 +582,16 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private javax.swing.JTable tbVeiculo;
     private javax.swing.JTextField txtAnoFabricacao;
     private javax.swing.JTextField txtAnoModelo;
+    private javax.swing.JFormattedTextField txtCNPJ;
     private javax.swing.JTextField txtChassi;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtFuncionario;
     private javax.swing.JTextField txtKilometragem;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
+    private javax.swing.JTextField txtNomeFantasia;
+    private javax.swing.JTextField txtRazaoSocial;
+    private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JTextField txtValorTotalCompra;
     private javax.swing.JTextField txtValorVeiculo;
     // End of variables declaration//GEN-END:variables

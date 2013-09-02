@@ -90,8 +90,20 @@ public class CompraVeiculoRN {
         boolean valida = true;
         errosValidacaoCompra = new ArrayList<>();
         if (compra != null) {
-            if (compra.getVeiculos().isEmpty()) {
-                errosValidacaoCompra.add("Pelo menos um Veiculo de ser Adicionado");
+            if (compra.getVendedor().getRazaosocial().equals("")) {
+                errosValidacaoCompra.add("Fornecedor não Pode ser vazio");
+                valida = false;
+            }
+            if (compra.getVendedor().getNomefantasia().equals("")) {
+                errosValidacaoCompra.add("Nome Fantasia não Pode ser vazio");
+                valida = false;
+            }
+            if (compra.getVendedor().getCnpj().endsWith(" ")) {
+                errosValidacaoCompra.add("CNPJ não Pode ser vazio");
+                valida = false;
+            }
+            if (compra.getVendedor().getRazaosocial().endsWith(" ")) {
+                errosValidacaoCompra.add("Telefone não Pode ser vazio");
                 valida = false;
             }
         }

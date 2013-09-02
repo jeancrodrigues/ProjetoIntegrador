@@ -57,7 +57,11 @@ public class Compra implements Serializable {
     @JoinColumn(name = "idcompra", referencedColumnName = "idcompra")
     @OneToMany(targetEntity=CompraVeiculo.class, fetch= FetchType.EAGER , cascade={CascadeType.MERGE, CascadeType.PERSIST} )
     private List<CompraVeiculo> veiculos;
-
+    
+    @JoinColumn(name = "idvendedor", referencedColumnName = "idpessoajuridica")
+    @ManyToOne(optional = false)
+    private PessoaJuridica vendedor;
+    
     public List<CompraVeiculo> getVeiculos() {
         return veiculos;
     }
@@ -134,6 +138,14 @@ public class Compra implements Serializable {
     @Override
     public String toString() {
         return "model.Compra[ idcompra=" + idcompra + " ]";
+    }
+
+    public PessoaJuridica getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(PessoaJuridica vendedor) {
+        this.vendedor = vendedor;
     }
     
 }
