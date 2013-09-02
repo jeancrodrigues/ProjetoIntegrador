@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -111,7 +110,6 @@ public class Locacao implements Serializable {
         this.datadevolucao = datadevolucao;
     }
 
-    @XmlTransient
     public List<Manutencao> getManutencaoList() {
         return manutencaoList;
     }

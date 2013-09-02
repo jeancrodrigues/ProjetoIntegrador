@@ -59,6 +59,21 @@ public class Promocao implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date datatermino;
     
+    @Column(name="descontodiario")
+    private Integer porcentagemDescontoDiario ;
+
+    @Column(name="descontosemanal")
+    private Integer porcentagemDescontoSemanal ;
+
+    @Column(name="descontomensal")
+    private Integer porcentagemDescontoMensal ;
+
+    @Column(name="descontoquilometro")
+    private Integer porcentagemDescontoQuilometro;
+
+    @Column(name="quilometragemmaxima")
+    private Integer quilometragemMaxima;
+    
     @OneToMany(mappedBy = "promocao")
     private List<Pagamento> pagamentoList;
 
@@ -141,6 +156,45 @@ public class Promocao implements Serializable {
     @Override
     public String toString() {
         return "model.Promocao[ idpromocao=" + idpromocao + " ]";
+    }    
+
+    public Integer getPorcentagemDescontoDiario() {
+        return porcentagemDescontoDiario;
     }
-    
+
+    public void setPorcentagemDescontoDiario(Integer porcentagemDescontoDiario) {
+        this.porcentagemDescontoDiario = porcentagemDescontoDiario;
+    }
+
+    public Integer getPorcentagemDescontoSemanal() {
+        return porcentagemDescontoSemanal;
+    }
+
+    public void setPorcentagemDescontoSemanal(Integer porcentagemDescontoSemanal) {
+        this.porcentagemDescontoSemanal = porcentagemDescontoSemanal;
+    }
+
+    public Integer getPorcentagemDescontoMensal() {
+        return porcentagemDescontoMensal;
+    }
+
+    public void setPorcentagemDescontoMensal(Integer porcentagemDescontoMensal) {
+        this.porcentagemDescontoMensal = porcentagemDescontoMensal;
+    }
+
+    public Integer getPorcentagemDescontoQuilometro() {
+        return porcentagemDescontoQuilometro;
+    }
+
+    public void setPorcentagemDescontoQuilometro(Integer porcentagemDescontoQuilometro) {
+        this.porcentagemDescontoQuilometro = porcentagemDescontoQuilometro;
+    }
+
+    public Integer getQuilometragemMaxima() {
+        return quilometragemMaxima;
+    }
+
+    public void setQuilometragemMaxima(Integer quilometragemMaxima) {
+        this.quilometragemMaxima = quilometragemMaxima;
+    }
 }

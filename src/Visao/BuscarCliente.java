@@ -4,6 +4,7 @@
  */
 package Visao;
 
+import Wrapper.ClientePjWrapper;
 import Exception.ClienteException;
 import RN.ClienteRN;
 import Wrapper.ClientePfWrapper;
@@ -16,13 +17,19 @@ public class BuscarCliente extends FrameDisposable {
     private static final long serialVersionUID = 1L;    
     private ClienteRN cliRN;
     private ObjectTableModel<ClientePfWrapper> clientesModel;
+    private ObjectTableModel<ClientePjWrapper> clientesPjModel;
     
     public BuscarCliente(java.awt.Frame parent, boolean modal) throws ClienteException{
         super(parent, modal);
         initComponents();  
         cliRN = new ClienteRN(true);
         clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
+        clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
+        
+        
         clientesModel.setData(cliRN.getClienteWrapperList());
+        clientesPjModel.setData(cliRN.getClientePjWrapperList());        
+        
         tbClientes.setModel(clientesModel);        
     }   
     
@@ -38,6 +45,9 @@ public class BuscarCliente extends FrameDisposable {
         txtCpf = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jTabbedPane4 = new javax.swing.JTabbedPane();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -51,14 +61,6 @@ public class BuscarCliente extends FrameDisposable {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                windowClosedHandler(evt);
-            }
-        });
 
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,9 +77,20 @@ public class BuscarCliente extends FrameDisposable {
         });
         jScrollPane2.setViewportView(tbClientes);
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                windowClosedHandler(evt);
+            }
+        });
+
         jLabel1.setText("Nome");
 
         jLabel2.setText("Cpf");
+
+        jTabbedPane2.addTab("Clientes Pessoa Fisica", jTabbedPane3);
+        jTabbedPane2.addTab("Clientes Pessoa Juridica", jTabbedPane4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +99,7 @@ public class BuscarCliente extends FrameDisposable {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -95,21 +108,21 @@ public class BuscarCliente extends FrameDisposable {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 325, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -127,6 +140,9 @@ public class BuscarCliente extends FrameDisposable {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tbClientes;
     private javax.swing.JTextField txtCpf;
