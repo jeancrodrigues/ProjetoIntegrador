@@ -24,7 +24,6 @@ public class FuncionarioPers extends BasePers implements IPersistencia<Funcionar
         beginTransaction();
         getEm().merge(func);
         commitTransaction();
-        JOptionPane.showMessageDialog(null, "Funcionário Salvo com Sucesso!");
         return null;
        
     }
