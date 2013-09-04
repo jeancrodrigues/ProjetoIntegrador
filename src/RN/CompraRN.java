@@ -48,8 +48,5 @@ public class CompraRN {
    public void setCompraById(Integer id) {
         compra = pers.procurarPorId(id);
     }
-   
-   
-    
     
 }
