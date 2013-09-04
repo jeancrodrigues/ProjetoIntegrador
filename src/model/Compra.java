@@ -50,6 +50,18 @@ public class Compra implements Serializable {
     @Column(name = "datacompra")
     @Temporal(TemporalType.DATE)
     private Date datacompra;
+
+    public Date getDataautorizacao() {
+        return dataautorizacao;
+    }
+
+    public void setDataautorizacao(Date dataautorizacao) {
+        this.dataautorizacao = dataautorizacao;
+    }
+    
+    @Column(name = "dataautorizacao")
+    @Temporal(TemporalType.DATE)
+    private Date dataautorizacao;
     
     @Column(name = "valorcompra")
     private Double valorcompra;

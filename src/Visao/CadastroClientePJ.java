@@ -6,12 +6,18 @@ package Visao;
 
 import RN.ClienteRN;
 import Util.DataUtil;
+import Util.OnlyLettersUpperCaseUtil;
 import Util.OnlyNumberFieldUtil;
+import Util.OnlyUpperCaseUtil;
 import java.awt.Component;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import model.Cliente;
 import model.Endereco;
 
@@ -62,13 +68,12 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtTelefone2 = new javax.swing.JTextField();
-        txtTelefone1 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtCnpj = new javax.swing.JTextField();
+        txtCnpj = new javax.swing.JFormattedTextField();
+        txtTelefone1 = new javax.swing.JFormattedTextField();
+        txtTelefone2 = new javax.swing.JFormattedTextField();
         jpDaDosFuncinario1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        txtCEP = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -82,8 +87,10 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         txtRua = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
+        txtCEP = new javax.swing.JFormattedTextField();
         btnGravar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes - Pessoa Fisíca");
@@ -94,6 +101,9 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Dados Pessoais");
 
+        txtNomeFantasia.setDocument(new OnlyLettersUpperCaseUtil(50));
+
+        txtRazaoSocial.setDocument(new OnlyLettersUpperCaseUtil(50));
         txtRazaoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRazaoSocialActionPerformed(evt);
@@ -104,48 +114,36 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
         jLabel4.setText("CNPJ");
 
-        jLabel5.setText("Telefone 1");
+        jLabel5.setText("Celular");
 
         jLabel6.setText("Telefone 2");
 
-        txtTelefone2.setDocument(new OnlyNumberFieldUtil(10));
-        txtTelefone2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefone2ActionPerformed(evt);
-            }
-        });
-
-        txtTelefone1.setDocument(new OnlyNumberFieldUtil(10));
-
         jLabel7.setText("Nome Fantasia");
 
-        txtCnpj.setDocument(new OnlyNumberFieldUtil(14));
+        try {
+            txtCnpj.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("##.###.###/####-##")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroClientePJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            txtTelefone1.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("(###)####-####")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroClientePJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            txtTelefone2.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("(###)####-####")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroClientePJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         javax.swing.GroupLayout jpDaDosFuncinarioLayout = new javax.swing.GroupLayout(jpDaDosFuncinario);
         jpDaDosFuncinario.setLayout(jpDaDosFuncinarioLayout);
         jpDaDosFuncinarioLayout.setHorizontalGroup(
             jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(30, 30, 30)
-                .addComponent(txtTelefone1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTelefone2)
-                .addGap(49, 49, 49))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpDaDosFuncinarioLayout.createSequentialGroup()
                 .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDaDosFuncinarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNomeFantasia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDaDosFuncinarioLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +151,27 @@ public class CadastroClientePJ extends javax.swing.JDialog {
                             .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(23, 23, 23)
-                                .addComponent(txtRazaoSocial)))))
+                                .addComponent(txtRazaoSocial))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpDaDosFuncinarioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
+                                .addComponent(txtTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTelefone2))
+                            .addGroup(jpDaDosFuncinarioLayout.createSequentialGroup()
+                                .addComponent(txtNomeFantasia)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)))
                 .addGap(18, 18, 18))
         );
         jpDaDosFuncinarioLayout.setVerticalGroup(
@@ -170,15 +188,14 @@ public class CadastroClientePJ extends javax.swing.JDialog {
                     .addComponent(jLabel7)
                     .addComponent(txtNomeFantasia)
                     .addComponent(jLabel4)
-                    .addComponent(txtCnpj))
+                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(txtTelefone1))
+                    .addComponent(jLabel5)
                     .addGroup(jpDaDosFuncinarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(txtTelefone2)))
+                        .addComponent(txtTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14))
         );
 
@@ -187,14 +204,13 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Endereço");
 
-        txtCEP.setDocument(new OnlyNumberFieldUtil(8));
-
         jLabel10.setText("Estado");
 
         jLabel11.setText("Numero");
 
         jLabel12.setText("Cidade");
 
+        txtCidade.setDocument(new OnlyUpperCaseUtil(50));
         txtCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCidadeActionPerformed(evt);
@@ -213,6 +229,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
         jLabel15.setText("Complemento");
 
+        txtComplemento.setDocument(new OnlyUpperCaseUtil(50));
         txtComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtComplementoActionPerformed(evt);
@@ -221,6 +238,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
         jLabel9.setText("Logradouro");
 
+        txtRua.setDocument(new OnlyUpperCaseUtil(50));
         txtRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRuaActionPerformed(evt);
@@ -229,11 +247,18 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
         jLabel13.setText("Bairro");
 
+        txtBairro.setDocument(new OnlyUpperCaseUtil(50));
         txtBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBairroActionPerformed(evt);
             }
         });
+
+        try {
+            txtCEP.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("#####-###")));
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroClientePJ.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         javax.swing.GroupLayout jpDaDosFuncinario1Layout = new javax.swing.GroupLayout(jpDaDosFuncinario1);
         jpDaDosFuncinario1.setLayout(jpDaDosFuncinario1Layout);
@@ -256,7 +281,6 @@ public class CadastroClientePJ extends javax.swing.JDialog {
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpDaDosFuncinario1Layout.createSequentialGroup()
                                 .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -267,7 +291,8 @@ public class CadastroClientePJ extends javax.swing.JDialog {
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jpDaDosFuncinario1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel8)))
@@ -278,9 +303,9 @@ public class CadastroClientePJ extends javax.swing.JDialog {
             .addGroup(jpDaDosFuncinario1Layout.createSequentialGroup()
                 .addComponent(jLabel8)
                 .addGap(9, 9, 9)
-                .addGroup(jpDaDosFuncinario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CEP))
+                .addGroup(jpDaDosFuncinario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CEP)
+                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jpDaDosFuncinario1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel9)
@@ -313,6 +338,13 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Cadastro de Clientes Pessoa Juridica");
 
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -327,7 +359,9 @@ public class CadastroClientePJ extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGravar)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +373,9 @@ public class CadastroClientePJ extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpDaDosFuncinario1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGravar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGravar)
+                    .addComponent(btnSair))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -349,10 +385,6 @@ public class CadastroClientePJ extends javax.swing.JDialog {
     private void txtRazaoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRazaoSocialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRazaoSocialActionPerformed
-
-    private void txtTelefone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefone2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefone2ActionPerformed
 
     private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
         // TODO add your handling code here:
@@ -405,9 +437,15 @@ public class CadastroClientePJ extends javax.swing.JDialog {
             limpar();
         }              
     }//GEN-LAST:event_btnGravarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+       dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CEP;
     private javax.swing.JButton btnGravar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -425,17 +463,17 @@ public class CadastroClientePJ extends javax.swing.JDialog {
     private javax.swing.JPanel jpDaDosFuncinario;
     private javax.swing.JPanel jpDaDosFuncinario1;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCEP;
+    private javax.swing.JFormattedTextField txtCEP;
     private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNomeFantasia;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JTextField txtRua;
-    private javax.swing.JTextField txtTelefone1;
-    private javax.swing.JTextField txtTelefone2;
+    private javax.swing.JFormattedTextField txtTelefone1;
+    private javax.swing.JFormattedTextField txtTelefone2;
     // End of variables declaration//GEN-END:variables
 
     

@@ -8,7 +8,6 @@ import Exception.ClienteException;
 import RN.ClienteRN;
 import Util.DataUtil;
 import Util.OnlyNumberFieldUtil;
-import Util.OnlyLettersUpperCaseUtil;
 import Util.OnlyUpperCaseUtil;
 import java.awt.Component;
 import java.text.ParseException;
@@ -107,7 +106,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Pessoais"));
 
-        txtNome.setDocument(new OnlyLettersUpperCaseUtil(30));
+        txtNome.setDocument(new Util.OnlyLettersUpperCaseUtil(50));
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
@@ -218,7 +217,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel12.setText("Cidade");
 
-        txtCidade.setDocument(new OnlyUpperCaseUtil(30));
+        txtCidade.setDocument(new OnlyUpperCaseUtil(40));
         txtCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCidadeActionPerformed(evt);
@@ -237,7 +236,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel15.setText("Complemento");
 
-        txtComplemento.setDocument(new OnlyUpperCaseUtil(15));
+        txtComplemento.setDocument(new OnlyUpperCaseUtil(40));
         txtComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtComplementoActionPerformed(evt);
@@ -246,7 +245,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel9.setText("Logradouro");
 
-        txtRua.setDocument(new OnlyUpperCaseUtil(30));
+        txtRua.setDocument(new OnlyUpperCaseUtil(50));
         txtRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRuaActionPerformed(evt);
@@ -255,7 +254,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel13.setText("Bairro");
 
-        txtBairro.setDocument(new OnlyUpperCaseUtil(30));
+        txtBairro.setDocument(new OnlyUpperCaseUtil(40));
         txtBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBairroActionPerformed(evt);
@@ -265,7 +264,7 @@ public class CadastroCliente extends javax.swing.JDialog {
         try {
             txtCEP.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("#####-###")));
         } catch (ParseException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroClientePJ.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         javax.swing.GroupLayout jpDaDosFuncinario1Layout = new javax.swing.GroupLayout(jpDaDosFuncinario1);
@@ -465,7 +464,7 @@ public class CadastroCliente extends javax.swing.JDialog {
     private javax.swing.JPanel jpDaDosFuncinario;
     private javax.swing.JPanel jpDaDosFuncinario1;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JFormattedTextField txtCEP;
+    public javax.swing.JFormattedTextField txtCEP;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtComplemento;
