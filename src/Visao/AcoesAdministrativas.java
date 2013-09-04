@@ -8,7 +8,6 @@ import RN.CompraRN;
 import Wrapper.CompraWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -150,7 +149,6 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
 
     private void btnAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorizarActionPerformed
         rn.autorizarCompraSelecionada();
-        JOptionPane.showMessageDialog(this, "hahahah this thing is fuc*** crazy");
     }//GEN-LAST:event_btnAutorizarActionPerformed
 
     /**
