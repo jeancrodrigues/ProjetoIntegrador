@@ -5,7 +5,7 @@
 package Persistencia;
 
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.persistence.Query;
 import model.Compra;
 
 /**
@@ -39,7 +39,9 @@ public class CompraPers extends BasePers implements IPersistencia<Compra> {
 
     @Override
     public Compra procurarPorId(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Query query = getEm().createNamedQuery("Compra.findByIdcompra");
+        query.setParameter("idcompra", id);
+        return (Compra)query.getSingleResult();
     }
 
     @Override

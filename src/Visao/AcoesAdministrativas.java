@@ -8,6 +8,8 @@ import RN.CompraRN;
 import Wrapper.CompraWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -19,6 +21,7 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
      * Creates new form AcoesAdministrativas
      */
     private CompraRN rn;
+    private int codigoCompraSelecionada;
     private ObjectTableModel<CompraWrapper> comprasModel;
     
     public AcoesAdministrativas(java.awt.Frame parent,boolean modal, boolean visible, Component component) {
@@ -35,30 +38,10 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
         comprasModel.setData(rn.getCompraWrapperList());
         tbCompra.setModel(comprasModel);
     }
-private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {                                              
-//        switch(JTabCompraVenda.getSelectedIndex()){
-//            case 0:{                
-//                if(tbCompra.getSelectedRow()>-1){
-//                    CompraWrapper c = comprasModel.getValue(tbCompra.getSelectedRow());
-//                    rn.setClienteById(c.getId());                    
-//                    setVisible(false);
-//                }else{
-//                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
-//                }
-//            };
-//            break;
-//            case 1:{
-//                if(tbClientesPj.getSelectedRow()>-1){
-//                    ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
-//                    cliRN.setClienteById(pj.getId());
-//                    setVisible(false);
-//                }else{
-//                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
-//                }
-//            };
-//            break;
-//        }
-    }                                             
+    
+    void setarCompraSelecionada(int row){
+        rn.setCompraById(comprasModel.getValue(row).getId());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +57,7 @@ private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCompra = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnAutorizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,6 +73,14 @@ private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {
             }
         ));
         jScrollPane1.setViewportView(tbCompra);
+        tbCompra.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent evt) {
+                if (evt.getValueIsAdjusting())
+                return;
+                setarCompraSelecionada(tbCompra.getSelectedRow());
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +114,12 @@ private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {
 
         JTabCompraVenda.addTab("Vendas", jPanel2);
 
-        jButton1.setText("Autorizar");
+        btnAutorizar.setText("Autorizar");
+        btnAutorizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutorizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,8 +131,8 @@ private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(127, 127, 127))
+                .addComponent(btnAutorizar)
+                .addGap(123, 123, 123))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,12 +140,16 @@ private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {
                 .addContainerGap()
                 .addComponent(JTabCompraVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnAutorizar)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorizarActionPerformed
+        rn.autorizarCompraSelecionada();
+    }//GEN-LAST:event_btnAutorizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,7 +158,7 @@ private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane JTabCompraVenda;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAutorizar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

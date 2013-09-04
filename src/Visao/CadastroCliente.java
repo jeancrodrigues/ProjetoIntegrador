@@ -7,6 +7,7 @@ package Visao;
 import Exception.ClienteException;
 import RN.ClienteRN;
 import Util.DataUtil;
+import Util.MaskFieldUtil;
 import Util.OnlyNumberFieldUtil;
 import Util.OnlyUpperCaseUtil;
 import java.awt.Component;
@@ -104,7 +105,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Pessoais"));
 
-        txtNome.setDocument(new Util.OnlyLettersUpperCaseUtil(50));
+        txtNome.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK , 50, true));
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
