@@ -6,7 +6,6 @@ package Persistencia;
 
 import java.util.List;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 import model.Compra;
 
 /**

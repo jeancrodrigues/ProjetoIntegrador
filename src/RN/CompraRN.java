@@ -8,6 +8,7 @@ import model.Compra;
 import Persistencia.CompraPers;
 import Wrapper.CompraWrapper;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 /**
  *
@@ -15,7 +16,8 @@ import java.util.List;
  */
 public class CompraRN {
    private CompraPers pers;
-
+   private Compra compra;
+   
     public CompraRN() {
         pers = new CompraPers();
     }
@@ -43,9 +45,12 @@ public class CompraRN {
     public void setCompra(Compra compra) {
         this.compra = compra;
     }
-   private Compra compra;
    
    public void setCompraById(Integer id) {
         compra = pers.procurarPorId(id);
+    }
+
+    public void autorizarCompraSelecionada() {
+     compra.setDataautorizacao(Calendar.getInstance().getTime());
     }
 }
