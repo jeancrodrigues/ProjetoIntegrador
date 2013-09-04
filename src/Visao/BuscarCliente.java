@@ -9,30 +9,51 @@ import Exception.ClienteException;
 import RN.ClienteRN;
 import Wrapper.ClientePfWrapper;
 import com.towel.swing.table.ObjectTableModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Cliente;
 /**
  *
  * @author Jean
  */
-public class BuscarCliente extends FrameDisposable {
+public class BuscarCliente extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;    
+    
+    private Cliente clienteSelecionado;
     private ClienteRN cliRN;
     private ObjectTableModel<ClientePfWrapper> clientesModel;
     private ObjectTableModel<ClientePjWrapper> clientesPjModel;
     
-    public BuscarCliente(java.awt.Frame parent, boolean modal) throws ClienteException{
-        super(parent, modal);
+    public BuscarCliente(javax.swing.JFrame parent, boolean modal) throws ClienteException{
+        super();
         initComponents();  
+        clienteSelecionado = null;
         cliRN = new ClienteRN();
-        clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
-        clientesPjModel = new ObjectTableModel(ClientePjWrapper.class, "nomeFantasia,razaoSocial,cnpj,telefone1,telefone2");
-                
-        clientesModel.setData(cliRN.getClienteWrapperList());
-        clientesPjModel.setData(cliRN.getClientePjWrapperList());        
-        
-        tbClientes.setModel(clientesModel);        
-        tbClientesPj.setModel(clientesPjModel);
+        inicializaTableModelPf();
+        inicializaTableModelPj();        
     }   
+    
+    private void inicializaTableModelPf(){
+        
+        try {
+            clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
+            clientesModel.setData(cliRN.getClienteWrapperList());        
+            tbClientes.setModel(clientesModel);
+        } catch (ClienteException ex) {
+            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void inicializaTableModelPj(){
+        try {
+            clientesPjModel = new ObjectTableModel(ClientePjWrapper.class, "nomeFantasia,razaoSocial,cnpj,telefone1,telefone2");
+            clientesPjModel.setData(cliRN.getClientePjWrapperList());
+            tbClientesPj.setModel(clientesPjModel);
+        } catch (ClienteException ex) {
+            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,6 +72,7 @@ public class BuscarCliente extends FrameDisposable {
         btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Busca de clientes");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -122,6 +144,11 @@ public class BuscarCliente extends FrameDisposable {
         });
 
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
 
@@ -167,21 +194,36 @@ public class BuscarCliente extends FrameDisposable {
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         switch(jTabCliente.getSelectedIndex()){
             case 0:{                
-                ClientePfWrapper pf = clientesModel.getValue(tbClientes.getSelectedRow());
-                JOptionPane.showMessageDialog(this, pf.getId() + " " + pf.getNome());
+                if(tbClientes.getSelectedRow()>-1){
+                    ClientePfWrapper pf = clientesModel.getValue(tbClientes.getSelectedRow());
+                    cliRN.setClienteById(pf.getId());                    
+                    setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
+                }
             };
             break;
             case 1:{
-                ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
-                JOptionPane.showMessageDialog(this, pj.getId() + " " + pj.getNomeFantasia());
+                if(tbClientesPj.getSelectedRow()>-1){
+                    ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
+                    cliRN.setClienteById(pj.getId());
+                    setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
+                }
             };
             break;
         }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.dispose();
+
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        Cliente cliente = new Cliente();
+        CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null , cliRN);
+    }//GEN-LAST:event_btnNovoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -196,4 +238,12 @@ public class BuscarCliente extends FrameDisposable {
     private javax.swing.JTable tbClientes;
     private javax.swing.JTable tbClientesPj;
     // End of variables declaration//GEN-END:variables
+
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
+    }
+
+    public void setClienteSelecionado(Cliente clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
+    }
 }

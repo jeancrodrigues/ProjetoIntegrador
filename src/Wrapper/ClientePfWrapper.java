@@ -12,10 +12,8 @@ import model.Cliente;
  *
  * @author Jean
  */
-public class ClientePfWrapper {
-    
-    private Integer id;
-    
+public class ClientePfWrapper extends DefaultWrapper{
+        
     @Resolvable(colName="Nome")
     private String nome;
     @Resolvable(colName="Cpf")

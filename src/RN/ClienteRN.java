@@ -139,4 +139,8 @@ public class ClienteRN {
         }
         return lista;
     }
+
+    public void setClienteById(Integer id) {
+        cliente = pers.procurarPorId(id);
+    }
 }

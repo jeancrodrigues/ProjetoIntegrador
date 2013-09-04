@@ -4,6 +4,7 @@
  */
 package Visao;
 
+import Exception.ClienteException;
 import RN.ClienteRN;
 import Util.DataUtil;
 import Util.OnlyNumberFieldUtil;
@@ -28,15 +29,7 @@ import model.Endereco;
 public class CadastroCliente extends javax.swing.JDialog {
 
     private ClienteRN rn;
-    
-    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, Cliente cliente){
-        super(parent, modal);
-        initComponents();
-        this.setLocationRelativeTo(component);
-        this.setVisible(visible);              
-        rn.setCliente(cliente);
-                
-    }
+    private Cliente cli;
     
     public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
@@ -44,6 +37,12 @@ public class CadastroCliente extends javax.swing.JDialog {
         rn = new ClienteRN(true);
         this.setLocationRelativeTo(component);
         this.setVisible(visible);      
+    }
+    
+    
+    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN rn){
+        this(parent, modal,visible,component);        
+        this.rn = rn;
     }
     
     public void limpar() {
@@ -385,43 +384,46 @@ public class CadastroCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-        
-        Cliente cli = rn.getCliente();
-        Endereco end = cli.getEndereco();
-        
-        end.setLogradouro(txtRua.getText());
-        end.setComplemento(txtComplemento.getText());
-        end.setNumero(txtNumero.getText());
-        end.setCep(txtCEP.getText());
-        end.setBairro(txtBairro.getText());
-        end.setCidade(txtCidade.getText());
-        end.setUf(txtEstado.getText());
-        
-        cli.getPessoafisica().setEndereco(end);
-        cli.getPessoafisica().setNome(txtNome.getText());
-        cli.getPessoafisica().setCpf(txtCpf.getText());
-        cli.getPessoafisica().setRg(txtRG.getText());
-        cli.getPessoafisica().setTelefone1(txtCelular.getText());
-        cli.getPessoafisica().setTelefone2(txtTelefone.getText());
-
         try {
-            Date dataNascimento = DataUtil.stringToDate(txtDataNascimento.getText());
-            System.out.println(dataNascimento.toString());
-            cli.getPessoafisica().setDatanascimento(dataNascimento);
-        } catch (ParseException ex) {
+            cli = rn.getCliente();        
+            Endereco end = cli.getEndereco();
+            
+            end.setLogradouro(txtRua.getText());
+            end.setComplemento(txtComplemento.getText());
+            end.setNumero(txtNumero.getText());
+            end.setCep(txtCEP.getText());
+            end.setBairro(txtBairro.getText());
+            end.setCidade(txtCidade.getText());
+            end.setUf(txtEstado.getText());
+            
+            cli.getPessoafisica().setEndereco(end);
+            cli.getPessoafisica().setNome(txtNome.getText());
+            cli.getPessoafisica().setCpf(txtCpf.getText());
+            cli.getPessoafisica().setRg(txtRG.getText());
+            cli.getPessoafisica().setTelefone1(txtCelular.getText());
+            cli.getPessoafisica().setTelefone2(txtTelefone.getText());
 
-        }
-        
-        if(!rn.gravar(true)){
-            String msgs= "Cliente inválido";
-            for(String msg: (List<String>)rn.getErrosValidacao()){
-                msgs = msgs + "\n" + msg;
+            try {
+                Date dataNascimento = DataUtil.stringToDate(txtDataNascimento.getText());
+                System.out.println(dataNascimento.toString());
+                cli.getPessoafisica().setDatanascimento(dataNascimento);
+            } catch (ParseException ex) {
             }
-            JOptionPane.showMessageDialog(this , msgs);
-        }else{
-            limpar();
-            JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");
-        }              
+            
+            if(!rn.gravar(true)){
+                String msgs= "Cliente inválido";
+                for(String msg: (List<String>)rn.getErrosValidacao()){
+                    msgs = msgs + "\n" + msg;              
+                }
+                JOptionPane.showMessageDialog(this , msgs);
+            }else{
+                limpar();
+                JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");
+            }
+        } catch (ClienteException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao salvar Cliente!");
+        }
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
