@@ -4,7 +4,6 @@
  */
 package Wrapper;
 
-import Exception.ClienteException;
 import com.towel.el.annotation.Resolvable;
 import model.Compra;
 
@@ -27,7 +26,7 @@ public class CompraWrapper extends DefaultWrapper{
     @Resolvable(colName = "Autorizada")
     private boolean autorizada;
 
-    public CompraWrapper(Compra compra) throws ClienteException{
+    public CompraWrapper(Compra compra) {
         if (compra != null) {
             this.id = compra.getIdcompra();
             this.datacompra = Util.DataUtil.dateToString(compra.getDatacompra());

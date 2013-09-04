@@ -15,9 +15,9 @@ import javax.swing.text.PlainDocument;
 public class MaskFieldUtil extends PlainDocument {
     private static final long serialVersionUID = 1L;
 
-    public final String ONLY_NUMBERS_MASK = "[^0-9]";
-    public final String ONLY_LETTERS_MASK = "[^A-Z|^ a-z |^ ]";
-    public final String ONLY_LETTERS_NUMBERS_MASK = "[^A-Z|^ a-z |^0-9|^ ]";
+    public static final String ONLY_NUMBERS_MASK = "[^0-9]";
+    public static final String ONLY_LETTERS_MASK = "[^A-Z-Ç|^a-z-ç|^ ]";
+    public static final String ONLY_LETTERS_NUMBERS_MASK = "[^A-Z-Ç|^a-z-ç|^0-9]";
     
     private int maxlength;
     private String mask = "";

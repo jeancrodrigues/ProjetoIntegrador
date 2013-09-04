@@ -45,6 +45,9 @@ public class CompraRN {
     }
    private Compra compra;
    
+   public void setCompraById(Integer id) {
+        compra = pers.procurarPorId(id);
+    }
    
    
     
