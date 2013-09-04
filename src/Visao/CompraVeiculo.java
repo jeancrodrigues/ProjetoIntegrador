@@ -58,6 +58,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
         compra = compraRN.getCompra();
         limparVeiculo();
         limparCompra();
+        inicializaTabelaVeiculo();
     }
 
     /**
@@ -489,10 +490,6 @@ public class CompraVeiculo extends javax.swing.JDialog {
         txtMarca.setText(null);
         txtQuilometragem.setText(null);
         txtValorVeiculo.setText(null);
-        txtRazaoSocial.setText(null);
-        txtNomeFantasia.setText(null);
-        txtCNPJ.setText(null);
-        txtTelefone.setText(null);
     }
 
     public void limparCompra() {
@@ -575,6 +572,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {            
             compra.setVendedor(lePessoaJuridica());
+            compra.setDatacompra(Calendar.getInstance().getTime());
 
             if (!compraRN.gravar()) {
                 String msgs = "Compra Inválida.";
@@ -584,8 +582,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, msgs);
             } else {
                 inicizalizar();
+                
                 JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
-                inicializaTabelaVeiculo();
+                
             }
         }
     }//GEN-LAST:event_btnGravarActionPerformed

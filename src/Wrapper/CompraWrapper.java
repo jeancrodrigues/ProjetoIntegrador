@@ -4,6 +4,7 @@
  */
 package Wrapper;
 
+import Exception.ClienteException;
 import com.towel.el.annotation.Resolvable;
 import model.Compra;
 
@@ -11,32 +12,44 @@ import model.Compra;
  *
  * @author rafael
  */
-public class CompraWrapper {
-    @Resolvable(colName="Data Compra")
-    private String dataCompra;
-    @Resolvable(colName="Vendedor")
+public class CompraWrapper extends DefaultWrapper{
+
+    @Resolvable(colName = "Data Compra")
+    private String datacompra;
+    @Resolvable(colName = "Vendedor")
     private String vendedor;
-    @Resolvable(colName="Valor Compra")
-    private String valorCompra;
-    @Resolvable(colName="Data Autorização")
+    @Resolvable(colName = "Valor Compra")
+    private String valorcompra;
+    @Resolvable(colName = "Funcionário")
+    private String funcionario;
+    @Resolvable(colName = "Data Autorização")
     private String dataautorizacao;
-    @Resolvable(colName="Autorizada")
+    @Resolvable(colName = "Autorizada")
     private boolean autorizada;
 
-    public CompraWrapper(Compra compra) {
-        if(compra != null){
-           this.dataCompra = Util.DataUtil.dateToString(compra.getDatacompra());
-           this.vendedor = compra.getFuncionario().getPessoafisica().getNome();
-           this.dataautorizacao = Util.DataUtil.dateToString(compra.getDataautorizacao());
-        }          
+    public CompraWrapper(Compra compra) throws ClienteException{
+        if (compra != null) {
+            this.id = compra.getIdcompra();
+            this.datacompra = Util.DataUtil.dateToString(compra.getDatacompra());
+            this.vendedor = compra.getVendedor().getNomefantasia();
+            this.valorcompra = compra.getValorcompra().toString();
+            if (compra.getFuncionario() != null)
+            this.funcionario = compra.getFuncionario().getPessoafisica().getNome();
+            if (compra.getDataautorizacao() == null) {
+                autorizada = false;
+            } else {
+                autorizada = true;
+                this.dataautorizacao = Util.DataUtil.dateToString(compra.getDataautorizacao());
+            }
+        }
     }
     
-    public String getDataCompra() {
-        return dataCompra;
+    public String getDatacompra() {
+        return datacompra;
     }
 
-    public void setDataCompra(String dataCompra) {
-        this.dataCompra = dataCompra;
+    public void setDatacompra(String datacompra) {
+        this.datacompra = datacompra;
     }
 
     public String getVendedor() {
@@ -47,12 +60,12 @@ public class CompraWrapper {
         this.vendedor = vendedor;
     }
 
-    public String getValorCompra() {
-        return valorCompra;
+    public String getValorcompra() {
+        return valorcompra;
     }
 
-    public void setValorCompra(String valorCompra) {
-        this.valorCompra = valorCompra;
+    public void setValorcompra(String valorcompra) {
+        this.valorcompra = valorcompra;
     }
 
     public String getDataautorizacao() {

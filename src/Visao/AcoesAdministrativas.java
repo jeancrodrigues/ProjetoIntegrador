@@ -4,8 +4,10 @@
  */
 package Visao;
 
+import RN.CompraRN;
 import Wrapper.CompraWrapper;
 import com.towel.swing.table.ObjectTableModel;
+import java.awt.Component;
 
 /**
  *
@@ -16,11 +18,47 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
     /**
      * Creates new form AcoesAdministrativas
      */
-    public AcoesAdministrativas(java.awt.Frame parent, boolean modal) {
+    private CompraRN rn;
+    private ObjectTableModel<CompraWrapper> comprasModel;
+    
+    public AcoesAdministrativas(java.awt.Frame parent,boolean modal, boolean visible, Component component) {
         super(parent, modal);
-        ObjectTableModel<CompraWrapper> comprasModel;
         initComponents();
+        this.setLocationRelativeTo(component);        
+        inicializar();
+        this.setVisible(visible);
     }
+    
+    public void inicializar(){
+        rn = new CompraRN();
+        comprasModel = new ObjectTableModel(CompraWrapper.class,"datacompra,vendedor,valorcompra,funcionario,dataautorizacao,");
+        comprasModel.setData(rn.getCompraWrapperList());
+        tbCompra.setModel(comprasModel);
+    }
+private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        switch(JTabCompraVenda.getSelectedIndex()){
+            case 0:{                
+                if(tbCompra.getSelectedRow()>-1){
+                    CompraWrapper c = comprasModel.getValue(tbCompra.getSelectedRow());
+                    rn.setClienteById(c.getId());                    
+                    setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
+                }
+            };
+            break;
+            case 1:{
+                if(tbClientesPj.getSelectedRow()>-1){
+                    ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
+                    cliRN.setClienteById(pj.getId());
+                    setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
+                }
+            };
+            break;
+        }
+    }                                             
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,11 +69,12 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane4 = new javax.swing.JTabbedPane();
+        JTabCompraVenda = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCompra = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,32 +96,34 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jTabbedPane4.addTab("Compras", jPanel1);
+        JTabCompraVenda.addTab("Compras", jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
+            .addGap(0, 602, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGap(0, 239, Short.MAX_VALUE)
         );
 
-        jTabbedPane4.addTab("Vendas", jPanel2);
+        JTabCompraVenda.addTab("Vendas", jPanel2);
+
+        jButton1.setText("Autorizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,15 +131,21 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane4)
+                .addComponent(JTabCompraVenda)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(127, 127, 127))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane4)
-                .addContainerGap())
+                .addComponent(JTabCompraVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,10 +157,11 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
     
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane JTabCompraVenda;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable tbCompra;
     // End of variables declaration//GEN-END:variables
 }

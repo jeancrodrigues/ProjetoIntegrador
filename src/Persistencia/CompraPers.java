@@ -44,7 +44,7 @@ public class CompraPers extends BasePers implements IPersistencia<Compra> {
 
     @Override
     public List<Compra> getLista() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (List<Compra>) getEm().createNamedQuery("Compra.findAll").getResultList();
     }
     
     
