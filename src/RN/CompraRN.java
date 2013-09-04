@@ -23,7 +23,7 @@ public class CompraRN {
     public List<CompraWrapper> getCompraWrapperList() {
         List<CompraWrapper> lista = new ArrayList<>();
         for (Compra compra : pers.getLista()) {
-                lista.add(new CompraWrapper(compra));
+        //        lista.add(new CompraWrapper(compra));
         }
         return lista;
     }

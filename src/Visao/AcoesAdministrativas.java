@@ -36,28 +36,28 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
         tbCompra.setModel(comprasModel);
     }
 private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        switch(JTabCompraVenda.getSelectedIndex()){
-            case 0:{                
-                if(tbCompra.getSelectedRow()>-1){
-                    CompraWrapper c = comprasModel.getValue(tbCompra.getSelectedRow());
-                    rn.setClienteById(c.getId());                    
-                    setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
-                }
-            };
-            break;
-            case 1:{
-                if(tbClientesPj.getSelectedRow()>-1){
-                    ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
-                    cliRN.setClienteById(pj.getId());
-                    setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
-                }
-            };
-            break;
-        }
+//        switch(JTabCompraVenda.getSelectedIndex()){
+//            case 0:{                
+//                if(tbCompra.getSelectedRow()>-1){
+//                    CompraWrapper c = comprasModel.getValue(tbCompra.getSelectedRow());
+//                    rn.setClienteById(c.getId());                    
+//                    setVisible(false);
+//                }else{
+//                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
+//                }
+//            };
+//            break;
+//            case 1:{
+//                if(tbClientesPj.getSelectedRow()>-1){
+//                    ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
+//                    cliRN.setClienteById(pj.getId());
+//                    setVisible(false);
+//                }else{
+//                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
+//                }
+//            };
+//            break;
+//        }
     }                                             
 
     /**
