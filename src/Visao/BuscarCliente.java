@@ -20,7 +20,8 @@ import model.Cliente;
 public class BuscarCliente extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;    
     
-    private Cliente clienteSelecionado;
+    
+    private int codigoClienteSelecionado;
     private ClienteRN cliRN;
     private ObjectTableModel<ClientePfWrapper> clientesModel;
     private ObjectTableModel<ClientePjWrapper> clientesPjModel;
@@ -28,14 +29,13 @@ public class BuscarCliente extends javax.swing.JFrame {
     public BuscarCliente(javax.swing.JFrame parent, boolean modal) throws ClienteException{
         super();
         initComponents();  
-        clienteSelecionado = null;
+        codigoClienteSelecionado = -1;
         cliRN = new ClienteRN();
         inicializaTableModelPf();
         inicializaTableModelPj();        
     }   
     
     private void inicializaTableModelPf(){
-        
         try {
             clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
             clientesModel.setData(cliRN.getClienteWrapperList());        
@@ -82,10 +82,7 @@ public class BuscarCliente extends javax.swing.JFrame {
 
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
@@ -151,6 +148,11 @@ public class BuscarCliente extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,38 +194,21 @@ public class BuscarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosedHandler
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        switch(jTabCliente.getSelectedIndex()){
-            case 0:{                
-                if(tbClientes.getSelectedRow()>-1){
-                    ClientePfWrapper pf = clientesModel.getValue(tbClientes.getSelectedRow());
-                    cliRN.setClienteById(pf.getId());                    
-                    setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
-                }
-            };
-            break;
-            case 1:{
-                if(tbClientesPj.getSelectedRow()>-1){
-                    ClientePjWrapper pj = clientesPjModel.getValue(tbClientesPj.getSelectedRow());
-                    cliRN.setClienteById(pj.getId());
-                    setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Selecione um cliente da lista");
-                }
-            };
-            break;
-        }
+        cliRN.setClienteById(codigoClienteSelecionado);
+        setVisible(false);
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-
+        this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        Cliente cliente = new Cliente();
-        CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null , cliRN);
+        CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null);
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null , cliRN);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -238,12 +223,4 @@ public class BuscarCliente extends javax.swing.JFrame {
     private javax.swing.JTable tbClientes;
     private javax.swing.JTable tbClientesPj;
     // End of variables declaration//GEN-END:variables
-
-    public Cliente getClienteSelecionado() {
-        return clienteSelecionado;
-    }
-
-    public void setClienteSelecionado(Cliente clienteSelecionado) {
-        this.clienteSelecionado = clienteSelecionado;
-    }
 }

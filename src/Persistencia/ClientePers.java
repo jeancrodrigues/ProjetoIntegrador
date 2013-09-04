@@ -5,7 +5,9 @@
 package Persistencia;
 
 import java.util.List;
+import javax.persistence.Query;
 import model.Cliente;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  *
@@ -27,22 +29,28 @@ public class ClientePers extends BasePers implements IPersistencia<Cliente> {
 
     @Override
     public void deletar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deletar(Cliente t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deletar(Cliente cliente) {
+        beginTransaction();
+        getEm().remove(cliente);
+        commitTransaction();
     }
 
     @Override
-    public Cliente atualizar(Cliente t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cliente atualizar(Cliente cliente) {
+        beginTransaction();
+        cliente = getEm().merge(cliente);
+        commitTransaction();
+        return cliente;
     }
 
     @Override
-    public Cliente procurarPorId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cliente procurarPorId(int id) {        
+        Query query = getEm().createNamedQuery("Cliente.findByIdcliente");
+        query.setParameter("idcliente", id);
+        return (Cliente)query.getSingleResult();
     }
 
     @Override

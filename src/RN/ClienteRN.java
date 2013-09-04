@@ -10,6 +10,8 @@ import Wrapper.ClientePjWrapper;
 import Wrapper.ClientePfWrapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Cliente;
 import model.PessoaFisica;
 import model.PessoaJuridica;
@@ -48,14 +50,18 @@ public class ClienteRN {
         return false;
     }
     
-    public boolean isClienteValido(Cliente cli , boolean tipo){
-        if(cli != null){
-            if(tipo){
-                return isPessoaFisicaValida(cli.getPessoafisica());
-            }else{
-                return isPessoaJuridicaValida(cli.getPessoajuridica());
+    public boolean isClienteValido(Cliente cliente , boolean tipo){
+        if(cliente != null){
+            try {
+                if(cliente.isPessoaFisica()){
+                    return isPessoaFisicaValida(cliente.getPessoafisica());
+                }else{
+                    return isPessoaJuridicaValida(cliente.getPessoajuridica());            
+                }
+            } catch (ClienteException ex) {
+                errosValidacao = new ArrayList<>();
+                errosValidacao.add(ex.getMessage());
             }
-            
         }
         return false;
     }
@@ -116,7 +122,7 @@ public class ClienteRN {
         return false;
     }
     
-    public Object getErrosValidacao() {
+    public List<String> getErrosValidacao() {
         return errosValidacao;
     }
 

@@ -23,6 +23,7 @@ public class OnlyNumberFieldUtil extends PlainDocument {
 
     private int maxlength;
     
+    
     public OnlyNumberFieldUtil(int maxlength) {
         this.maxlength = maxlength;
     }

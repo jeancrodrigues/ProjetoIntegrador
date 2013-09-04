@@ -20,15 +20,17 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import model.Cliente;
 import model.Endereco;
+import model.PessoaFisica;
 
 /**
  *
  * @author RAFAEL
  */
 public class CadastroCliente extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     private ClienteRN rn;
-    private Cliente cli;
+    private Cliente cliente;
     
     public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
@@ -36,29 +38,25 @@ public class CadastroCliente extends javax.swing.JDialog {
         rn = new ClienteRN(true);
         this.setLocationRelativeTo(component);
         this.setVisible(visible);      
-    }
-    
+    }    
     
     public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN rn){
-        this(parent, modal,visible,component);        
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(component);        
         this.rn = rn;
+        setarCamposTela();
+        this.setVisible(visible);          
     }
     
-    public void limpar() {
-        
-        txtNome.setText(null);
-        txtDataNascimento.setText(null);
-        txtCpf.setText(null);
-        txtRG.setText(null);
-        txtCelular.setText(null);
-        txtTelefone.setText(null);
-        txtRua.setText(null);
-        txtComplemento.setText(null);
-        txtBairro.setText(null);
-        txtCEP.setText(null);
-        txtNumero.setText(null);
-        txtCidade.setText(null);
-        txtEstado.setText(null);
+    private void setarCamposTela(){
+        cliente = rn.getCliente();
+        if(cliente==null){
+            limpar();
+        }else{            
+            setarDadosPessoaFisica(cliente.getPessoafisica());
+            setarDadosEndereco(cliente.getPessoafisica().getEndereco());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -379,46 +377,24 @@ public class CadastroCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         try {
-            cli = rn.getCliente();        
-            Endereco end = cli.getEndereco();
-            
-            end.setLogradouro(txtRua.getText());
-            end.setComplemento(txtComplemento.getText());
-            end.setNumero(txtNumero.getText());
-            end.setCep(txtCEP.getText());
-            end.setBairro(txtBairro.getText());
-            end.setCidade(txtCidade.getText());
-            end.setUf(txtEstado.getText());
-            
-            cli.getPessoafisica().setEndereco(end);
-            cli.getPessoafisica().setNome(txtNome.getText());
-            cli.getPessoafisica().setCpf(txtCpf.getText());
-            cli.getPessoafisica().setRg(txtRG.getText());
-            cli.getPessoafisica().setTelefone1(txtCelular.getText());
-            cli.getPessoafisica().setTelefone2(txtTelefone.getText());
+            cliente = rn.getCliente();                    
+            lerDadosPessoaFisicaTela(cliente.getPessoafisica());            
+            lerDadosEnderecoTela(cliente.getEndereco());             
 
-            try {
-                Date dataNascimento = DataUtil.stringToDate(txtDataNascimento.getText());
-                System.out.println(dataNascimento.toString());
-                cli.getPessoafisica().setDatanascimento(dataNascimento);
-            } catch (ParseException ex) {
-            }
-            
-            if(!rn.gravar(true)){
-                String msgs= "Cliente inválido";
-                for(String msg: (List<String>)rn.getErrosValidacao()){
-                    msgs = msgs + "\n" + msg;              
-                }
-                JOptionPane.showMessageDialog(this , msgs);
-            }else{
+            if(rn.gravar(true)){
                 limpar();
                 JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");
-            }
+            }else{
+                exibeMensagemClienteInvalido(rn.getErrosValidacao());
+            }            
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao ler a data nascimento do cliente!");
         } catch (ClienteException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Erro ao salvar Cliente!");
@@ -477,6 +453,68 @@ public class CadastroCliente extends javax.swing.JDialog {
     private javax.swing.JTextField txtRua;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
-
     
+    public void limpar(){
+        txtNome.setText(null);
+            txtDataNascimento.setText(null);
+            txtCpf.setText(null);
+            txtRG.setText(null);
+            txtCelular.setText(null);
+            txtTelefone.setText(null);
+            txtRua.setText(null);
+            txtComplemento.setText(null);
+            txtBairro.setText(null);
+            txtCEP.setText(null);
+            txtNumero.setText(null);
+            txtCidade.setText(null);
+            txtEstado.setText(null);
+    }
+    
+    private void setarDadosPessoaFisica(PessoaFisica pessoaFisica) {
+        txtNome.setText(pessoaFisica.getNome());
+        txtDataNascimento.setText(DataUtil.dateToString( pessoaFisica.getDatanascimento()));
+        txtCpf.setText(pessoaFisica.getCpf());
+        txtRG.setText(pessoaFisica.getRg());
+        txtCelular.setText(pessoaFisica.getTelefone1());
+        txtTelefone.setText(pessoaFisica.getTelefone2());
+    }
+    
+    private void setarDadosEndereco(Endereco endereco) {
+        txtRua.setText(endereco.getLogradouro());
+        txtComplemento.setText(endereco.getComplemento());
+        txtBairro.setText(endereco.getBairro());
+        txtCEP.setText(endereco.getCep());
+        txtNumero.setText(endereco.getNumero());
+        txtCidade.setText(endereco.getCidade());
+        txtEstado.setText(endereco.getUf());
+    }
+    
+    private void lerDadosPessoaFisicaTela(PessoaFisica pessoaFisica) throws ParseException{
+        pessoaFisica.setNome(txtNome.getText());
+        pessoaFisica.setCpf(txtCpf.getText());
+        pessoaFisica.setRg(txtRG.getText());
+        pessoaFisica.setTelefone1(txtCelular.getText());
+        pessoaFisica.setTelefone2(txtTelefone.getText());                
+        pessoaFisica.setDatanascimento(DataUtil.stringToDate(txtDataNascimento.getText()));
+    }
+    
+    private void lerDadosEnderecoTela(Endereco endereco){
+        endereco.setLogradouro(txtRua.getText());
+        endereco.setComplemento(txtComplemento.getText());
+        endereco.setNumero(txtNumero.getText());
+        endereco.setCep(txtCEP.getText());
+        endereco.setBairro(txtBairro.getText());
+        endereco.setCidade(txtCidade.getText());
+        endereco.setUf(txtEstado.getText());        
+    }
+
+    private void exibeMensagemClienteInvalido(List<String> errosValidacao) {
+        String msgs= "Cliente inválido";
+        for(String msg: errosValidacao){
+            msgs = msgs + "\n" + msg;              
+        }
+        JOptionPane.showMessageDialog(this , msgs, "Cliente Inválido",JOptionPane.WARNING_MESSAGE);
+    }
+            
+
 }
