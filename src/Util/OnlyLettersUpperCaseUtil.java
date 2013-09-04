@@ -25,7 +25,7 @@ public class OnlyLettersUpperCaseUtil extends PlainDocument {
         try {
             boolean fixedLengh = (!((getLength() + str.length()) > maxlength));
             if (maxlength == 0 || fixedLengh) {
-                super.insertString(offs, str.toUpperCase().replaceAll("[^A-Z|^ a-z|^ ]", ""), a);
+                super.insertString(offs, str.toUpperCase().replaceAll("[^A-Z-Ç|^a-z-ç|^ ]", ""), a);
             }
         } catch (BadLocationException e) {
             e.printStackTrace();
