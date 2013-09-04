@@ -52,9 +52,6 @@ public class CompraRN {
 
     public void autorizarCompraSelecionada() {
      compra.setDataautorizacao(Calendar.getInstance().getTime());
-<<<<<<< HEAD
      pers.atualizar(compra);
-=======
->>>>>>> c126c50007098b0b52af6043d33ce4236606930b
     }
 }

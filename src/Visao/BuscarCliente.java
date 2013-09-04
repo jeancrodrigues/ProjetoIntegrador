@@ -54,6 +54,10 @@ public class BuscarCliente extends javax.swing.JFrame {
         }
     }
     
+    private void atualizarTableModel() {
+        
+    }
+    
     private void selectClienteFromPfTableModel(int row){
         codigoClienteSelecionado = clientesModel.getValue(row).getId();
         setClienteSelecionado(codigoClienteSelecionado);
@@ -234,10 +238,14 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null);
+        inicializaTableModelPf();
+        inicializaTableModelPj();        
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null , cliRN);
+        inicializaTableModelPf();
+        inicializaTableModelPj();        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
