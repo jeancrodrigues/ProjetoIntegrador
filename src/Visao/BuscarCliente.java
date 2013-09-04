@@ -11,16 +11,15 @@ import Wrapper.ClientePfWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import model.Cliente;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 /**
  *
  * @author Jean
  */
 public class BuscarCliente extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;    
-    
-    
+        
     private int codigoClienteSelecionado;
     private ClienteRN cliRN;
     private ObjectTableModel<ClientePfWrapper> clientesModel;
@@ -53,6 +52,20 @@ public class BuscarCliente extends javax.swing.JFrame {
         } catch (ClienteException ex) {
             Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void selectClienteFromPfTableModel(int row){
+        codigoClienteSelecionado = clientesModel.getValue(row).getId();
+        setClienteSelecionado(codigoClienteSelecionado);
+    }
+    
+    private void selectClienteFromPjTableModel(int row){
+        codigoClienteSelecionado = clientesPjModel.getValue(row).getId();
+        setClienteSelecionado(codigoClienteSelecionado);
+    }
+    
+    private void setClienteSelecionado(int codigoCliente) {
+        cliRN.setClienteById(codigoClienteSelecionado);
     }
     
     @SuppressWarnings("unchecked")
@@ -89,6 +102,15 @@ public class BuscarCliente extends javax.swing.JFrame {
             }
         ));
         jScrollPane3.setViewportView(tbClientes);
+        tbClientes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evt) {
+                if (evt.getValueIsAdjusting())
+                return;
+                selectClienteFromPfTableModel(tbClientes.getSelectedRow());
+                //faça algo com selected
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,6 +134,15 @@ public class BuscarCliente extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tbClientesPj);
+        tbClientesPj.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent evt) {
+                if (evt.getValueIsAdjusting())
+                return;
+                selectClienteFromPjTableModel(tbClientesPj.getSelectedRow());
+                //faça algo com selected
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -194,7 +225,6 @@ public class BuscarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosedHandler
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
-        cliRN.setClienteById(codigoClienteSelecionado);
         setVisible(false);
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
