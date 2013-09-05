@@ -8,6 +8,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -188,7 +189,7 @@
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtRG">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRG.setDocument(new OnlyUpperCaseUtil(9));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRG.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 9, true));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtDataNascimento">
@@ -315,12 +316,12 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCidade">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtCidade.setDocument(new OnlyUpperCaseUtil(40));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtCidade.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 40, true));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumero">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNumero.setDocument(new OnlyNumberFieldUtil(5));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNumero.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_NUMBERS_MASK, 5));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="CEP">
@@ -337,7 +338,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtComplemento">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtComplemento.setDocument(new OnlyUpperCaseUtil(40));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtComplemento.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40, true));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
@@ -347,7 +348,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtRua">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRua.setDocument(new OnlyUpperCaseUtil(50));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 50, true));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
@@ -357,7 +358,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtBairro">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtBairro.setDocument(new OnlyUpperCaseUtil(40));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtBairro.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40,true));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtCEP">

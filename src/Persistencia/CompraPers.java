@@ -33,8 +33,8 @@ public class CompraPers extends BasePers implements IPersistencia<Compra> {
     }
 
     @Override
-    public Compra atualizar(Compra t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Compra atualizar(Compra compra) {
+        return this.gravar(compra);
     }
 
     @Override

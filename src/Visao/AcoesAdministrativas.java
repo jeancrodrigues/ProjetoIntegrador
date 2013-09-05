@@ -8,6 +8,7 @@ import RN.CompraRN;
 import Wrapper.CompraWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -21,25 +22,28 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
      * Creates new form AcoesAdministrativas
      */
     private CompraRN rn;
-    private int codigoCompraSelecionada;
     private ObjectTableModel<CompraWrapper> comprasModel;
-    
-    public AcoesAdministrativas(java.awt.Frame parent,boolean modal, boolean visible, Component component) {
+
+    public AcoesAdministrativas(java.awt.Frame parent, boolean modal, boolean visible, Component component) {
         super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(component);        
+        this.setLocationRelativeTo(component);
         inicializar();
         this.setVisible(visible);
     }
-    
-    public void inicializar(){
+
+    public void inicializar() {
         rn = new CompraRN();
-        comprasModel = new ObjectTableModel(CompraWrapper.class,"datacompra,vendedor,valorcompra,funcionario,dataautorizacao,");
+        comprasModel = new ObjectTableModel(CompraWrapper.class, "datacompra,vendedor,valorcompra,funcionario,dataautorizacao");
+        popularTabelaCompras();
+    }
+    
+    public void popularTabelaCompras(){
         comprasModel.setData(rn.getCompraWrapperList());
         tbCompra.setModel(comprasModel);
     }
     
-    void setarCompraSelecionada(int row){
+    void setarCompraSelecionada(int row) {
         rn.setCompraById(comprasModel.getValue(row).getId());
     }
 
@@ -148,14 +152,19 @@ public class AcoesAdministrativas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAutorizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorizarActionPerformed
-        rn.autorizarCompraSelecionada();
-    }//GEN-LAST:event_btnAutorizarActionPerformed
+        if (rn.getCompra().getDataautorizacao() == null) {
+            rn.autorizarCompraSelecionada();
+            JOptionPane.showMessageDialog(this, "Compra autorizada com Sucesso!");
+            popularTabelaCompras();
+            tbCompra.setFocusable(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Está Compra já foi Autorizada!");
+        }
 
+    }//GEN-LAST:event_btnAutorizarActionPerformed
     /**
      * @param args the command line arguments
      */
-    
-        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane JTabCompraVenda;
     private javax.swing.JButton btnAutorizar;
