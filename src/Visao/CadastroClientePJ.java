@@ -27,12 +27,20 @@ import model.Endereco;
  */
 public class CadastroClientePJ extends javax.swing.JDialog {
 
-    private ClienteRN rn;
+    private ClienteRN clienteRn;
     
     public CadastroClientePJ(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
         initComponents();
-        rn = new ClienteRN(false);
+        clienteRn = new ClienteRN(false);
+        this.setLocationRelativeTo(component);
+        this.setVisible(visible);  
+    }
+
+    CadastroClientePJ(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRn) {
+        super(parent, modal);
+        initComponents();
+        this.clienteRn = clienteRn;
         this.setLocationRelativeTo(component);
         this.setVisible(visible);  
     }
@@ -408,7 +416,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         
-        Cliente cli = rn.getCliente();
+        Cliente cli = clienteRn.getCliente();
         Endereco end = new Endereco();
         
         end.setLogradouro(txtRua.getText());
@@ -427,9 +435,9 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         cli.getPessoajuridica().setTelefone2(txtTelefone2.getText());
 
         
-        if(!rn.gravar(false)){
+        if(!clienteRn.gravar(false)){
             String msgs= "Cliente inválido";
-            for(String msg: (List<String>)rn.getErrosValidacao()){
+            for(String msg: (List<String>)clienteRn.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
             JOptionPane.showMessageDialog(this , msgs);

@@ -11,6 +11,7 @@ import Wrapper.ClientePfWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 /**
@@ -36,7 +37,8 @@ public class BuscarCliente extends javax.swing.JFrame {
     
     private void inicializaTableModelPf(){
         try {
-            clientesModel = new ObjectTableModel(ClientePfWrapper.class, "nome,cpf,rg,telefone1,telefone2");
+            clientesModel = new ObjectTableModel(ClientePfWrapper.class, 
+                    "nome,cpf,rg,telefone1,telefone2");
             clientesModel.setData(cliRN.getClienteWrapperList());        
             tbClientes.setModel(clientesModel);
         } catch (ClienteException ex) {
@@ -46,18 +48,14 @@ public class BuscarCliente extends javax.swing.JFrame {
     
     private void inicializaTableModelPj(){
         try {
-            clientesPjModel = new ObjectTableModel(ClientePjWrapper.class, "nomeFantasia,razaoSocial,cnpj,telefone1,telefone2");
+            clientesPjModel = new ObjectTableModel(ClientePjWrapper.class, 
+                    "nomeFantasia,razaoSocial,cnpj,telefone1,telefone2");
             clientesPjModel.setData(cliRN.getClientePjWrapperList());
             tbClientesPj.setModel(clientesPjModel);
         } catch (ClienteException ex) {
             Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void atualizarTableModel() {
-        
-    }
-    
     private void selectClienteFromPfTableModel(int row){
         codigoClienteSelecionado = clientesModel.getValue(row).getId();
         setClienteSelecionado(codigoClienteSelecionado);
@@ -91,11 +89,6 @@ public class BuscarCliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busca de clientes");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                windowClosedHandler(evt);
-            }
-        });
 
         tbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -224,9 +217,6 @@ public class BuscarCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void windowClosedHandler(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosedHandler
-        
-    }//GEN-LAST:event_windowClosedHandler
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
         setVisible(false);
@@ -237,15 +227,27 @@ public class BuscarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null);
+        JDialog cadastroCliente;
+        switch(jTabCliente.getSelectedIndex()){
+            case 0: cadastroCliente = new CadastroCliente(this, true, true , null);
+                break;
+            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null);
+                break;
+        }        
         inicializaTableModelPf();
         inicializaTableModelPj();        
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        CadastroCliente cadastroCliente = new CadastroCliente(this, true, true , null , cliRN);
+        JDialog cadastroCliente;
+        switch(jTabCliente.getSelectedIndex()){
+            case 0: cadastroCliente = new CadastroCliente(this, true, true , null,cliRN);
+                break;
+            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null,cliRN);
+                break;
+        }        
         inicializaTableModelPf();
-        inicializaTableModelPj();        
+        inicializaTableModelPj();         
     }//GEN-LAST:event_btnEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

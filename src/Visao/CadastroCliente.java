@@ -97,7 +97,7 @@ public class CadastroCliente extends javax.swing.JDialog {
         txtCEP = new javax.swing.JFormattedTextField();
         btnGravar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes - Pessoa Fisíca");
@@ -106,11 +106,6 @@ public class CadastroCliente extends javax.swing.JDialog {
         jpDaDosFuncinario.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Pessoais"));
 
         txtNome.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK , 50, true));
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Nome");
 
@@ -217,48 +212,22 @@ public class CadastroCliente extends javax.swing.JDialog {
         jLabel12.setText("Cidade");
 
         txtCidade.setDocument(new OnlyUpperCaseUtil(40));
-        txtCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCidadeActionPerformed(evt);
-            }
-        });
 
         txtNumero.setDocument(new OnlyNumberFieldUtil(5));
 
         CEP.setText("CEP");
 
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
-            }
-        });
-
         jLabel15.setText("Complemento");
 
         txtComplemento.setDocument(new OnlyUpperCaseUtil(40));
-        txtComplemento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtComplementoActionPerformed(evt);
-            }
-        });
 
         jLabel9.setText("Logradouro");
 
         txtRua.setDocument(new OnlyUpperCaseUtil(50));
-        txtRua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRuaActionPerformed(evt);
-            }
-        });
 
         jLabel13.setText("Bairro");
 
         txtBairro.setDocument(new OnlyUpperCaseUtil(40));
-        txtBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBairroActionPerformed(evt);
-            }
-        });
 
         try {
             txtCEP.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("#####-###")));
@@ -342,10 +311,10 @@ public class CadastroCliente extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Cadastro de Clientes Pessoa Fisíca");
 
-        jButton1.setText("Sair");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSairActionPerformed(evt);
             }
         });
 
@@ -365,7 +334,7 @@ public class CadastroCliente extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnGravar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -380,16 +349,12 @@ public class CadastroCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGravar)
-                    .addComponent(jButton1))
+                    .addComponent(btnSair))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        
-    }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         try {
@@ -399,7 +364,8 @@ public class CadastroCliente extends javax.swing.JDialog {
 
             if(rn.gravar(true)){
                 limpar();
-                JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");
+                rn.setCliente(new Cliente());
+                JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");                
             }else{
                 exibeMensagemClienteInvalido(rn.getErrosValidacao());
             }            
@@ -410,34 +376,14 @@ public class CadastroCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnGravarActionPerformed
 
-    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBairroActionPerformed
-
-    private void txtRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRuaActionPerformed
-
-    private void txtComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComplementoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtComplementoActionPerformed
-
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoActionPerformed
-
-    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCidadeActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CEP;
     private javax.swing.JButton btnGravar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -470,18 +416,18 @@ public class CadastroCliente extends javax.swing.JDialog {
     
     public void limpar(){
         txtNome.setText(null);
-            txtDataNascimento.setText(null);
-            txtCpf.setText(null);
-            txtRG.setText(null);
-            txtCelular.setText(null);
-            txtTelefone.setText(null);
-            txtRua.setText(null);
-            txtComplemento.setText(null);
-            txtBairro.setText(null);
-            txtCEP.setText(null);
-            txtNumero.setText(null);
-            txtCidade.setText(null);
-            txtEstado.setText(null);
+        txtDataNascimento.setText(null);
+        txtCpf.setText(null);
+        txtRG.setText(null);
+        txtCelular.setText(null);
+        txtTelefone.setText(null);
+        txtRua.setText(null);
+        txtComplemento.setText(null);
+        txtBairro.setText(null);
+        txtCEP.setText(null);
+        txtNumero.setText(null);
+        txtCidade.setText(null);
+        txtEstado.setText(null);
     }
     
     private void setarDadosPessoaFisica(PessoaFisica pessoaFisica) {

@@ -7,7 +7,6 @@ package Persistencia;
 import java.util.List;
 import javax.persistence.Query;
 import model.Cliente;
-import org.hibernate.annotations.NamedQuery;
 
 /**
  *
@@ -22,9 +21,9 @@ public class ClientePers extends BasePers implements IPersistencia<Cliente> {
     @Override
     public Cliente gravar(Cliente cli) {
         beginTransaction();
-        getEm().merge(cli);
+        Cliente cliente = getEm().merge(cli);
         commitTransaction();
-        return null;
+        return cliente;
     }
 
     @Override
