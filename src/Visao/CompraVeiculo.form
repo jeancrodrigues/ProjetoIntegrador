@@ -246,7 +246,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtRazaoSocial">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRazaoSocial.setDocument(new OnlyUpperCaseUtil(30));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRazaoSocial.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 50, true));"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
@@ -259,7 +259,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeFantasiaActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNomeFantasia.setDocument( new OnlyUpperCaseUtil(30));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtNomeFantasia.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 50, true));"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">
@@ -439,17 +439,17 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtChassi">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtChassi.setDocument( new OnlyUpperCaseUtil(17));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtChassi.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 17, true));"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMarca">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtMarca.setDocument( new OnlyLettersUpperCaseUtil(20));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtMarca.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 50, true));"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="txtQuilometragem">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtQuilometragem.setDocument( new OnlyNumberFieldUtil(6));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtQuilometragem.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_NUMBERS_MASK, 6, true));"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
@@ -479,7 +479,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtModelo">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtModelo.setDocument(new OnlyUpperCaseUtil(30));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtModelo.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 40, true));"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtAnoModelo">

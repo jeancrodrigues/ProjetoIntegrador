@@ -6,10 +6,7 @@ package Visao;
 
 import Exception.ClienteException;
 import RN.ClienteRN;
-import Util.DataUtil;
-import Util.MaskFieldUtil;
-import Util.OnlyNumberFieldUtil;
-import Util.OnlyUpperCaseUtil;
+import Util.*;
 import java.awt.Component;
 import java.text.ParseException;
 import java.util.List;
@@ -130,7 +127,7 @@ public class CadastroCliente extends javax.swing.JDialog {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        txtRG.setDocument(new OnlyUpperCaseUtil(9));
+        txtRG.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 9, true));
 
         try {
             txtDataNascimento.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("##/##/####")));
@@ -216,14 +213,14 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel12.setText("Cidade");
 
-        txtCidade.setDocument(new OnlyUpperCaseUtil(40));
+        txtCidade.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 40, true));
         txtCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCidadeActionPerformed(evt);
             }
         });
 
-        txtNumero.setDocument(new OnlyNumberFieldUtil(5));
+        txtNumero.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_NUMBERS_MASK, 5));
 
         CEP.setText("CEP");
 
@@ -235,7 +232,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel15.setText("Complemento");
 
-        txtComplemento.setDocument(new OnlyUpperCaseUtil(40));
+        txtComplemento.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40, true));
         txtComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtComplementoActionPerformed(evt);
@@ -244,7 +241,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel9.setText("Logradouro");
 
-        txtRua.setDocument(new OnlyUpperCaseUtil(50));
+        txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 50, true));
         txtRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRuaActionPerformed(evt);
@@ -253,7 +250,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel13.setText("Bairro");
 
-        txtBairro.setDocument(new OnlyUpperCaseUtil(40));
+        txtBairro.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40,true));
         txtBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBairroActionPerformed(evt);

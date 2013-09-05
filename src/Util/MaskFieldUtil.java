@@ -18,7 +18,7 @@ public class MaskFieldUtil extends PlainDocument {
     public static final String ONLY_NUMBERS_MASK = "[^0-9]";
     public static final String ONLY_LETTERS_MASK = "[^A-Z-Ç|^a-z-ç|^ ]";
     public static final String ONLY_LETTERS_NUMBERS_MASK = "[^A-Z-Ç|^a-z-ç|^0-9]";
-    
+    public static final String ONLY_LETTERS_NUMBERS_SPACE_MASK = "[^A-Z-Ç|^a-z-ç|^0-9|^ ]";
     private int maxlength;
     private String mask = "";
     private boolean upperCase = false;

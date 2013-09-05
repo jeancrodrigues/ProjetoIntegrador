@@ -125,7 +125,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Dados Pessoais");
 
-        txtNome.setDocument(new OnlyLettersUpperCaseUtil(50));
+        txtNome.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 50, true));
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
@@ -173,7 +173,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        txtRG.setDocument(new OnlyUpperCaseUtil(9));
+        txtRG.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 9, true));
 
         javax.swing.GroupLayout jpDaDosFuncinarioLayout = new javax.swing.GroupLayout(jpDaDosFuncinario);
         jpDaDosFuncinario.setLayout(jpDaDosFuncinarioLayout);
@@ -253,14 +253,14 @@ public class CadastroFuncionario extends javax.swing.JDialog {
 
         jLabel12.setText("Cidade");
 
-        txtCidade.setDocument(new OnlyLettersUpperCaseUtil(40));
+        txtCidade.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 40, true));
         txtCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCidadeActionPerformed(evt);
             }
         });
 
-        txtNumero.setDocument(new OnlyNumberFieldUtil (5));
+        txtNumero.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 5, true));
 
         CEP.setText("CEP");
 
@@ -272,7 +272,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
 
         jLabel15.setText("Complemento");
 
-        txtComplemento.setDocument(new OnlyUpperCaseUtil(40));
+        txtComplemento.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 40, true));
         txtComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtComplementoActionPerformed(evt);
@@ -281,7 +281,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
 
         jLabel9.setText("Logradouro");
 
-        txtRua.setDocument(new OnlyUpperCaseUtil(50));
+        txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 50, true));
         txtRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRuaActionPerformed(evt);
@@ -290,7 +290,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
 
         jLabel13.setText("Bairro");
 
-        txtBairro.setDocument(new OnlyUpperCaseUtil(40));
+        txtBairro.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 40, true));
         txtBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBairroActionPerformed(evt);

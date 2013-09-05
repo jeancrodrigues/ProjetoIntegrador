@@ -5,10 +5,7 @@
 package Visao;
 
 import RN.CompraVeiculoRN;
-import Util.DataUtil;
-import Util.OnlyLettersUpperCaseUtil;
-import Util.OnlyNumberFieldUtil;
-import Util.OnlyUpperCaseUtil;
+import Util.*;
 import Wrapper.VeiculoWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
@@ -143,11 +140,11 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         jLabel16.setText("Fornecedor");
 
-        txtRazaoSocial.setDocument(new OnlyUpperCaseUtil(30));
+        txtRazaoSocial.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 50, true));
 
         jLabel17.setText("Nome Fantasia");
 
-        txtNomeFantasia.setDocument( new OnlyUpperCaseUtil(30));
+        txtNomeFantasia.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 50, true));
         txtNomeFantasia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeFantasiaActionPerformed(evt);
@@ -260,11 +257,11 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         jLabel14.setText("Combustivel");
 
-        txtChassi.setDocument( new OnlyUpperCaseUtil(17));
+        txtChassi.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 17, true));
 
-        txtMarca.setDocument( new OnlyLettersUpperCaseUtil(20));
+        txtMarca.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 50, true));
 
-        txtQuilometragem.setDocument( new OnlyNumberFieldUtil(6));
+        txtQuilometragem.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_NUMBERS_MASK, 6, true));
 
         jLabel15.setText("Valor");
 
@@ -281,7 +278,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
             }
         });
 
-        txtModelo.setDocument(new OnlyUpperCaseUtil(30));
+        txtModelo.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 40, true));
 
         try {
             txtAnoModelo.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("####")));
@@ -570,7 +567,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
 
-        if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {            
+        if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {
             compra.setVendedor(lePessoaJuridica());
             compra.setDatacompra(Calendar.getInstance().getTime());
 
@@ -582,9 +579,9 @@ public class CompraVeiculo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, msgs);
             } else {
                 inicizalizar();
-                
+
                 JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
-                
+
             }
         }
     }//GEN-LAST:event_btnGravarActionPerformed
@@ -598,16 +595,14 @@ public class CompraVeiculo extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNomeFantasiaActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        if (compra.getVeiculos().isEmpty()){
+        if (compra.getVeiculos().isEmpty()) {
             dispose();
-        }
-        else{
-            if(JOptionPane.showConfirmDialog(this, "Deseja Sair?") == 0){
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Deseja Sair?") == 0) {
                 dispose();
             }
         }
     }//GEN-LAST:event_btnSairActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionaVeiculo;
     private javax.swing.JButton btnGravar;
