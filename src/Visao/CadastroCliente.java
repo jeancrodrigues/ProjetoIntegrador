@@ -362,11 +362,17 @@ public class CadastroCliente extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         try {
+            PessoaFisica pessoaFisica;
+            Endereco endereco;
+            
             cliente = clienteRN.getCliente();                    
-            lerDadosPessoaFisicaTela(cliente.getPessoafisica());            
-            lerDadosEnderecoTela(cliente.getEndereco());             
-
-            if(clienteRN.gravar(true)){
+            pessoaFisica = lerDadosPessoaFisicaTela();                                   
+            endereco = lerDadosEnderecoTela();             
+            pessoaFisica.setEndereco(endereco);
+            
+            cliente.setPessoafisica(pessoaFisica);
+            
+            if(clienteRN.gravarClienteAtual()){
                 limpar();
                 clienteRN.setCliente(new Cliente());
                 JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");                
@@ -375,8 +381,6 @@ public class CadastroCliente extends javax.swing.JDialog {
             }            
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(this, "Erro ao ler a data nascimento do cliente!");
-        } catch (ClienteException ex){
-            JOptionPane.showMessageDialog(this, "Erro ao salvar Cliente!");
         }
     }//GEN-LAST:event_btnGravarActionPerformed
 
@@ -453,16 +457,19 @@ public class CadastroCliente extends javax.swing.JDialog {
         txtEstado.setText(endereco.getUf());
     }
     
-    private void lerDadosPessoaFisicaTela(PessoaFisica pessoaFisica) throws ParseException{
+    private PessoaFisica lerDadosPessoaFisicaTela() throws ParseException{
+        PessoaFisica pessoaFisica = new PessoaFisica();
         pessoaFisica.setNome(txtNome.getText());
         pessoaFisica.setCpf(txtCpf.getText());
         pessoaFisica.setRg(txtRG.getText());
         pessoaFisica.setTelefone1(txtCelular.getText());
         pessoaFisica.setTelefone2(txtTelefone.getText());                
         pessoaFisica.setDatanascimento(DataUtil.stringToDate(txtDataNascimento.getText()));
+        return pessoaFisica;
     }
     
-    private void lerDadosEnderecoTela(Endereco endereco){
+    private Endereco lerDadosEnderecoTela(){
+        Endereco endereco = new Endereco();
         endereco.setLogradouro(txtRua.getText());
         endereco.setComplemento(txtComplemento.getText());
         endereco.setNumero(txtNumero.getText());
@@ -470,6 +477,7 @@ public class CadastroCliente extends javax.swing.JDialog {
         endereco.setBairro(txtBairro.getText());
         endereco.setCidade(txtCidade.getText());
         endereco.setUf(txtEstado.getText());        
+        return endereco;
     }
 
     private void exibeMensagemClienteInvalido(List<String> errosValidacao) {

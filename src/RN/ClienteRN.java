@@ -40,15 +40,16 @@ public class ClienteRN {
         this.cliente = cliente;
     }
     
-    public boolean gravar(boolean tipo){        
-        if(isClienteValido(cliente, tipo)){
+    
+    public boolean gravarClienteAtual(){        
+        if(isClienteValido(cliente)){
             pers.gravar(cliente);        
             return true;
         }
         return false;
     }
     
-    public boolean isClienteValido(Cliente cliente , boolean tipo){
+    public boolean isClienteValido(Cliente cliente){
         if(cliente != null){
             try {
                 if(cliente.isPessoaFisica()){

@@ -20,17 +20,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "compraveiculo")
-public class CompraVeiculo implements Serializable{    
-    
+public class CompraVeiculo implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idcompraveiculo", unique = true, nullable = false)
     private Integer idcompraveiculos;
-    private String nome;
-    
-     @Column(name = "valor")
+    @Column(name = "valor")
     private Double valor;
 
     public Double getValor() {
@@ -40,12 +37,10 @@ public class CompraVeiculo implements Serializable{
     public void setValor(Double valor) {
         this.valor = valor;
     }
-
-    @ManyToOne(targetEntity=Compra.class)
+    @ManyToOne(targetEntity = Compra.class)
     @JoinColumn(name = "idcompra")
     private Compra compra;
-
-    @ManyToOne(targetEntity=Veiculo.class)
+    @ManyToOne(targetEntity = Veiculo.class)
     @JoinColumn(name = "idveiculo")
     private Veiculo veiculo;
 
@@ -76,12 +71,4 @@ public class CompraVeiculo implements Serializable{
     public Integer getIdCompraVeiculo() {
         return this.idcompraveiculos;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }                
 }

@@ -439,15 +439,15 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         cli.getPessoajuridica().setTelefone2(txtTelefone2.getText());
 
         
-        if(!clienteRN.gravar(false)){
+        if(clienteRN.gravarClienteAtual()){
+            JOptionPane.showMessageDialog(this, "Cliente Salvo com Sucesso!");
+            limpar();
+        }else{    
             String msgs= "Cliente inválido";
             for(String msg: (List<String>)clienteRN.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
             JOptionPane.showMessageDialog(this , msgs);
-        }else{
-            JOptionPane.showMessageDialog(this, "Cliente Salvo com Sucesso!");
-            limpar();
         }              
     }//GEN-LAST:event_btnGravarActionPerformed
 
