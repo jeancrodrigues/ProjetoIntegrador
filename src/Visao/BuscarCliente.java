@@ -8,10 +8,12 @@ import Wrapper.ClientePjWrapper;
 import Exception.ClienteException;
 import RN.ClienteRN;
 import Wrapper.ClientePfWrapper;
+import Wrapper.DefaultWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 /**
@@ -20,16 +22,17 @@ import javax.swing.event.ListSelectionListener;
  */
 public class BuscarCliente extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;    
+    
+    private static final int EDITAR_CLIENTE = 0;
+    private static final int CADASTRAR_CLIENTE = 1;
         
-    private int codigoClienteSelecionado;
     private ClienteRN cliRN;
     private ObjectTableModel<ClientePfWrapper> clientesModel;
     private ObjectTableModel<ClientePjWrapper> clientesPjModel;
     
     public BuscarCliente(javax.swing.JFrame parent, boolean modal) throws ClienteException{
         super();
-        initComponents();  
-        codigoClienteSelecionado = -1;
+        initComponents();
         cliRN = new ClienteRN();
         inicializaTableModelPf();
         inicializaTableModelPj();        
@@ -56,18 +59,35 @@ public class BuscarCliente extends javax.swing.JFrame {
             Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void selectClienteFromPfTableModel(int row){
-        codigoClienteSelecionado = clientesModel.getValue(row).getId();
-        setClienteSelecionado(codigoClienteSelecionado);
+    private void selectClienteFromTable(JTable table){
+        int selectedRow = table.getSelectedRow();
+        if(selectedRow>-1){
+            ObjectTableModel tableModel = (ObjectTableModel) table.getModel();
+            DefaultWrapper wrapper = (DefaultWrapper) tableModel.getValue(selectedRow);
+            setClienteSelecionado(wrapper.getId());            
+        }
     }
     
-    private void selectClienteFromPjTableModel(int row){
-        codigoClienteSelecionado = clientesPjModel.getValue(row).getId();
-        setClienteSelecionado(codigoClienteSelecionado);
+    private void setClienteSelecionado(Integer codigoCliente) {
+        cliRN.setClienteById(codigoCliente);
     }
     
-    private void setClienteSelecionado(int codigoCliente) {
-        cliRN.setClienteById(codigoClienteSelecionado);
+    private void abrirCadastroCliente(int acao) {
+        
+        ClienteRN clienteRN = null;
+        if(acao == EDITAR_CLIENTE) {
+            clienteRN = cliRN;
+        }
+        
+        JDialog cadastroCliente = null;
+        switch(jTabCliente.getSelectedIndex()){
+            case 0: cadastroCliente = new CadastroCliente(this, true, true , null,clienteRN);
+                break;
+            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null,clienteRN);
+                break;
+        }        
+        inicializaTableModelPf();
+        inicializaTableModelPj();        
     }
     
     @SuppressWarnings("unchecked")
@@ -102,10 +122,10 @@ public class BuscarCliente extends javax.swing.JFrame {
         tbClientes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent evt) {
-                if (evt.getValueIsAdjusting())
-                return;
-                selectClienteFromPfTableModel(tbClientes.getSelectedRow());
-                //faça algo com selected
+                if (evt.getValueIsAdjusting()) {
+                    return;
+                }
+                selectClienteFromTable(tbClientes);
             }
         });
 
@@ -136,7 +156,7 @@ public class BuscarCliente extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent evt) {
                 if (evt.getValueIsAdjusting())
                 return;
-                selectClienteFromPjTableModel(tbClientesPj.getSelectedRow());
+                selectClienteFromTable(tbClientesPj);
                 //faça algo com selected
             }
         });
@@ -227,27 +247,11 @@ public class BuscarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        JDialog cadastroCliente;
-        switch(jTabCliente.getSelectedIndex()){
-            case 0: cadastroCliente = new CadastroCliente(this, true, true , null);
-                break;
-            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null);
-                break;
-        }        
-        inicializaTableModelPf();
-        inicializaTableModelPj();        
+        abrirCadastroCliente(CADASTRAR_CLIENTE);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        JDialog cadastroCliente;
-        switch(jTabCliente.getSelectedIndex()){
-            case 0: cadastroCliente = new CadastroCliente(this, true, true , null,cliRN);
-                break;
-            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null,cliRN);
-                break;
-        }        
-        inicializaTableModelPf();
-        inicializaTableModelPj();         
+        abrirCadastroCliente(EDITAR_CLIENTE);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

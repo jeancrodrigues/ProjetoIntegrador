@@ -10,7 +10,7 @@ import com.towel.el.annotation.Resolvable;
  *
  * @author Jean
  */
-class DefaultWrapper {
+public class DefaultWrapper {
     
     @Resolvable(colName="Código")
     protected Integer id;

@@ -6,7 +6,8 @@ package Visao;
 
 import Exception.ClienteException;
 import RN.ClienteRN;
-import Util.*;
+import Util.DataUtil;
+import Util.MaskFieldUtil;
 import java.awt.Component;
 import java.text.ParseException;
 import java.util.List;
@@ -26,28 +27,35 @@ import model.PessoaFisica;
 public class CadastroCliente extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;
 
-    private ClienteRN rn;
+    private ClienteRN clienteRN;
     private Cliente cliente;
     
     public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
         initComponents();
-        rn = new ClienteRN(true);
+        clienteRN = new ClienteRN(true);
         this.setLocationRelativeTo(component);
         this.setVisible(visible);      
     }    
     
-    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN rn){
+    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRN){
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(component);        
-        this.rn = rn;
+        inicializaRN(clienteRN);
         setarCamposTela();
         this.setVisible(visible);          
     }
     
+    private void inicializaRN(ClienteRN clienteRN){
+        this.clienteRN = clienteRN;
+        if(this.clienteRN==null){
+            this.clienteRN = new ClienteRN(true);
+        }        
+    }
+    
     private void setarCamposTela(){
-        cliente = rn.getCliente();
+        cliente = clienteRN.getCliente();
         if(cliente==null){
             limpar();
         }else{            
@@ -209,42 +217,22 @@ public class CadastroCliente extends javax.swing.JDialog {
         jLabel12.setText("Cidade");
 
         txtCidade.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 40, true));
-        txtCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCidadeActionPerformed(evt);
-            }
-        });
-
+        
         txtNumero.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_NUMBERS_MASK, 5));
 
         CEP.setText("CEP");
         jLabel15.setText("Complemento");
 
         txtComplemento.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40, true));
-        txtComplemento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtComplementoActionPerformed(evt);
-            }
-        });
-
+        
         jLabel9.setText("Logradouro");
 
         txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 50, true));
-        txtRua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRuaActionPerformed(evt);
-            }
-        });
-
+        
         jLabel13.setText("Bairro");
 
         txtBairro.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40,true));
-        txtBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBairroActionPerformed(evt);
-            }
-        });
-
+        
         try {
             txtCEP.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("#####-###")));
         } catch (ParseException ex) {
@@ -374,16 +362,16 @@ public class CadastroCliente extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         try {
-            cliente = rn.getCliente();                    
+            cliente = clienteRN.getCliente();                    
             lerDadosPessoaFisicaTela(cliente.getPessoafisica());            
             lerDadosEnderecoTela(cliente.getEndereco());             
 
-            if(rn.gravar(true)){
+            if(clienteRN.gravar(true)){
                 limpar();
-                rn.setCliente(new Cliente());
+                clienteRN.setCliente(new Cliente());
                 JOptionPane.showMessageDialog(this, " Cliente Salvo com Sucesso! ");                
             }else{
-                exibeMensagemClienteInvalido(rn.getErrosValidacao());
+                exibeMensagemClienteInvalido(clienteRN.getErrosValidacao());
             }            
         } catch (ParseException ex){
             JOptionPane.showMessageDialog(this, "Erro ao ler a data nascimento do cliente!");

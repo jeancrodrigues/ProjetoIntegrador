@@ -12,8 +12,7 @@ import model.Cliente;
  *
  * @author Jean
  */
-public class ClientePjWrapper {
-    private Integer id;
+public class ClientePjWrapper extends DefaultWrapper{
     
     @Resolvable(colName="Nome Fantasia")
     private String nomeFantasia;
@@ -55,13 +54,5 @@ public class ClientePjWrapper {
 
     public String getTelefone2() {
         return telefone2;
-    }    
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    }  
 }

@@ -8,7 +8,6 @@ import RN.ClienteRN;
 import Util.*;
 import java.awt.Component;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,13 +22,14 @@ import model.Endereco;
  * @author RAFAEL
  */
 public class CadastroClientePJ extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
-    private ClienteRN clienteRn;
+    private ClienteRN clienteRN;
     
     public CadastroClientePJ(java.awt.Frame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
         initComponents();
-        clienteRn = new ClienteRN(false);
+        clienteRN = new ClienteRN(false);
         this.setLocationRelativeTo(component);
         this.setVisible(visible);  
     }
@@ -37,9 +37,16 @@ public class CadastroClientePJ extends javax.swing.JDialog {
     CadastroClientePJ(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRn) {
         super(parent, modal);
         initComponents();
-        this.clienteRn = clienteRn;
+        inicializaRN(clienteRn);
         this.setLocationRelativeTo(component);
         this.setVisible(visible);  
+    }
+    
+    private void inicializaRN(ClienteRN clienteRN){
+        this.clienteRN = clienteRN;
+        if(this.clienteRN==null){
+            this.clienteRN = new ClienteRN(true);
+        }        
     }
     
     public void limpar() {
@@ -413,7 +420,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         
-        Cliente cli = clienteRn.getCliente();
+        Cliente cli = clienteRN.getCliente();
         Endereco end = new Endereco();
         
         end.setLogradouro(txtRua.getText());
@@ -432,9 +439,9 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         cli.getPessoajuridica().setTelefone2(txtTelefone2.getText());
 
         
-        if(!clienteRn.gravar(false)){
+        if(!clienteRN.gravar(false)){
             String msgs= "Cliente inválido";
-            for(String msg: (List<String>)clienteRn.getErrosValidacao()){
+            for(String msg: (List<String>)clienteRN.getErrosValidacao()){
                 msgs = msgs + "\n" + msg;
             }
             JOptionPane.showMessageDialog(this , msgs);
