@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-import com.towel.el.annotation.Resolvable;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,10 +15,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Jean
- */
 @Entity
 @Table(name = "pessoajuridica")
 @XmlRootElement
@@ -44,26 +35,24 @@ public class PessoaJuridica implements Serializable, Pessoa {
     @Column(name = "idpessoajuridica")
     private Integer idpessoajuridica;
     
-    @Column(name = "razaosocial")
-    @Resolvable(colName="razaosocial")
+    @Column(name = "razaosocial",length=60)
     private String razaosocial;
    
-    @Column(name = "nomefantasia")
-    @Resolvable(colName = "nomefantasia")
+    @Column(name = "nomefantasia",length=60)
     private String nomefantasia;
     
-    @Column(name = "cnpj")
-    @Resolvable(colName="Cnpj")
+    @Column(name = "cnpj",length=14)
     private String cnpj;
    
-    @Column(name = "telefone1")
-    @Resolvable(colName="Telefone")
+    @Column(name = "telefone1",length=15)
     private String telefone1;
    
-    @Column(name = "telefone2")
-    @Resolvable(colName="Telefone 2")
+    @Column(name = "telefone2",length=15)
     private String telefone2;
-    
+        
+    @Column(name = "email",length=50)
+    private String email;
+
     @JoinColumn(name = "idendereco", referencedColumnName = "idendereco")
     @ManyToOne  (cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Endereco endereco;
@@ -122,6 +111,14 @@ public class PessoaJuridica implements Serializable, Pessoa {
 
     public void setTelefone2(String telefone2) {
         this.telefone2 = telefone2;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Endereco getEndereco() {

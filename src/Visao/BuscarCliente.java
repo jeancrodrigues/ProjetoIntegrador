@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import model.Cliente;
 /**
  *
  * @author Jean
@@ -26,14 +27,15 @@ public class BuscarCliente extends javax.swing.JFrame {
     private static final int EDITAR_CLIENTE = 0;
     private static final int CADASTRAR_CLIENTE = 1;
         
-    private ClienteRN cliRN;
+    private ClienteRN clienteRN;
+    
     private ObjectTableModel<ClientePfWrapper> clientesModel;
     private ObjectTableModel<ClientePjWrapper> clientesPjModel;
     
     public BuscarCliente(javax.swing.JFrame parent, boolean modal) throws ClienteException{
         super();
         initComponents();
-        cliRN = new ClienteRN();
+        clienteRN = new ClienteRN();
         inicializaTableModelPf();
         inicializaTableModelPj();        
     }   
@@ -42,7 +44,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         try {
             clientesModel = new ObjectTableModel(ClientePfWrapper.class, 
                     "nome,cpf,rg,telefone1,telefone2");
-            clientesModel.setData(cliRN.getClienteWrapperList());        
+            clientesModel.setData(clienteRN.getClienteWrapperList());        
             tbClientes.setModel(clientesModel);
         } catch (ClienteException ex) {
             Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,7 +55,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         try {
             clientesPjModel = new ObjectTableModel(ClientePjWrapper.class, 
                     "nomeFantasia,razaoSocial,cnpj,telefone1,telefone2");
-            clientesPjModel.setData(cliRN.getClientePjWrapperList());
+            clientesPjModel.setData(clienteRN.getClientePjWrapperList());
             tbClientesPj.setModel(clientesPjModel);
         } catch (ClienteException ex) {
             Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,14 +71,13 @@ public class BuscarCliente extends javax.swing.JFrame {
     }
     
     private void setClienteSelecionado(Integer codigoCliente) {
-        cliRN.setClienteById(codigoCliente);
+        clienteRN.setClienteById(codigoCliente);
     }
     
-    private void abrirCadastroCliente(int acao) {
+    private void abrirCadastroCliente(int acao) {        
         
-        ClienteRN clienteRN = null;
-        if(acao == EDITAR_CLIENTE) {
-            clienteRN = cliRN;
+        if(acao == CADASTRAR_CLIENTE) {
+            clienteRN.setCliente(new Cliente());
         }
         
         JDialog cadastroCliente = null;
@@ -88,6 +89,10 @@ public class BuscarCliente extends javax.swing.JFrame {
         }        
         inicializaTableModelPf();
         inicializaTableModelPj();        
+    }
+    
+    public ClienteRN getClienteRN() {
+        return clienteRN;
     }
     
     @SuppressWarnings("unchecked")

@@ -1,24 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Util;
 
 import Exception.AnoVeiculoException;
 import java.util.Calendar;
 
-/**
- *
- * @author Jean
- */
-public class Util {
-
+public class VeiculoUtil{
     public static void validaAnoVeiculo(int ano) throws AnoVeiculoException {        
-        if( ano<1900 || ano > 2013){
+        int anoAtual = Calendar.getInstance().get(Calendar.YEAR);        
+        int anoMaximoModelo = anoAtual + 1;
+        if( ano<1900 || ano > anoMaximoModelo ){
             throw new AnoVeiculoException();
         }        
     }
-    
-    
-    
 }
