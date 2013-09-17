@@ -4,6 +4,7 @@
  */
 package Visao;
 
+import Exception.ClienteException;
 import RN.ClienteRN;
 import Util.*;
 import java.awt.Component;
@@ -16,6 +17,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import model.Cliente;
 import model.Endereco;
+import model.PessoaJuridica;
 
 /**
  *
@@ -30,7 +32,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         clienteRN = new ClienteRN(false);
-        this.setLocationRelativeTo(component);
+        this.setLocationRelativeTo(null);
         this.setVisible(visible);  
     }
 
@@ -38,7 +40,7 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         inicializaRN(clienteRn);
-        this.setLocationRelativeTo(component);
+        this.setLocationRelativeTo(null);
         this.setVisible(visible);  
     }
     
@@ -419,36 +421,46 @@ public class CadastroClientePJ extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBairroActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-        
-        Cliente cli = clienteRN.getCliente();
-        Endereco end = new Endereco();
-        
-        end.setLogradouro(txtRua.getText());
-        end.setComplemento(txtComplemento.getText());
-        end.setNumero(txtNumero.getText());
-        end.setCep(txtCEP.getText());
-        end.setBairro(txtBairro.getText());
-        end.setCidade(txtCidade.getText());
-        end.setUf(txtEstado.getText());
-        
-        cli.getPessoajuridica().setEndereco(end);
-        cli.getPessoajuridica().setRazaosocial(txtRazaoSocial.getText());
-        cli.getPessoajuridica().setNomefantasia(txtNomeFantasia.getText());
-        cli.getPessoajuridica().setCnpj(txtCnpj.getText());
-        cli.getPessoajuridica().setTelefone1(txtTelefone1.getText());
-        cli.getPessoajuridica().setTelefone2(txtTelefone2.getText());
+        try {
+            Cliente cli = clienteRN.getCliente();        
+            Endereco end;
+            
+            if(cli == null && cli.isPessoaFisica()){
+                cli = new Cliente(new PessoaJuridica());
+                end = new Endereco();
+            }else{
+                end = cli.getPessoajuridica().getEndereco();
+            }                
+            
+            end.setLogradouro(txtRua.getText());
+            end.setComplemento(txtComplemento.getText());
+            end.setNumero(txtNumero.getText());
+            end.setCep(txtCEP.getText());
+            end.setBairro(txtBairro.getText());
+            end.setCidade(txtCidade.getText());
+            end.setUf(txtEstado.getText());
+            
+            cli.getPessoajuridica().setEndereco(end);
+            cli.getPessoajuridica().setRazaosocial(txtRazaoSocial.getText());
+            cli.getPessoajuridica().setNomefantasia(txtNomeFantasia.getText());
+            cli.getPessoajuridica().setCnpj(txtCnpj.getText());
+            cli.getPessoajuridica().setTelefone1(txtTelefone1.getText());
+            cli.getPessoajuridica().setTelefone2(txtTelefone2.getText());
 
-        
-        if(clienteRN.gravarClienteAtual()){
-            JOptionPane.showMessageDialog(this, "Cliente Salvo com Sucesso!");
-            limpar();
-        }else{    
-            String msgs= "Cliente inválido";
-            for(String msg: (List<String>)clienteRN.getErrosValidacao()){
-                msgs = msgs + "\n" + msg;
+            
+            if(clienteRN.gravarClienteAtual()){
+                JOptionPane.showMessageDialog(this, "Cliente Salvo com Sucesso!");
+                limpar();
+            }else{    
+                String msgs= "Cliente inválido";
+                for(String msg: (List<String>)clienteRN.getErrosValidacao()){
+                    msgs = msgs + "\n" + msg;
+                }
+                JOptionPane.showMessageDialog(this , msgs);
             }
-            JOptionPane.showMessageDialog(this , msgs);
-        }              
+        } catch (ClienteException ex) {
+            Logger.getLogger(CadastroClientePJ.class.getName()).log(Level.SEVERE, null, ex);              
+        }
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
