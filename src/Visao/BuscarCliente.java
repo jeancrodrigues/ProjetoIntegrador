@@ -23,19 +23,20 @@ import model.PessoaJuridica;
  *
  * @author Jean
  */
-public class BuscarCliente extends javax.swing.JFrame {
+public class BuscarCliente extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;    
     
     private static final int EDITAR_CLIENTE = 0;
     private static final int CADASTRAR_CLIENTE = 1;
         
     private ClienteRN clienteRN;
+    private Cliente clienteLocacao;    
     
     private ObjectTableModel<ClientePfWrapper> clientesModel;
     private ObjectTableModel<ClientePjWrapper> clientesPjModel;
     
     public BuscarCliente(javax.swing.JFrame parent, boolean modal) throws ClienteException{
-        super();
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         clienteRN = new ClienteRN();
@@ -85,14 +86,14 @@ public class BuscarCliente extends javax.swing.JFrame {
                     if(acao == CADASTRAR_CLIENTE) {
                         clienteRN.setCliente(new Cliente(new PessoaFisica()));
                     }
-                    cadastroCliente = new CadastroCliente(this, true, true , null,clienteRN);
+                    cadastroCliente = new CadastroCliente( this, true, true , null,clienteRN);
                 }
                 break;
             case 1: {
                     if(acao == CADASTRAR_CLIENTE) {
                         clienteRN.setCliente(new Cliente(new PessoaJuridica()));
                     }
-                    cadastroCliente = new CadastroClientePJ(this, true, true , null,clienteRN);                    
+                    cadastroCliente = new CadastroClientePJ( this, true, true , null,clienteRN);                    
                 }
                 break;
         }        
@@ -257,7 +258,8 @@ public class BuscarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.setVisible(false);
+        clienteRN.setCliente(new Cliente(new PessoaFisica()));
+        this.setVisible(false);        
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed

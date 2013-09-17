@@ -34,7 +34,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="61" max="-2" attributes="0"/>
+                      <Component id="btnSair" min="-2" pref="61" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSair" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -84,24 +84,19 @@
                               <Component id="txtNomeCliente" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtCpfCnpj" min="-2" pref="147" max="-2" attributes="0"/>
-                              <Component id="lbCpf" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbRg" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="txtRg" min="-2" pref="147" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="txtCpfCnpj" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="lbCpf" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lbCpf1" min="-2" max="-2" attributes="0"/>
@@ -115,7 +110,7 @@
                           <Component id="lbRg2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="txtEmail" min="-2" pref="232" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="183" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -127,23 +122,17 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbRg" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lbCpf" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtNomeCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtCpfCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtRg" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -180,13 +169,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCpfCnpj">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtRg">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbRg">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Rg"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
@@ -194,11 +176,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnCadastrar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Cadastrar"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbRg1">
           <Properties>
@@ -242,39 +219,39 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtNomeCliente1" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                              <Component id="txtNomeMotorista" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtCpfCnpj1" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                              <Component id="txtCpfMotorista" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                               <Component id="lbCpf3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtCpfCnpj2" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                              <Component id="txtNumeroCnhMorista" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                               <Component id="lbCpf4" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtCpfCnpj3" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                              <Component id="txtDataValidadeCnhMotorista" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                               <Component id="lbCpf5" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lbCpf2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtTelefone1" min="-2" pref="147" max="-2" attributes="0"/>
+                          <Component id="txtTelefoneMotorista" min="-2" pref="147" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lbRg4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtCelular1" min="-2" pref="147" max="-2" attributes="0"/>
+                          <Component id="txtCelularMotorista" min="-2" pref="147" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lbRg3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtEmail1" min="-2" pref="232" max="-2" attributes="0"/>
+                          <Component id="txtEmailMotorista" min="-2" pref="232" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jCheckBox1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="chckbxMotorista" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -283,7 +260,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                  <Component id="chckbxMotorista" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -293,22 +270,22 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtNomeCliente1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCpfCnpj1" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCpfCnpj2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCpfCnpj3" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNomeMotorista" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCpfMotorista" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNumeroCnhMorista" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDataValidadeCnhMotorista" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="lbRg3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmail1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtEmailMotorista" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="lbCpf2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbRg4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCelular1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTelefone1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCelularMotorista" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTelefoneMotorista" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -317,11 +294,11 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="txtEmail1">
+        <Component class="javax.swing.JTextField" name="txtEmailMotorista">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCelular1">
+        <Component class="javax.swing.JTextField" name="txtCelularMotorista">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTelefone1">
+        <Component class="javax.swing.JTextField" name="txtTelefoneMotorista">
         </Component>
         <Component class="javax.swing.JLabel" name="lbRg3">
           <Properties>
@@ -338,14 +315,14 @@
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNomeCliente1">
+        <Component class="javax.swing.JTextField" name="txtNomeMotorista">
         </Component>
         <Component class="javax.swing.JLabel" name="lbCpf3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cpf / Cnpj"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCpfCnpj1">
+        <Component class="javax.swing.JTextField" name="txtCpfMotorista">
         </Component>
         <Component class="javax.swing.JLabel" name="lbRg4">
           <Properties>
@@ -357,19 +334,22 @@
             <Property name="text" type="java.lang.String" value="Numero CNH"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCpfCnpj2">
+        <Component class="javax.swing.JTextField" name="txtNumeroCnhMorista">
         </Component>
         <Component class="javax.swing.JLabel" name="lbCpf5">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data Validade CNH"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCpfCnpj3">
+        <Component class="javax.swing.JTextField" name="txtDataValidadeCnhMotorista">
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+        <Component class="javax.swing.JCheckBox" name="chckbxMotorista">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente &#xe9; motorista"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chckbxMotoristaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -614,10 +594,13 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>

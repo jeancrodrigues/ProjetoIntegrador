@@ -7,12 +7,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import model.PessoaFisica;
 import model.PessoaJuridica;
 
 public class LocacaoVeiculo extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
     
     private LocacaoVeiculoRN locacaoVeiculoRN;            
+    private Cliente clienteLocacao;
 
     public LocacaoVeiculo(java.awt.Frame parent, boolean modal, boolean visible) {
         super();
@@ -24,6 +26,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     private Cliente buscaCliente() throws ClienteException {
         BuscarCliente buscarCliente = new BuscarCliente(this, true);
         buscarCliente.setVisible(true);
+        
         ClienteRN clienteRN = buscarCliente.getClienteRN();
         return clienteRN.getCliente();
     }
@@ -32,7 +35,9 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         try {
             if(cliente.isPessoaFisica()){
                 setClientePFLocacaoTela(cliente);
+                System.out.println("cliente pf: " + cliente);
             }else{            
+                System.out.println("cliente pj: " + cliente);
                 setClientePJLocacaoTela(cliente);
             }
         } catch (ClienteException ex) {
@@ -42,22 +47,22 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     
     private void setClientePJLocacaoTela(Cliente cliente) {
         PessoaJuridica pessoaJuridica = cliente.getPessoajuridica();
-        
         txtNomeCliente.setText(pessoaJuridica.getNomefantasia());
-        
         lbCpf.setText("CNPJ");        
         txtCpfCnpj.setText(pessoaJuridica.getCnpj());
-        
-        txtRg.setVisible(false);
-        lbRg.setVisible(false);
-        
         txtTelefone.setText(pessoaJuridica.getTelefone1());        
         txtCelular.setText(pessoaJuridica.getTelefone2());        
         txtEmail.setText(pessoaJuridica.getEmail());        
     }
     
     private void setClientePFLocacaoTela(Cliente cliente) {
-        
+        PessoaFisica pessoaFisica = cliente.getPessoafisica();
+        txtNomeCliente.setText(pessoaFisica.getNome());
+        lbCpf.setText("CPF");        
+        txtCpfCnpj.setText(pessoaFisica.getCpf());
+        txtTelefone.setText(pessoaFisica.getTelefone1());        
+        txtCelular.setText(pessoaFisica.getTelefone2());        
+        txtEmail.setText(pessoaFisica.getEmail());        
     }
 
     @SuppressWarnings("unchecked")
@@ -69,10 +74,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         txtNomeCliente = new javax.swing.JTextField();
         lbCpf = new javax.swing.JLabel();
         txtCpfCnpj = new javax.swing.JTextField();
-        txtRg = new javax.swing.JTextField();
-        lbRg = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
-        btnCadastrar = new javax.swing.JButton();
         lbRg1 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         txtCelular = new javax.swing.JTextField();
@@ -80,21 +82,21 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         lbRg2 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        txtEmail1 = new javax.swing.JTextField();
-        txtCelular1 = new javax.swing.JTextField();
-        txtTelefone1 = new javax.swing.JTextField();
+        txtEmailMotorista = new javax.swing.JTextField();
+        txtCelularMotorista = new javax.swing.JTextField();
+        txtTelefoneMotorista = new javax.swing.JTextField();
         lbRg3 = new javax.swing.JLabel();
         lbCpf2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtNomeCliente1 = new javax.swing.JTextField();
+        txtNomeMotorista = new javax.swing.JTextField();
         lbCpf3 = new javax.swing.JLabel();
-        txtCpfCnpj1 = new javax.swing.JTextField();
+        txtCpfMotorista = new javax.swing.JTextField();
         lbRg4 = new javax.swing.JLabel();
         lbCpf4 = new javax.swing.JLabel();
-        txtCpfCnpj2 = new javax.swing.JTextField();
+        txtNumeroCnhMorista = new javax.swing.JTextField();
         lbCpf5 = new javax.swing.JLabel();
-        txtCpfCnpj3 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        txtDataValidadeCnhMotorista = new javax.swing.JTextField();
+        chckbxMotorista = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -117,7 +119,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -129,16 +131,12 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
         lbCpf.setText("Cpf / Cnpj");
 
-        lbRg.setText("Rg");
-
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-
-        btnCadastrar.setText("Cadastrar");
 
         lbRg1.setText("Celular");
 
@@ -157,21 +155,16 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCpf))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbRg)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCadastrar)))
-                        .addGap(28, 28, 28))
+                                .addGap(119, 119, 119))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lbCpf)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbCpf1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,7 +177,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                         .addComponent(lbRg2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(183, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,20 +185,16 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbCpf)
-                            .addComponent(lbRg)
-                            .addComponent(jLabel1))
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBuscar)
-                            .addComponent(btnCadastrar)))
+                        .addComponent(btnBuscar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(lbCpf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -235,7 +224,12 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
         lbCpf5.setText("Data Validade CNH");
 
-        jCheckBox1.setText("Cliente é motorista");
+        chckbxMotorista.setText("Cliente é motorista");
+        chckbxMotorista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chckbxMotoristaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -246,39 +240,39 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNomeCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpfCnpj1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCpfMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbCpf3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpfCnpj2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumeroCnhMorista, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbCpf4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCpfCnpj3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataValidadeCnhMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbCpf5)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lbCpf2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefoneMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbRg4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCelular1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCelularMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbRg3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox1))
+                        .addComponent(txtEmailMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chckbxMotorista))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jCheckBox1)
+                .addComponent(chckbxMotorista)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -287,20 +281,20 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                     .addComponent(lbCpf5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNomeCliente1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpfCnpj1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpfCnpj2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpfCnpj3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeMotorista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCpfMotorista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumeroCnhMorista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataValidadeCnhMotorista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbRg3)
-                        .addComponent(txtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEmailMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbCpf2)
                         .addComponent(lbRg4)
-                        .addComponent(txtCelular1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCelularMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefoneMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -444,7 +438,12 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jButton1.setText("Sair");
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Finalizar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -476,7 +475,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -490,7 +489,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnSair)
                     .addComponent(jButton2)
                     .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -511,6 +510,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         try {
             Cliente cliente = buscaCliente();
             if(cliente!=null){
+                clienteLocacao = cliente;
                 setClienteLocacaoTela(cliente);
             }            
         } catch (ClienteException ex) {
@@ -522,14 +522,34 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void chckbxMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chckbxMotoristaActionPerformed
+        if(chckbxMotorista.isSelected()){
+            try {
+                if(clienteLocacao != null){
+                    if(!clienteLocacao.isPessoaFisica()){                    
+                        JOptionPane.showMessageDialog(this, "Cliente PJ não pode ser motorista");
+                        limparCamposMotorista();
+                    }else{
+                        setarCamposMotorista(clienteLocacao);
+                    }
+                }
+            } catch (ClienteException ex) {
+                Logger.getLogger(LocacaoVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_chckbxMotoristaActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JCheckBox chckbxMotorista;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -561,23 +581,42 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel lbCpf3;
     private javax.swing.JLabel lbCpf4;
     private javax.swing.JLabel lbCpf5;
-    private javax.swing.JLabel lbRg;
     private javax.swing.JLabel lbRg1;
     private javax.swing.JLabel lbRg2;
     private javax.swing.JLabel lbRg3;
     private javax.swing.JLabel lbRg4;
     private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCelular1;
+    private javax.swing.JTextField txtCelularMotorista;
     private javax.swing.JTextField txtCpfCnpj;
-    private javax.swing.JTextField txtCpfCnpj1;
-    private javax.swing.JTextField txtCpfCnpj2;
-    private javax.swing.JTextField txtCpfCnpj3;
+    private javax.swing.JTextField txtCpfMotorista;
+    private javax.swing.JTextField txtDataValidadeCnhMotorista;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmail1;
+    private javax.swing.JTextField txtEmailMotorista;
     private javax.swing.JTextField txtNomeCliente;
-    private javax.swing.JTextField txtNomeCliente1;
-    private javax.swing.JTextField txtRg;
+    private javax.swing.JTextField txtNomeMotorista;
+    private javax.swing.JTextField txtNumeroCnhMorista;
     private javax.swing.JTextField txtTelefone;
-    private javax.swing.JTextField txtTelefone1;
+    private javax.swing.JTextField txtTelefoneMotorista;
     // End of variables declaration//GEN-END:variables
+
+    private void setarCamposMotorista(Cliente clienteLocacao) {
+        PessoaFisica pf = clienteLocacao.getPessoafisica();
+        txtNomeMotorista.setText(pf.getNome());
+        txtCpfMotorista.setText(pf.getCpf());
+        txtNumeroCnhMorista.setText("");
+        txtDataValidadeCnhMotorista.setText("");
+        txtTelefoneMotorista.setText(pf.getTelefone1());
+        txtCelularMotorista.setText(pf.getTelefone2());
+        txtEmailMotorista.setText(pf.getEmail());
+    }
+
+    private void limparCamposMotorista() {
+        txtNomeMotorista.setText("");
+        txtCpfMotorista.setText("");
+        txtNumeroCnhMorista.setText("");
+        txtDataValidadeCnhMotorista.setText("");
+        txtTelefoneMotorista.setText("");
+        txtCelularMotorista.setText("");
+        txtEmailMotorista.setText("");
+    }
 }

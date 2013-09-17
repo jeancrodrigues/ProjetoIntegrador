@@ -78,6 +78,10 @@ public class PessoaFisica implements Serializable, Pessoa {
     @Resolvable(colName="Telefone2")
     private String telefone2;
     
+    @Column(name = "email",length=30)
+    @Resolvable(colName="email")
+    private String email;
+    
     @JoinColumn(name = "idendereco", referencedColumnName = "idendereco")
     @ManyToOne( cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Endereco endereco;
@@ -201,6 +205,10 @@ public class PessoaFisica implements Serializable, Pessoa {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     
