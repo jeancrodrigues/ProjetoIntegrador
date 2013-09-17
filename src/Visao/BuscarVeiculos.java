@@ -18,24 +18,34 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Jean
  */
-public class BuscarVeiculos extends javax.swing.JFrame {
+public class BuscarVeiculos extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;    
-    
-    private static final int EDITAR_VEICULO = 0;
-    private static final int CADASTRAR_VEICULO = 1;
         
     private VeiculoRN veiculoRN;
+
+    public VeiculoRN getVeiculoRN() {
+        return veiculoRN;
+    }
+
+    public void setVeiculoRN(VeiculoRN veiculoRN) {
+        this.veiculoRN = veiculoRN;
+    }
     
     private ObjectTableModel<VeiculoWrapper> veiculosModel;
     
     public BuscarVeiculos(javax.swing.JFrame parent, boolean modal) throws VeiculoException{
-        super();
-        setVisible(modal);
+        super(parent,modal);
         initComponents();
         veiculoRN = new VeiculoRN();
         inicializaTableModelVeiculo();      
     }   
     
+    public BuscarVeiculos(javax.swing.JDialog parent, boolean modal) throws VeiculoException{
+        super(parent,modal);
+        initComponents();
+        veiculoRN = new VeiculoRN();
+        inicializaTableModelVeiculo();      
+    }
     private void inicializaTableModelVeiculo(){
         try {
             veiculosModel = new ObjectTableModel(VeiculoWrapper.class, 
@@ -60,28 +70,6 @@ public class BuscarVeiculos extends javax.swing.JFrame {
     private void setVeiculoSelecionado(Integer codigoVeiculo) {
         veiculoRN.setVeiculoById(codigoVeiculo);
     }
-    /*
-    private void abrirCadastroCliente(int acao) {        
-        
-        if(acao == CADASTRAR_CLIENTE) {
-            clienteRN.setCliente(new Cliente());
-        }
-        
-        JDialog cadastroCliente = null;
-        switch(jTabCliente.getSelectedIndex()){
-            case 0: cadastroCliente = new CadastroCliente(this, true, true , null,clienteRN);
-                break;
-            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null,clienteRN);
-                break;
-        }        
-        inicializaTableModelPf();
-        inicializaTableModelPj();        
-    }
-    
-    public ClienteRN getClienteRN() {
-        return clienteRN;
-    }
-    */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -416,7 +416,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLocacaoVeiculosActionPerformed
 
     private void btnVendaVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaVeiculosActionPerformed
-        // TODO add your handling code here:
+        VendaVeiculos vendaVeiculos = new VendaVeiculos(null, true, true, null);
     }//GEN-LAST:event_btnVendaVeiculosActionPerformed
 
     private void btnFinalizarLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarLocacaoActionPerformed

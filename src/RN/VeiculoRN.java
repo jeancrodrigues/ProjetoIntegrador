@@ -21,12 +21,15 @@ import model.Veiculo;
 public class VeiculoRN {
     VeiculoPers pers;
     Veiculo veiculo;
+    
     public VeiculoRN() {
         pers =  new VeiculoPers();
         veiculo = new Veiculo();
     }
     
-    
+    public Veiculo getVeiculoSelecionado(){
+        return veiculo;
+    }
     public List<VeiculoWrapper> getVeiculoWrapperList() throws  VeiculoException{
         List<VeiculoWrapper> lista = new ArrayList<>();
         for (Veiculo veiculo : pers.getLista()) {
