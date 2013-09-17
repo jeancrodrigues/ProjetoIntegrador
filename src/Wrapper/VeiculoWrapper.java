@@ -12,7 +12,7 @@ package Wrapper;
 import com.towel.el.annotation.Resolvable;
 import model.Veiculo;
 
-public class VeiculoWrapper {
+public class VeiculoWrapper extends DefaultWrapper{
     @Resolvable(colName="Chassi")
     private String chassi;
     @Resolvable(colName="Ano Modelo")
@@ -30,6 +30,7 @@ public class VeiculoWrapper {
     
     public VeiculoWrapper(Veiculo veiculo) {
         if(veiculo != null){
+           this.id = veiculo.getIdveiculo();
            this.chassi = veiculo.getChassi();
            this.anoModelo = String.valueOf(veiculo.getAnomodelo());
            this.anoFabricacao = String.valueOf(veiculo.getAnofabricacao());

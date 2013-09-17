@@ -47,27 +47,17 @@ public class BuscarVeiculos extends javax.swing.JFrame {
         }
     }
     
-    /*private void inicializaTableModelPj(){
-        try {
-            clientesPjModel = new ObjectTableModel(ClientePjWrapper.class, 
-                    "nomeFantasia,razaoSocial,cnpj,telefone1,telefone2");
-            clientesPjModel.setData(clienteRN.getClientePjWrapperList());
-            tbClientesPj.setModel(clientesPjModel);
-        } catch (ClienteException ex) {
-            Logger.getLogger(BuscarVeiculos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
     
-    private void selectClienteFromTable(JTable table){
+    private void selectVeiculosFromTable(JTable table){
         int selectedRow = table.getSelectedRow();
         if(selectedRow>-1){
             ObjectTableModel tableModel = (ObjectTableModel) table.getModel();
             DefaultWrapper wrapper = (DefaultWrapper) tableModel.getValue(selectedRow);
-            setClienteSelecionado(wrapper.getId());            
+            setVeiculoSelecionado(wrapper.getId());            
         }
     }
     
-    private void setClienteSelecionado(Integer codigoVeiculo) {
+    private void setVeiculoSelecionado(Integer codigoVeiculo) {
         veiculoRN.setVeiculoById(codigoVeiculo);
     }
     /*
@@ -100,8 +90,6 @@ public class BuscarVeiculos extends javax.swing.JFrame {
         tbVeiculos = new javax.swing.JTable();
         btnSair = new javax.swing.JButton();
         btnSelecionar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -123,7 +111,7 @@ public class BuscarVeiculos extends javax.swing.JFrame {
                 if (evt.getValueIsAdjusting()) {
                     return;
                 }
-                selectClienteFromTable(tbVeiculos);
+                selectVeiculosFromTable(tbVeiculos);
             }
         });
 
@@ -141,20 +129,6 @@ public class BuscarVeiculos extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Veiculos Cadastrados");
 
@@ -168,13 +142,9 @@ public class BuscarVeiculos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSair)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSelecionar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnNovo)
-                        .addGap(42, 42, 42))
+                        .addGap(49, 49, 49))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -193,9 +163,7 @@ public class BuscarVeiculos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSair)
-                    .addComponent(btnSelecionar)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar))
+                    .addComponent(btnSelecionar))
                 .addContainerGap())
         );
 
@@ -210,17 +178,7 @@ public class BuscarVeiculos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        //abrirCadastro(CADASTRAR_VEICULO);
-    }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //abrirCadastro(EDITAR_VEICULO);
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JLabel jLabel1;
