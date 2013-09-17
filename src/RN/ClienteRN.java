@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package RN;
 
 import Exception.ClienteException;
@@ -13,6 +9,7 @@ import java.util.List;
 import model.Cliente;
 import model.PessoaFisica;
 import model.PessoaJuridica;
+
 /**
  *
  * @author RAFAEL
@@ -28,7 +25,11 @@ public class ClienteRN {
     }
     
     public ClienteRN(boolean isPessoaFisica) {
-        cliente = new Cliente(isPessoaFisica);
+        if(isPessoaFisica){
+            cliente = new Cliente(new PessoaFisica());
+        }else{
+            cliente = new Cliente(new PessoaJuridica());
+        }
         pers = new ClientePers();
     }
     
@@ -39,7 +40,6 @@ public class ClienteRN {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
     
     public boolean gravarClienteAtual(){        
         if(isClienteValido(cliente)){

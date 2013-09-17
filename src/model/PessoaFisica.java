@@ -53,7 +53,7 @@ public class PessoaFisica implements Serializable, Pessoa {
     @Column(name = "idpessoafisica")
     private Integer idpessoafisica;
     
-    @Column(name = "nome")
+    @Column(name = "nome",length=60)
     @Resolvable(colName="Nome")
     private String nome;
     
@@ -62,19 +62,19 @@ public class PessoaFisica implements Serializable, Pessoa {
     @Resolvable(colName="Data Nascimento")
     private Date datanascimento;
     
-    @Column(name = "cpf")
+    @Column(name = "cpf",length=14)
     @Resolvable(colName="Cpf")
     private String cpf;
     
-    @Column(name = "rg")
+    @Column(name = "rg",length=14)
     @Resolvable(colName="Rg")
     private String rg;
     
-    @Column(name = "telefone1")
+    @Column(name = "telefone1",length=16)
     @Resolvable(colName="Telefone")
     private String telefone1;
     
-    @Column(name = "telefone2")
+    @Column(name = "telefone2",length=16)
     @Resolvable(colName="Telefone2")
     private String telefone2;
     

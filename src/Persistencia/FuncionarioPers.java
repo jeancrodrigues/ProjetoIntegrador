@@ -5,6 +5,8 @@
 package Persistencia;
 
 import java.util.List;
+import javax.persistence.NamedQuery;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 
@@ -22,37 +24,41 @@ public class FuncionarioPers extends BasePers implements IPersistencia<Funcionar
     @Override
     public Funcionario gravar(Funcionario func) {
         beginTransaction();
-        getEm().merge(func);
+        func = getEm().merge(func);
         commitTransaction();
-        return null;
-       
+        return func;       
     }
 
     @Override
     public void deletar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deletar(Funcionario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deletar(Funcionario func) {
+        
     }
 
     @Override
-    public Funcionario atualizar(Funcionario t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Funcionario atualizar(Funcionario funcionario) {
+        return gravar(funcionario);
     }
 
     @Override
     public Funcionario procurarPorId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query query = getEm().createNamedQuery("Funcionario.findByIdfuncionario");
+        query.setParameter("idfuncionario", id);
+        return (Funcionario)query.getSingleResult();        
     }
 
     @Override
     public List<Funcionario> getLista() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query query = getEm().createNamedQuery("Funcionario.findAll");
+        return (List<Funcionario>)query.getResultList();        
     }
-    
-    
-    
+
+    public Funcionario procurarPorNomeUsuario(String usuario) {        
+        Query query = getEm().createNamedQuery("Funcionario.findByUsuario");
+        query.setParameter("usuario", usuario);
+        return (Funcionario)query.getSingleResult();        
+    }
 }

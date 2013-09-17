@@ -48,7 +48,7 @@ public class Cliente implements Serializable {
     private Integer idcliente;
     
     @Column(name = "datacadastro")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)    
     private Date datacadastro;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
@@ -65,13 +65,12 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(boolean isPessoaFisica) {
-        if (isPessoaFisica){
-            this.pessoafisica = new PessoaFisica();
+    public Cliente(Pessoa pessoa) {
+        if (pessoa instanceof PessoaFisica){
+            this.pessoafisica = (PessoaFisica) pessoa;
         }else{
-            this.pessoajuridica = new PessoaJuridica();
-        }
-            
+            this.pessoajuridica = (PessoaJuridica) pessoa;
+        }            
     }
 
     public Cliente(Integer idcliente) {

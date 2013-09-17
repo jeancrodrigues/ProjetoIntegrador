@@ -40,29 +40,30 @@ public class Endereco implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Basic(optional = false)
     @Column(name = "idendereco")
     private Integer idendereco;
     
-    @Column(name = "logradouro")
+    @Column(name = "logradouro",length=80)
     private String logradouro;
     
-    @Column(name = "numero")
+    @Column(name = "numero",length=10)
     private String numero;
     
-    @Column(name = "bairro")
+    @Column(name = "bairro",length=50)
     private String bairro;
     
-    @Column(name = "cidade")
+    @Column(name = "cidade",length=50)
     private String cidade;
     
-    @Column(name = "uf")
+    @Column(name = "uf",length=2)
     private String uf;
     
-    @Column(name = "complemento")
+    @Column(name = "complemento",length=80)
     private String complemento;
     
-    @Column(name = "CEP")
+    @Column(name = "CEP",length=10)
     private String cep;
 
     public Endereco() {
