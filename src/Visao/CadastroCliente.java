@@ -30,7 +30,7 @@ public class CadastroCliente extends javax.swing.JDialog {
     private ClienteRN clienteRN;
     private Cliente cliente;
     
-    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component){
+    public CadastroCliente(javax.swing.JFrame parent, boolean modal, boolean visible,Component component){
         super(parent, modal);
         initComponents();
         clienteRN = new ClienteRN(true);
@@ -38,7 +38,20 @@ public class CadastroCliente extends javax.swing.JDialog {
         this.setVisible(visible);      
     }    
     
-    public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRN){
+    public CadastroCliente(javax.swing.JDialog parent, boolean modal, boolean visible,Component component, ClienteRN clienteRN){
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);        
+        inicializaRN(clienteRN);
+        try {
+            setarCamposTela();
+        } catch (ClienteException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(visible);          
+    }
+    
+    public CadastroCliente(javax.swing.JFrame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRN){
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);        

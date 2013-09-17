@@ -36,6 +36,14 @@ public class CadastroClientePJ extends javax.swing.JDialog {
         this.setVisible(visible);  
     }
 
+    CadastroClientePJ(javax.swing.JDialog parent, boolean modal, boolean visible,Component component, ClienteRN clienteRn) {
+        super(parent, modal);
+        initComponents();
+        inicializaRN(clienteRn);
+        this.setLocationRelativeTo(null);
+        this.setVisible(visible);  
+    }
+    
     CadastroClientePJ(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRn) {
         super(parent, modal);
         initComponents();
