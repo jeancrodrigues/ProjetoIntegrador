@@ -236,6 +236,8 @@ public class VendaVeiculos extends javax.swing.JDialog {
         if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {
         vendaRN.gravar();
         }
+        JOptionPane.showMessageDialog(this, "Venda Salva Com Sucesso!\n"
+                + "Aguardando autorização Gerencial");
     }//GEN-LAST:event_btnGravarActionPerformed
 
     public void inicializaTabelaVeiculo() {
