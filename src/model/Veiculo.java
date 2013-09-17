@@ -65,6 +65,9 @@ public class Veiculo implements Serializable {
     @Column(name = "chassi")
     private String chassi;
     
+    @Column(name = "placa")
+    private String placa;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
     private List<CompraVeiculo> compraList;
     
@@ -88,6 +91,15 @@ public class Veiculo implements Serializable {
         this.idveiculo = idveiculo;
     }
 
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+    
+    
     public Integer getIdveiculo() {
         return idveiculo;
     }
@@ -212,5 +224,4 @@ public class Veiculo implements Serializable {
     public String toString() {
         return "model.Veiculo[ idveiculo=" + idveiculo + " ]";
     }
-    
 }

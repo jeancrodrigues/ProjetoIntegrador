@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <persistence-unit name="ProjetoIntegradorPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.Compra</class>
+    <class>model.Pagamento</class>
+    <class>model.Boleto</class>
+    <class>model.Promocao</class>
+    <class>model.Combustivel</class>
+    <class>model.Locacao</class>
+    <class>model.Motorista</class>
+    <class>model.Manutencao</class>
+    <class>model.Venda</class>
+    <class>model.Setor</class>
+    <class>model.Cliente</class>
+    <class>model.Endereco</class>
+    <class>model.Funcionario</class>
+    <class>model.Veiculo</class>
+    <class>model.Tipolocacao</class>
+    <class>model.PessoaFisica</class>
+    <class>model.PessoaJuridica</class>
+    <class>model.CompraVeiculo</class>
+    <class>model.TipoVeiculo</class>
+    <validation-mode>NONE</validation-mode>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3366/locadoraveiculos?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
+    </properties>
+  </persistence-unit>
+</persistence>
