@@ -7,7 +7,7 @@ package RN;
 import Persistencia.CombustivelPers;
 import Persistencia.CompraPers;
 import Util.DataUtil;
-import Wrapper.VeiculoWrapper;
+import Wrapper.CompraVeiculoWrapper;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -174,10 +174,10 @@ public class CompraVeiculoRN {
         return combustivelPers.getLista();
     }
 
-    public List<VeiculoWrapper> getVeiculoWrapperList() {
-        List<VeiculoWrapper> lista = new ArrayList<>();
+    public List<CompraVeiculoWrapper> getVeiculoWrapperList() {
+        List<CompraVeiculoWrapper> lista = new ArrayList<>();
         for (int i = 0; i < compra.getVeiculos().size(); i++) {
-            lista.add(new VeiculoWrapper(compra.getVeiculos().get(i)));
+            lista.add(new CompraVeiculoWrapper(compra.getVeiculos().get(i)));
         }
         return lista;
     }

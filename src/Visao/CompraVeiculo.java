@@ -6,7 +6,7 @@ package Visao;
 
 import RN.CompraVeiculoRN;
 import Util.*;
-import Wrapper.VeiculoWrapper;
+import Wrapper.CompraVeiculoWrapper;
 import com.towel.swing.table.ObjectTableModel;
 import java.awt.Component;
 import java.text.ParseException;
@@ -30,7 +30,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
     private Compra compra;
     private CompraVeiculoRN compraRN;
-    private ObjectTableModel<VeiculoWrapper> veiculoModel;
+    private ObjectTableModel<CompraVeiculoWrapper> veiculoModel;
 
     /**
      * Creates new form CompraVeiculo
@@ -517,7 +517,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
     }
 
     public void inicializaTabelaVeiculo() {
-        veiculoModel = new ObjectTableModel(VeiculoWrapper.class, "chassi,anoModelo,anoFabricacao,modelo,marca,quilometragem,valor");
+        veiculoModel = new ObjectTableModel(CompraVeiculoWrapper.class, "chassi,anoModelo,anoFabricacao,modelo,marca,quilometragem,valor");
         veiculoModel.setData(compraRN.getVeiculoWrapperList());
         tbVeiculo.setModel(veiculoModel);
     }

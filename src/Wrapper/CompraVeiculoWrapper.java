@@ -10,9 +10,9 @@ package Wrapper;
  */
 
 import com.towel.el.annotation.Resolvable;
-import model.Veiculo;
+import model.CompraVeiculo;
 
-public class VeiculoWrapper {
+public class CompraVeiculoWrapper {
     @Resolvable(colName="Chassi")
     private String chassi;
     @Resolvable(colName="Ano Modelo")
@@ -27,16 +27,19 @@ public class VeiculoWrapper {
     private String marca;
     @Resolvable(colName="Quilometragem")
     private String quilometragem;
+    @Resolvable(colName="Valor")
+    private String valor;
     
-    public VeiculoWrapper(Veiculo veiculo) {
-        if(veiculo != null){
-           this.chassi = veiculo.getChassi();
-           this.anoModelo = String.valueOf(veiculo.getAnomodelo());
-           this.anoFabricacao = String.valueOf(veiculo.getAnofabricacao());
-           this.modelo = veiculo.getModelo();
-           this.combustivel = String.valueOf(veiculo.getCombustivel());
-           this.marca = veiculo.getMarca();
-           this.quilometragem = String.valueOf(veiculo.getQuilometragem());
+    public CompraVeiculoWrapper(CompraVeiculo comprav) {
+        if(comprav != null){
+           this.chassi = comprav.getVeiculo().getChassi();
+           this.anoModelo = String.valueOf(comprav.getVeiculo().getAnomodelo());
+           this.anoFabricacao = String.valueOf(comprav.getVeiculo().getAnofabricacao());
+           this.modelo = comprav.getVeiculo().getModelo();
+           this.combustivel = String.valueOf(comprav.getVeiculo().getCombustivel());
+           this.marca = comprav.getVeiculo().getMarca();
+           this.quilometragem = String.valueOf(comprav.getVeiculo().getQuilometragem());
+           this.valor = String.valueOf(comprav.getValor());
         }          
     }
 
