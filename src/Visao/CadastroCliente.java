@@ -34,16 +34,20 @@ public class CadastroCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         clienteRN = new ClienteRN(true);
-        this.setLocationRelativeTo(component);
+        this.setLocationRelativeTo(null);
         this.setVisible(visible);      
     }    
     
     public CadastroCliente(java.awt.Frame parent, boolean modal, boolean visible,Component component, ClienteRN clienteRN){
         super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(component);        
+        this.setLocationRelativeTo(null);        
         inicializaRN(clienteRN);
-        setarCamposTela();
+        try {
+            setarCamposTela();
+        } catch (ClienteException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(visible);          
     }
     
@@ -54,10 +58,12 @@ public class CadastroCliente extends javax.swing.JDialog {
         }        
     }
     
-    private void setarCamposTela(){
-        cliente = clienteRN.getCliente();
-        if(cliente==null){
+    private void setarCamposTela() throws ClienteException{
+        cliente = clienteRN.getCliente();        
+        if(cliente==null && !cliente.isPessoaFisica()){
             limpar();
+            cliente.setPessoajuridica(null);
+            cliente.setPessoafisica(new PessoaFisica());            
         }else{            
             setarDadosPessoaFisica(cliente.getPessoafisica());
             setarDadosEndereco(cliente.getPessoafisica().getEndereco());
@@ -217,22 +223,25 @@ public class CadastroCliente extends javax.swing.JDialog {
         jLabel12.setText("Cidade");
 
         txtCidade.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK, 40, true));
-        
+
         txtNumero.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_NUMBERS_MASK, 5));
 
         CEP.setText("CEP");
+
+        txtEstado.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK , 2, true));
+
         jLabel15.setText("Complemento");
 
         txtComplemento.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40, true));
-        
+
         jLabel9.setText("Logradouro");
 
         txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 50, true));
-        
+
         jLabel13.setText("Bairro");
 
         txtBairro.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK,40,true));
-        
+
         try {
             txtCEP.setFormatterFactory(new DefaultFormatterFactory (new MaskFormatter("#####-###")));
         } catch (ParseException ex) {
@@ -267,7 +276,7 @@ public class CadastroCliente extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 86, Short.MAX_VALUE)))
                 .addContainerGap(97, Short.MAX_VALUE))
             .addGroup(jpDaDosFuncinario1Layout.createSequentialGroup()

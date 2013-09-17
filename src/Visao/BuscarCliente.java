@@ -17,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import model.Cliente;
+import model.PessoaFisica;
+import model.PessoaJuridica;
 /**
  *
  * @author Jean
@@ -35,6 +37,7 @@ public class BuscarCliente extends javax.swing.JFrame {
     public BuscarCliente(javax.swing.JFrame parent, boolean modal) throws ClienteException{
         super();
         initComponents();
+        setLocationRelativeTo(null);
         clienteRN = new ClienteRN();
         inicializaTableModelPf();
         inicializaTableModelPj();        
@@ -76,15 +79,21 @@ public class BuscarCliente extends javax.swing.JFrame {
     
     private void abrirCadastroCliente(int acao) {        
         
-        if(acao == CADASTRAR_CLIENTE) {
-            clienteRN.setCliente(new Cliente());
-        }
-        
         JDialog cadastroCliente = null;
         switch(jTabCliente.getSelectedIndex()){
-            case 0: cadastroCliente = new CadastroCliente(this, true, true , null,clienteRN);
+            case 0: {
+                    if(acao == CADASTRAR_CLIENTE) {
+                        clienteRN.setCliente(new Cliente(new PessoaFisica()));
+                    }
+                    cadastroCliente = new CadastroCliente(this, true, true , null,clienteRN);
+                }
                 break;
-            case 1: cadastroCliente = new CadastroClientePJ(this, true, true , null,clienteRN);
+            case 1: {
+                    if(acao == CADASTRAR_CLIENTE) {
+                        clienteRN.setCliente(new Cliente(new PessoaJuridica()));
+                    }
+                    cadastroCliente = new CadastroClientePJ(this, true, true , null,clienteRN);                    
+                }
                 break;
         }        
         inicializaTableModelPf();

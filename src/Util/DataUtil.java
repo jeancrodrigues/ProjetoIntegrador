@@ -24,7 +24,10 @@ public class DataUtil {
     }
     
     public static String dateToString(Date dado) {        
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");        
-        return df.format(dado).trim();
+        if(dado != null){
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");        
+            return df.format(dado).trim();
+        }
+        return "";
     }
 }

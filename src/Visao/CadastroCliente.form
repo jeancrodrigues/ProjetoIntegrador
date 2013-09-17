@@ -246,7 +246,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtEstado" min="-2" pref="72" max="-2" attributes="0"/>
+                                  <Component id="txtEstado" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="86" max="32767" attributes="0"/>
@@ -329,6 +329,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEstado">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtEstado.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_MASK , 2, true));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
