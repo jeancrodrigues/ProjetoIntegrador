@@ -249,7 +249,7 @@ public class CadastroCliente extends javax.swing.JDialog {
 
         jLabel9.setText("Logradouro");
 
-        txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 50, true));
+        txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 50, true));
 
         jLabel13.setText("Bairro");
 

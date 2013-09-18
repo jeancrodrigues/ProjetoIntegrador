@@ -350,7 +350,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtRua">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_MASK, 50, true));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtRua.setDocument(new MaskFieldUtil(MaskFieldUtil.ONLY_LETTERS_NUMBERS_SPACE_MASK, 50, true));"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">

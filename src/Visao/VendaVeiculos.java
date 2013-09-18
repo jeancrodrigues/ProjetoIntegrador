@@ -38,7 +38,6 @@ public class VendaVeiculos extends javax.swing.JDialog {
     public void inicilizar(){
         txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
         vendaRN = new VendaRN();
-        btnAdicionarVeiculo.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
