@@ -27,10 +27,11 @@ public class TelaLogin extends javax.swing.JDialog {
     
     private void login() {        
         String usuario = txtUsuario.getText();
-        String senha = txtSenha.getPassword().toString();
+        String senha = new String(txtSenha.getPassword());        
+
         if(LoginUsuarioUtil.login(usuario, senha)){
-            JOptionPane.showMessageDialog(this, "Login efetuado com sucesso.");
             this.dispose();
+            JOptionPane.showMessageDialog(this, "Login efetuado com sucesso.");
         }else{
             JOptionPane.showMessageDialog(this, "Erro no login. Verifique o usuário e senha.");                        
         }        

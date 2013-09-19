@@ -4,7 +4,6 @@
  */
 package RN;
 
-import Persistencia.CombustivelPers;
 import Persistencia.FuncionarioPers;
 import Persistencia.SetorPers;
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class FuncionarioRN {
     
     public boolean gravar(){        
         if(isFuncionarioValido(func)){
-            pers.gravar(func);        
+            pers.gravar(func);                 
             return true;            
         }
         return false;

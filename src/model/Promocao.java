@@ -35,7 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Promocao.findByNome", query = "SELECT p FROM Promocao p WHERE p.nome = :nome"),
     @NamedQuery(name = "Promocao.findByDescricao", query = "SELECT p FROM Promocao p WHERE p.descricao = :descricao"),
     @NamedQuery(name = "Promocao.findByDatainicio", query = "SELECT p FROM Promocao p WHERE p.datainicio = :datainicio"),
-    @NamedQuery(name = "Promocao.findByDatatermino", query = "SELECT p FROM Promocao p WHERE p.datatermino = :datatermino")})
+    @NamedQuery(name = "Promocao.findByDatatermino", query = "SELECT p FROM Promocao p WHERE p.datatermino = :datatermino"),
+    @NamedQuery(name = "Promocao.findVigentes", query = "SELECT p FROM Promocao p WHERE :data BETWEEN p.datainicio AND p.datatermino")
+    }
+)
 public class Promocao implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -73,6 +76,9 @@ public class Promocao implements Serializable {
 
     @Column(name="quilometragemmaxima")
     private Integer quilometragemMaxima;
+    
+    @Column(name="descontoreais")
+    private boolean descontoreais;
     
     @OneToMany(mappedBy = "promocao")
     private List<Pagamento> pagamentoList;
@@ -196,5 +202,13 @@ public class Promocao implements Serializable {
 
     public void setQuilometragemMaxima(Integer quilometragemMaxima) {
         this.quilometragemMaxima = quilometragemMaxima;
+    }
+
+    public boolean isDescontoreais() {
+        return descontoreais;
+    }
+
+    public void setDescontoreais(boolean descontoreais) {
+        this.descontoreais = descontoreais;
     }
 }

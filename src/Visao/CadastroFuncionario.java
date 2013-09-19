@@ -17,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 import model.Endereco;
 import model.Funcionario;
 import model.PessoaFisica;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  *
@@ -28,15 +29,15 @@ public class CadastroFuncionario extends javax.swing.JDialog {
     private FuncionarioRN funcionarioRN;
     private String senha = "";
 
-    CadastroFuncionario(java.awt.Frame parent, boolean modal, boolean visible, Component component) {
+    CadastroFuncionario(java.awt.Frame parent, boolean modal, boolean visible) {
         super(parent, modal);
         initComponents();
         inicializar();
-        this.setLocationRelativeTo(component);
+        this.setLocationRelativeTo(null);
         this.setVisible(visible);
     }
 
-    CadastroFuncionario(java.awt.Frame parent, boolean modal, boolean visible, Component component, FuncionarioRN funcionarioRN) {
+    CadastroFuncionario(java.awt.Frame parent, boolean modal, boolean visible, FuncionarioRN funcionarioRN) {
         super(parent, modal);
         initComponents();
         this.funcionarioRN = funcionarioRN;
@@ -443,18 +444,16 @@ public class CadastroFuncionario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-
-        try {        
+        try {                    
+            String senhaNova = new String(txtSenha.getPassword());                        
             
-            String senhaNova;            
-            if(verificaSenha(txtSenha.getPassword().toString())){     
-                senhaNova = txtSenhaNova.getPassword().toString();
-            }else{                
-                senhaNova = txtSenha.getPassword().toString();
+            if( verificaSenha( senhaNova ) ){
+                senhaNova = new String(txtSenhaNova.getPassword());
             }
             
             Funcionario func = funcionarioRN.getFuncionario();                      
             func.setSenha(senhaNova);
+            func.setUsuario(txtNomeUsuario.getText());
             
             PessoaFisica pessoaFisica = func.getPessoafisica();
 
@@ -479,7 +478,8 @@ public class CadastroFuncionario extends javax.swing.JDialog {
                 }
                 JOptionPane.showMessageDialog(this, msgs);
             }
-            
+        } catch (DatabaseException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao gravar, verifique os dados digitados.");            
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Data de nascimento inválida");
         } catch (Exception ex) {
@@ -563,6 +563,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         txtNumero.setText(null);
         txtCidade.setText(null);
         txtSenha.setText(null);
+        txtNomeUsuario.setText(null);
         txtSenhaNova.setText(null);
         txtSenhaNova.setEnabled(false);
     }
@@ -572,6 +573,7 @@ public class CadastroFuncionario extends javax.swing.JDialog {
         Endereco endereco = pessoaFisica.getEndereco();
         setarCamposPessoaFisica(pessoaFisica);
         setarCamposEndereco(endereco);
+        txtNomeUsuario.setText(funcionario.getUsuario());
         senha = funcionario.getSenha();
         txtSenhaNova.setEditable(true);
     }

@@ -6,6 +6,7 @@ package Visao;
 
 import Exception.ClienteException;
 import Exception.VeiculoException;
+import RN.FuncionarioRN;
 import RN.LoginUsuarioUtil;
 import Util.EntityManagerUtil;
 import javax.swing.JOptionPane;
@@ -27,14 +28,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     private void verificaUsuarioLogado(){
         while(contadorLogin < 2 && !LoginUsuarioUtil.existeUsuarioLogado()){
-            chamaTelaLogin();
-            if(JOptionPane.showConfirmDialog(this, 
-                    "Erro de login, deseja sair?", "Erro login.", JOptionPane.YES_NO_OPTION) == 0){
-                System.out.println("Login inválido - sistema será fechado.");
-                this.dispose();
-                contadorLogin = 3;
-            }            
-            contadorLogin++;            
+            if(!chamaTelaLogin()){            
+                if(JOptionPane.showConfirmDialog(this, 
+                        "Erro de login, deseja sair?", "Erro login.", JOptionPane.YES_NO_OPTION) == 0){
+                    System.out.println("Login inválido - sistema será fechado.");
+                    this.dispose();
+                    contadorLogin = 3;
+                }            
+                contadorLogin++;      
+            }
         }
         
         if(LoginUsuarioUtil.existeUsuarioLogado()){
@@ -55,6 +57,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     private void setarUsuario(Funcionario usuarioLogado) {        
         txtNomeUsuario.setText(usuarioLogado.getNome());
+    }
+    
+    private void abreCadastroFuncionarioLogado() {
+        FuncionarioRN funcionarioRN = new FuncionarioRN();
+        funcionarioRN.setFunc(LoginUsuarioUtil.getUsuarioLogado());
+        CadastroFuncionario cadastroFuncionario = new CadastroFuncionario(this, true, true, funcionarioRN);        
     }
     
     @SuppressWarnings("unchecked")
@@ -481,7 +489,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarClienteActionPerformed
 
     private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
-        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this, true, true, null);
+        CadastroFuncionario janelaCadastroFunc = new CadastroFuncionario(this, true, true);
     }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
     private void btnCompraVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraVeiculosActionPerformed
@@ -533,11 +541,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListaVeiculosActionPerformed
 
     private void btnCadastroPromocoes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroPromocoes1ActionPerformed
-        // TODO add your handling code here:
+        CadastroPromocao cadastroPromocao = new CadastroPromocao(this, true);
+        cadastroPromocao.setVisible(true);
     }//GEN-LAST:event_btnCadastroPromocoes1ActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        // TODO add your handling code here:
+        abreCadastroFuncionarioLogado();
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

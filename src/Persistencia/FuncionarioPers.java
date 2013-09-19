@@ -5,9 +5,7 @@
 package Persistencia;
 
 import java.util.List;
-import javax.persistence.NamedQuery;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 import model.Funcionario;
 
 /**
@@ -19,7 +17,6 @@ public class FuncionarioPers extends BasePers implements IPersistencia<Funcionar
     public FuncionarioPers() {
         super();
     }  
-    
     
     @Override
     public Funcionario gravar(Funcionario func) {
