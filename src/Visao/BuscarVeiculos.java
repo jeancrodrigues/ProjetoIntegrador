@@ -35,6 +35,7 @@ public class BuscarVeiculos extends javax.swing.JDialog {
     
     public BuscarVeiculos(javax.swing.JFrame parent, boolean modal) throws VeiculoException{
         super(parent,modal);
+        setLocationRelativeTo(null);
         initComponents();
         veiculoRN = new VeiculoRN();
         inicializaTableModelVeiculo();      
@@ -51,7 +52,7 @@ public class BuscarVeiculos extends javax.swing.JDialog {
             veiculosModel = new ObjectTableModel(VeiculoWrapper.class, 
                     "chassi,anoModelo,anoFabricacao,modelo,combustivel,marca,quilometragem");
             veiculosModel.setData(veiculoRN.getVeiculoWrapperList());        
-            tbVeiculos.setModel(veiculosModel) ;
+            tbVeiculos.setModel(veiculosModel);
         } catch (VeiculoException ex) {
             Logger.getLogger("ERRO FATAL").log(Level.SEVERE, null, ex);
         }
@@ -125,21 +126,19 @@ public class BuscarVeiculos extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSair)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSelecionar)
-                        .addGap(49, 49, 49))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addContainerGap(547, Short.MAX_VALUE)
+                .addComponent(btnSair)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSelecionar)
+                .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +148,9 @@ public class BuscarVeiculos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSair)
-                    .addComponent(btnSelecionar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSelecionar)
+                    .addComponent(btnSair))
                 .addContainerGap())
         );
 

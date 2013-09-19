@@ -4,8 +4,10 @@ import Exception.ClienteException;
 import Exception.VeiculoException;
 import RN.ClienteRN;
 import RN.LocacaoVeiculoRN;
+import RN.LoginUsuarioUtil;
 import Util.DataUtil;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,11 +28,22 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     public LocacaoVeiculo(java.awt.Frame parent, boolean modal, boolean visible) {
         super();
         initComponents();
-        locacaoVeiculoRN = new LocacaoVeiculoRN();
-        setarPromocoesVigentes();
-        setarTipoLocacao();
+        inicializar();
         setLocationRelativeTo(null);
         setVisible(visible);
+    }
+    
+    private void inicializar(){
+        locacaoVeiculoRN = new LocacaoVeiculoRN();
+        
+        locacaoVeiculoRN.setDataLocacao(Calendar.getInstance().getTime());
+        locacaoVeiculoRN.setFuncionario(LoginUsuarioUtil.getUsuarioLogado());
+        
+        setarPromocoesVigentes();
+        setarTipoLocacao();
+        
+        txtFuncionario.setText( LoginUsuarioUtil.getUsuarioLogado().getNome() );
+        txtRetirada.setText(DataUtil.dateToString(Calendar.getInstance().getTime()));
     }
     
     private void setMotorista(PessoaFisica pessoaFisica){
@@ -100,11 +113,13 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     public void gravarLocacao(){        
         if(validaMotorista()){
             try{
+                
                 locacaoVeiculoRN.setPromocao((Promocao) cmbbxPromocao.getSelectedItem());
                 locacaoVeiculoRN.setTipoLocacao((Tipolocacao) cmbbxTipoLocacao.getSelectedItem());
                 locacaoVeiculoRN.gravarLocacao();
+                
             }catch (Exception ex){
-            
+                JOptionPane.showMessageDialog(this, "Erro ao gravar locacao.\nErro: " + ex.getMessage());
             }
         }
     }    
@@ -161,6 +176,9 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtFuncionario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -168,7 +186,11 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
         jLabel1.setText("Nome");
 
+        txtNomeCliente.setEditable(false);
+
         lbCpf.setText("Cpf / Cnpj");
+
+        txtCpfCnpj.setEditable(false);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -179,9 +201,15 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
         lbRg1.setText("Celular");
 
+        txtTelefone.setEditable(false);
+
+        txtCelular.setEditable(false);
+
         lbCpf1.setText("Telefone");
 
         lbRg2.setText("Email");
+
+        txtEmail.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -216,7 +244,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                         .addComponent(lbRg2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(183, Short.MAX_VALUE))))
+                        .addContainerGap(189, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,7 +334,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtEmailMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(chckbxMotorista))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,11 +369,19 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Veículo", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
+        txtModelo.setEditable(false);
+
         jLabel3.setText("Modelo");
 
         jLabel4.setText("Marca");
 
+        txtMarca.setEditable(false);
+
+        txtPlaca.setEditable(false);
+
         jLabel5.setText("Placa");
+
+        txtKm.setEditable(false);
 
         jLabel6.setText("KM");
 
@@ -429,15 +465,16 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cmbbxTipoLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(cmbbxPromocao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
-                        .addComponent(txtRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(cmbbxTipoLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -469,12 +506,19 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
             }
         });
 
-        btnFinalizar.setText("Finalizar");
+        btnFinalizar.setText("Finalizar Locação");
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFinalizarActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Locação de Veículos");
+
+        jLabel10.setText("Funcionario");
+
+        txtFuncionario.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -490,13 +534,24 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnFinalizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel10)
+                    .addComponent(txtFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,6 +569,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         if(JOptionPane.showConfirmDialog(this, "Deseja finalizar a locação?","Locação",JOptionPane.YES_NO_OPTION ) == 0 ) {
+            System.out.println("gravar locacao");
             gravarLocacao();
         }
     }//GEN-LAST:event_btnFinalizarActionPerformed
@@ -575,7 +631,9 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbbxTipoLocacao;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -605,6 +663,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     private javax.swing.JTextField txtDataValidadeCnhMotorista;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmailMotorista;
+    private javax.swing.JTextField txtFuncionario;
     private javax.swing.JTextField txtKm;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;

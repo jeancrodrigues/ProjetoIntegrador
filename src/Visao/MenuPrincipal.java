@@ -9,6 +9,8 @@ import Exception.VeiculoException;
 import RN.FuncionarioRN;
 import RN.LoginUsuarioUtil;
 import Util.EntityManagerUtil;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 
@@ -527,7 +529,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVendaVeiculosActionPerformed
 
     private void btnFinalizarLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarLocacaoActionPerformed
-        // TODO add your handling code here:
+        try {
+            ListaLocacao finalizarLocacao = new ListaLocacao(this ,true);
+            finalizarLocacao.setLocationRelativeTo(null);
+            finalizarLocacao.setVisible(true);
+        } catch (VeiculoException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClienteException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnFinalizarLocacaoActionPerformed
 
     private void btnListaVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaVeiculosActionPerformed

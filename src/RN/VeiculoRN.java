@@ -6,7 +6,6 @@ package RN;
 
 import Exception.VeiculoException;
 import Persistencia.VeiculoPers;
-import Wrapper.CompraVeiculoWrapper;
 import Wrapper.VeiculoWrapper;
 import java.util.ArrayList;
 import java.util.List;

@@ -10,6 +10,8 @@ import Wrapper.CompraWrapper;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import model.CompraVeiculo;
+import model.Veiculo;
 /**
  *
  * @author rafael
@@ -51,6 +53,10 @@ public class CompraRN {
     }
 
     public void autorizarCompraSelecionada() {
+        for (CompraVeiculo comprav : compra.getVeiculos()){
+            Veiculo veiculo = comprav.getVeiculo();
+            veiculo.setDisponivel(true);
+        }
      compra.setDataautorizacao(Calendar.getInstance().getTime());
      pers.atualizar(compra);
     }

@@ -5,11 +5,16 @@
 package RN;
 
 import Exception.ClienteException;
+import Persistencia.LocacaoPers;
 import Persistencia.PromocaoPers;
 import Persistencia.TipoLocacaoPers;
+import Wrapper.LocacaoWrapper;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import model.Cliente;
+import model.Funcionario;
 import model.Locacao;
 import model.Motorista;
 import model.Promocao;
@@ -26,6 +31,14 @@ public class LocacaoVeiculoRN {
     private Cliente cliente;
     private Veiculo veiculo;
     private Motorista motorista;
+    private Funcionario funcionario;
+
+    private LocacaoPers pers;
+    
+    public LocacaoVeiculoRN() {
+        this.pers = new LocacaoPers();
+        locacao = new Locacao();
+    }
     
     public void setClienteLocacao(Cliente cliente) {
         this.cliente = cliente;
@@ -47,8 +60,25 @@ public class LocacaoVeiculoRN {
         locacao.setCliente(cliente);
         locacao.setVeiculo(veiculo);
         locacao.setMotorista(motorista);                
-    }    
-
+        locacao.setFuncionario(funcionario);
+        pers.gravar(locacao);
+    }
+    
+    public List<LocacaoWrapper> getLocacaoWrapperList() throws ClienteException{
+        List<LocacaoWrapper> lista = new ArrayList<>();
+        for (Locacao locacao : pers.getLista()) {
+                lista.add(new LocacaoWrapper(locacao));
+        }
+        return lista;
+    }
+    public void setLocacaoById(Integer id) {
+        locacao = pers.procurarPorId(id);
+    }
+    
+    public Locacao getLocacaoSelecionada(){
+        return locacao;
+    }
+    
     public List<Promocao> getPromocoesVigentes() {
         PromocaoPers promocaoPers = new PromocaoPers();
         return promocaoPers.
@@ -74,5 +104,17 @@ public class LocacaoVeiculoRN {
 
     public Motorista getMotorista() {
         return motorista;
+    }
+
+    public void setDataLocacao(Date data) {
+        locacao.setDatalocacao(data);
+    }
+    
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 }
