@@ -37,7 +37,7 @@ public class LocacaoWrapper extends DefaultWrapper {
 
         Cliente cli = locacao.getCliente();
         if (locacao != null) {
-            this.id = cli.getIdcliente();
+            this.id = locacao.getIdlocacao();            
             if (cli.isPessoaFisica()) {
                 this.cliente = cli.getPessoafisica().getNome();
             } else {

@@ -57,6 +57,7 @@ public class LocacaoVeiculoRN {
     }
 
     public void gravarLocacao() {
+        veiculo.setDisponivel(false);
         locacao.setCliente(cliente);
         locacao.setVeiculo(veiculo);
         locacao.setMotorista(motorista);                

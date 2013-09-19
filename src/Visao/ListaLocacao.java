@@ -63,13 +63,14 @@ public class ListaLocacao extends javax.swing.JDialog {
         int selectedRow = table.getSelectedRow();
         if(selectedRow>-1){
             ObjectTableModel tableModel = (ObjectTableModel) table.getModel();
-            DefaultWrapper wrapper = (DefaultWrapper) tableModel.getValue(selectedRow);
+            LocacaoWrapper wrapper = (LocacaoWrapper) tableModel.getValue(selectedRow);
             setLocacaoSelecionada(wrapper.getId());            
         }
     }
     
     private void setLocacaoSelecionada(Integer codigoLocacao) {
         locacaoRN.setLocacaoById(codigoLocacao);
+        System.out.println("locacao selecionada " + codigoLocacao);
     }
     
     private void realizarDevolucao(){        

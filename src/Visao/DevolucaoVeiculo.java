@@ -7,15 +7,14 @@ package Visao;
 import Exception.ClienteException;
 import RN.LocacaoVeiculoRN;
 import Util.DataUtil;
-import com.towel.time.DateUtils;
 import java.util.Calendar;
 import model.Cliente;
 import model.Locacao;
 import model.Motorista;
-import model.Pessoa;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Promocao;
+import model.Veiculo;
 
 /**
  *
@@ -35,12 +34,14 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
      */
     public DevolucaoVeiculo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
+        setLocationRelativeTo(null);
+        initComponents();        
     }
 
     public DevolucaoVeiculo(javax.swing.JDialog parent, boolean modal, LocacaoVeiculoRN locacaoVeiculoRN) throws ClienteException {
         super(parent, modal);
-        initComponents();        
+        setLocationRelativeTo(parent);
+        initComponents();   
         this.locacaoVeiculoRN = locacaoVeiculoRN;
         setarCamposLocacao(locacaoVeiculoRN.getLocacaoSelecionada());
     }
@@ -49,11 +50,47 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
                 
     }
     
+    private void limparCampos(){
+        txtMarca.setText(null);
+        txtModelo.setText(null);
+        txtKm.setText(null);        
+        txtPlaca.setText(null);
+        txtNomeCliente.setText(null);        
+        txtCpfCnpj.setText(null);        
+        txtTelefone.setText(null);
+        txtCelular.setText(null);
+        txtEmail.setText(null);
+        txtModelo.setText(null);
+        txtMarca.setText(null);
+        txtPlaca.setText(null);
+        txtKm.setText(null);        
+        txtTipoLocacao.setText(null);
+        txtPromocao.setText(null);        
+        txtNomeMotorista.setText(null);        
+        txtCpfCnpjMotorista.setText(null);
+        txtCnhMotorista.setText(null);        
+        txtDataLocacao.setText(null);
+        txtDataDevolucao.setText(null);        
+        txtTotalDias.setText(null);
+        txtValorDesconto.setText(null);
+        txtValorLocacao.setText(null);
+        txtValorTotal.setText(null);
+    }
+    
     private void setarCamposLocacao(Locacao locacao) throws ClienteException{
+        limparCampos();
         setarCamposCliente(locacao.getCliente());
         setarCamposMotorista(locacao.getMotorista());
         setarCamposTotalizacao(locacao);
+        setarCamposVeiculo(locacao.getVeiculo());
         setarCamposData(locacao);
+    }
+    
+    private void setarCamposVeiculo(Veiculo veiculo){
+        txtMarca.setText(veiculo.getMarca());
+        txtModelo.setText(veiculo.getModelo());
+        txtKm.setText(String.valueOf(veiculo.getQuilometragem()));        
+        txtPlaca.setText(veiculo.getPlaca());
     }
     
     private void setarCamposCliente(Cliente cliente) throws ClienteException{
@@ -88,15 +125,11 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
     }
     
     private void setarCamposTotalizacao(Locacao locacao){
-        txtTipoLocacao.setText(locacao.getTipolocacao().getTipo());
-        
+        txtTipoLocacao.setText(locacao.getTipolocacao().getTipo());       
         Promocao promocao = locacao.getPromocao();
         if(promocao != null){
             txtPromocao.setText(promocao.getNome());
         }
-        
-        
-        
     }
     
     private void setarCamposData(Locacao locacao){
@@ -105,13 +138,11 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
         Calendar dtlocacao = Calendar.getInstance();
         dtlocacao.setTime(locacao.getDatalocacao());
         Calendar dtdevolucacao = Calendar.getInstance();        
-        long dias = dtdevolucacao.getTimeInMillis() - dtlocacao.getTimeInMillis();        
-        dias = ((( dias / 1000 ) / 60 ) / 60 ) / 24 ;
-        txtTotalDias.setText(String.valueOf(dias));
+        diasDecorridos = dtdevolucacao.getTimeInMillis() - dtlocacao.getTimeInMillis();        
+        diasDecorridos = ((( diasDecorridos / 1000 ) / 60 ) / 60 ) / 24 ;
+        txtTotalDias.setText(String.valueOf(diasDecorridos));
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -276,7 +307,7 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,6 +538,11 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
         );
 
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnFinalizarDevolucao.setText("Finalizar Devolução");
         btnFinalizarDevolucao.addActionListener(new java.awt.event.ActionListener() {
@@ -614,47 +650,10 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
         finalizarDevolucao();
     }//GEN-LAST:event_btnFinalizarDevolucaoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DevolucaoVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DevolucaoVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DevolucaoVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DevolucaoVeiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DevolucaoVeiculo dialog = new DevolucaoVeiculo(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFinalizarDevolucao;
     private javax.swing.JButton btnSair;
