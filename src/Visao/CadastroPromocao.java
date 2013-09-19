@@ -247,11 +247,12 @@ public class CadastroPromocao extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-        lePromocaoTela();
-        gravarPromocao();
+        if(lePromocaoTela()){
+            gravarPromocao();
+        }
     }//GEN-LAST:event_btnGravarActionPerformed
 
-    private void lePromocaoTela(){
+    private boolean lePromocaoTela(){
         try {
             Promocao promocao = promocaoRN.getPromocao();
             
@@ -266,18 +267,32 @@ public class CadastroPromocao extends javax.swing.JDialog {
             promocao.setPorcentagemDescontoSemanal(Integer.parseInt(txtDescontoSemanal.getText()));
             promocao.setPorcentagemDescontoMensal(Integer.parseInt(txtDescontoMensal.getText()));
             promocao.setPorcentagemDescontoQuilometro(Integer.parseInt(txtDescontoKm.getText()));
-                        
+            return true;     
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Dados inválidos. Verifique os dados digitados.");
-        }        
+        }   
+        
+        return false;
     }
     
     private void gravarPromocao(){
         try{
             promocaoRN.gravar();
+            limparCampos();
+            JOptionPane.showMessageDialog(this, "Gravado com sucesso");            
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Erro ao gravar\nErro:" + ex.getMessage() );
         }
+    }
+    
+    private void limparCampos(){
+        txtNome.setText("");
+        txtDataInicio.setText("");
+        txtDataTermino.setText("");
+        txtDescontoDiario.setText("");
+        txtDescontoSemanal.setText("");
+        txtDescontoMensal.setText("");
+        txtDescontoKm.setText("");
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

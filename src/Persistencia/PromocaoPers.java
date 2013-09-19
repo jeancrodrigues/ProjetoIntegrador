@@ -51,7 +51,7 @@ public class PromocaoPers extends BasePers implements IPersistencia<Promocao> {
     
     public List<Promocao> getListaPromocoesVigentesData(Date data){
         Query query = getEm().createNamedQuery("Promocao.findVigentes");
-        query.setParameter(":data", data);
+        query.setParameter("data", data);
         return query.getResultList();
     }
     

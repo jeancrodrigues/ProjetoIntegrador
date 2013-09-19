@@ -4,12 +4,18 @@ import Exception.ClienteException;
 import Exception.VeiculoException;
 import RN.ClienteRN;
 import RN.LocacaoVeiculoRN;
+import Util.DataUtil;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import model.Motorista;
 import model.PessoaFisica;
 import model.PessoaJuridica;
+import model.Promocao;
+import model.Tipolocacao;
 import model.Veiculo;
 
 public class LocacaoVeiculo extends javax.swing.JFrame {
@@ -21,10 +27,22 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         super();
         initComponents();
         locacaoVeiculoRN = new LocacaoVeiculoRN();
-        setVisible(visible);
+        setarPromocoesVigentes();
+        setarTipoLocacao();
         setLocationRelativeTo(null);
+        setVisible(visible);
     }
-
+    
+    private void setMotorista(PessoaFisica pessoaFisica){
+        Motorista motorista = new Motorista(pessoaFisica);
+        locacaoVeiculoRN.setMotoristaLocacao(motorista);
+        setarCamposMotorista(motorista);
+    }
+    
+    private void setMotorista(){
+        setMotorista(new PessoaFisica());
+    }
+    
     private Cliente buscaCliente() throws ClienteException {
         BuscarCliente buscarCliente = new BuscarCliente(this, true);
         buscarCliente.setVisible(true);
@@ -66,6 +84,30 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         txtCelular.setText(pessoaFisica.getTelefone2());
         txtEmail.setText(pessoaFisica.getEmail());
     }
+    
+    private void setarPromocoesVigentes(){
+        cmbbxPromocao.addItem(null);
+        for(Promocao promo : locacaoVeiculoRN.getPromocoesVigentes()){
+            cmbbxPromocao.addItem(promo);
+        }        
+    }
+    private void setarTipoLocacao(){
+        for(Tipolocacao tipolocacao : locacaoVeiculoRN.getTiposLocacao()){
+            cmbbxTipoLocacao.addItem(tipolocacao);
+        }
+    }
+    
+    public void gravarLocacao(){        
+        if(validaMotorista()){
+            try{
+                locacaoVeiculoRN.setPromocao((Promocao) cmbbxPromocao.getSelectedItem());
+                locacaoVeiculoRN.setTipoLocacao((Tipolocacao) cmbbxTipoLocacao.getSelectedItem());
+                locacaoVeiculoRN.gravarLocacao();
+            }catch (Exception ex){
+            
+            }
+        }
+    }    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -112,10 +154,13 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbbxTipoLocacao = new javax.swing.JComboBox();
+        cmbbxPromocao = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        txtRetirada = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -355,18 +400,30 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo Locação");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diária", "Semanal", "Mensal" }));
+        jLabel8.setText("Promoção");
+
+        txtRetirada.setEditable(false);
+
+        jLabel9.setText("Data Retirada");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtRetirada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(cmbbxTipoLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbbxPromocao, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,7 +431,13 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbbxTipoLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(cmbbxPromocao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(txtRetirada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -385,8 +448,8 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -406,17 +469,10 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Finalizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizar.setText("Finalizar");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnFinalizarActionPerformed(evt);
             }
         });
 
@@ -432,9 +488,7 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btnFinalizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -451,30 +505,18 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSair)
-                    .addComponent(jButton2)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnFinalizar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        switch (JOptionPane.showConfirmDialog(this, "Deseja finalizar a locação?")) {
-            case 0: {
-                locacaoVeiculoRN.gravarLocacao();                
-            }
-            break;
-            case 1:
-                ;
-                break;
-            case 2:
-                ;
-                break;
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        if(JOptionPane.showConfirmDialog(this, "Deseja finalizar a locação?","Locação",JOptionPane.YES_NO_OPTION ) == 0 ) {
+            gravarLocacao();
         }
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
@@ -500,20 +542,17 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
     private void chckbxMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chckbxMotoristaActionPerformed
         if (chckbxMotorista.isSelected()) {
-
-            if (locacaoVeiculoRN.getClienteLocacao() != null) {
+            Cliente cliente = locacaoVeiculoRN.getClienteLocacao();
+            if ( cliente != null) {                
                 try {
-                    if (!locacaoVeiculoRN.clienteIsPessoaFisica()) {
-                        JOptionPane.showMessageDialog(this, "Cliente PJ não pode ser motorista");
-                        limparCamposMotorista();
+                    if (cliente.isPessoaFisica()) {
+                        setMotorista(cliente.getPessoafisica());
                     } else {
-                        setarCamposMotorista(locacaoVeiculoRN.getClienteLocacao());
+                        chckbxMotorista.setSelected(false);
+                        JOptionPane.showMessageDialog(this, "Cliente PJ não pode ser motorista");
+                        setMotorista();                        
                     }
                 } catch (ClienteException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage() );
@@ -529,12 +568,12 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnSair;
     private javax.swing.JCheckBox chckbxMotorista;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox cmbbxPromocao;
+    private javax.swing.JComboBox cmbbxTipoLocacao;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
@@ -542,6 +581,8 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -571,12 +612,13 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeMotorista;
     private javax.swing.JTextField txtNumeroCnhMorista;
     private javax.swing.JTextField txtPlaca;
+    private javax.swing.JTextField txtRetirada;
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtTelefoneMotorista;
     // End of variables declaration//GEN-END:variables
 
-    private void setarCamposMotorista(Cliente clienteLocacao) {
-        PessoaFisica pf = clienteLocacao.getPessoafisica();
+    private void setarCamposMotorista(Motorista motorista) {
+        PessoaFisica pf = motorista.getPessoafisica();
         txtNomeMotorista.setText(pf.getNome());
         txtCpfMotorista.setText(pf.getCpf());
         txtNumeroCnhMorista.setText("");
@@ -602,6 +644,24 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
             txtMarca.setText(veiculoLocacao.getMarca());
             txtPlaca.setText(veiculoLocacao.getPlaca());
             txtKm.setText(String.valueOf(veiculoLocacao.getQuilometragem()));
+        }
+    }
+
+    private boolean validaMotorista() {
+        try {
+            String numeroCnh = txtNumeroCnhMorista.getText();
+            if("".equals(numeroCnh.trim())){
+                return false;
+            }            
+            Date dataValidade = DataUtil.stringToDate(txtDataValidadeCnhMotorista.getText());
+            
+            Motorista motorista = locacaoVeiculoRN.getMotorista();
+            motorista.setDatavalidade(dataValidade);
+            motorista.setRegistro(numeroCnh);            
+            return true;
+            
+        } catch (ParseException ex) {
+            return false;
         }
     }
 }

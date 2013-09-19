@@ -53,6 +53,10 @@ public class Tipolocacao implements Serializable {
     public Tipolocacao() {
     }
 
+    public Tipolocacao(String tipo) {
+        this.tipo = tipo;
+    }
+    
     public Tipolocacao(Integer idtipolocacao) {
         this.idtipolocacao = idtipolocacao;
     }
@@ -112,7 +116,7 @@ public class Tipolocacao implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Tipolocacao[ idtipolocacao=" + idtipolocacao + " ]";
+        return tipo;
     }
     
 }

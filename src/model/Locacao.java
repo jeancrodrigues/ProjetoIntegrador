@@ -79,6 +79,14 @@ public class Locacao implements Serializable {
     @ManyToOne(optional = false)
     private Cliente cliente;
 
+    @JoinColumn(name = "idpromocao", referencedColumnName = "idpromocao")
+    @ManyToOne(optional = true)
+    private Promocao promocao;
+
+    public Promocao getPromocao() {
+        return promocao;
+    }
+    
     public Locacao() {
     }
 
@@ -189,6 +197,10 @@ public class Locacao implements Serializable {
     @Override
     public String toString() {
         return "model.Locacao[ idlocacao=" + idlocacao + " ]";
+    }
+
+    public void setPromocao(Promocao promocao) {
+        this.promocao = promocao;
     }
     
 }

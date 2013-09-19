@@ -4,6 +4,7 @@
  */
 package model;
 
+import Util.DataUtil;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -161,7 +162,7 @@ public class Promocao implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Promocao[ idpromocao=" + idpromocao + " ]";
+        return nome + "( " + DataUtil.dateToString(datainicio) + " - " + DataUtil.dateToString(datatermino) + ")";
     }    
 
     public Integer getPorcentagemDescontoDiario() {

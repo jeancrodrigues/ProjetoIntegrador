@@ -36,6 +36,7 @@ public class PromocaoRN {
     
     public void gravar(){
         pers.gravar(promocao);
+        promocao = new Promocao();
     }
     
     public List<Promocao> getListaPromocao(){

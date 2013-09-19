@@ -68,6 +68,10 @@ public class Motorista implements Serializable {
     public Motorista() {
     }
 
+    public Motorista(PessoaFisica pessoaFisica) {
+        this.pessoafisica = pessoaFisica;
+    }
+    
     public Motorista(Integer idmotorista) {
         this.idmotorista = idmotorista;
     }

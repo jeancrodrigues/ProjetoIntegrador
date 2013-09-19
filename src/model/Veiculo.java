@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "veiculo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Veiculo.findAll", query = "SELECT v FROM Veiculo v"),
+    @NamedQuery(name = "Veiculo.findAll", query = "SELECT v FROM Veiculo v where v.disponivel = TRUE"),
     @NamedQuery(name = "Veiculo.findByIdveiculo", query = "SELECT v FROM Veiculo v WHERE v.idveiculo = :idveiculo"),
     @NamedQuery(name = "Veiculo.findByModelo", query = "SELECT v FROM Veiculo v WHERE v.modelo = :modelo"),
     @NamedQuery(name = "Veiculo.findByMarca", query = "SELECT v FROM Veiculo v WHERE v.marca = :marca"),
@@ -65,8 +65,11 @@ public class Veiculo implements Serializable {
     @Column(name = "chassi")
     private String chassi;
     
-    @Column(name = "placa")
+    @Column(name = "placa",length=8)
     private String placa;
+    
+    @Column(name = "disponivel")
+    private boolean disponivel;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
     private List<CompraVeiculo> compraList;
@@ -223,5 +226,13 @@ public class Veiculo implements Serializable {
     @Override
     public String toString() {
         return "model.Veiculo[ idveiculo=" + idveiculo + " ]";
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }
