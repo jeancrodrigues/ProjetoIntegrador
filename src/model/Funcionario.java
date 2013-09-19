@@ -206,5 +206,12 @@ public class Funcionario implements Serializable {
     public String toString() {
         return "model.Funcionario[ idfuncionario=" + idfuncionario + " ]";
     }
+
+    public String getNome() {
+        if(pessoafisica != null){
+            return pessoafisica.getNome();
+        }
+        return "";
+    }
     
 }

@@ -5,6 +5,7 @@
 package Visao;
 
 import RN.CompraVeiculoRN;
+import RN.LoginUsuarioUtil;
 import Util.*;
 import Wrapper.CompraVeiculoWrapper;
 import com.towel.swing.table.ObjectTableModel;
@@ -19,6 +20,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import model.Combustivel;
 import model.Compra;
+import model.Funcionario;
 import model.PessoaJuridica;
 import model.Veiculo;
 
@@ -27,8 +29,8 @@ import model.Veiculo;
  * @author RAFAEL
  */
 public class CompraVeiculo extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
-    private Compra compra;
     private CompraVeiculoRN compraRN;
     private ObjectTableModel<CompraVeiculoWrapper> veiculoModel;
 
@@ -49,10 +51,15 @@ public class CompraVeiculo extends javax.swing.JDialog {
         for (Combustivel cb : compraRN.getListaCombustivel()) {
             cmbCombustivel.addItem(cb);
         }
+        
         txtValorTotalCompra.setText(null);
         txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
         btnGravar.setEnabled(false);
-        compra = compraRN.getCompra();
+                
+        Funcionario funcionario = LoginUsuarioUtil.getUsuarioLogado();       
+        setFuncionario(funcionario);
+        compraRN.setFuncionarioCompra(funcionario);        
+        
         limparVeiculo();
         limparCompra();
         inicializaTabelaVeiculo();
@@ -124,15 +131,15 @@ public class CompraVeiculo extends javax.swing.JDialog {
 
         jLabel3.setText("Data");
 
-        txtData.setEnabled(false);
+        txtData.setEditable(false);
 
         jLabel4.setText("Valor Total");
 
-        txtValorTotalCompra.setEnabled(false);
+        txtValorTotalCompra.setFocusable(false);
 
         jLabel5.setText("Funcionario");
 
-        txtFuncionario.setEnabled(false);
+        txtFuncionario.setEditable(false);
         txtFuncionario.setFocusable(false);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -568,20 +575,21 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
 
         if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {
+            
+            Compra compra = compraRN.getCompra();
+            
             compra.setVendedor(lePessoaJuridica());
             compra.setDatacompra(Calendar.getInstance().getTime());
 
             if (!compraRN.gravar()) {
                 String msgs = "Compra Inválida.";
-                for (String msg : (List<String>) compraRN.getErrosValidacaoCompra()) {
+                for (String msg : compraRN.getErrosValidacaoCompra()) {
                     msgs = msgs + "\n" + msg;
                 }
                 JOptionPane.showMessageDialog(this, msgs);
             } else {
                 inicizalizar();
-
                 JOptionPane.showMessageDialog(this, "Compra Inserida Com Sucesso!");
-
             }
         }
     }//GEN-LAST:event_btnGravarActionPerformed
@@ -595,7 +603,7 @@ public class CompraVeiculo extends javax.swing.JDialog {
     }//GEN-LAST:event_txtNomeFantasiaActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        if (compra.getVeiculos().isEmpty()) {
+        if (compraRN.isCompraVazia()) {
             dispose();
         } else {
             if (JOptionPane.showConfirmDialog(this, "Deseja Sair?") == 0) {
@@ -648,4 +656,8 @@ public class CompraVeiculo extends javax.swing.JDialog {
     private javax.swing.JTextField txtValorTotalCompra;
     private javax.swing.JTextField txtValorVeiculo;
     // End of variables declaration//GEN-END:variables
+
+    private void setFuncionario(Funcionario funcionario) {
+        txtFuncionario.setText(funcionario.getNome());
+    }
 }

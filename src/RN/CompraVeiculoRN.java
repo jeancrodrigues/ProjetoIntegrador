@@ -6,20 +6,15 @@ package RN;
 
 import Persistencia.CombustivelPers;
 import Persistencia.CompraPers;
-import Util.DataUtil;
 import Wrapper.CompraVeiculoWrapper;
-import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.Combustivel;
 import model.Compra;
 import model.CompraVeiculo;
+import model.Funcionario;
 import model.Veiculo;
-import org.hibernate.util.CalendarComparator;
-import sun.util.resources.CalendarData;
 
 /**
  *
@@ -180,5 +175,13 @@ public class CompraVeiculoRN {
             lista.add(new CompraVeiculoWrapper(compra.getVeiculos().get(i)));
         }
         return lista;
+    }
+
+    public boolean isCompraVazia() {
+        return compra.getVeiculos().size() > 0;
+    }
+
+    public void setFuncionarioCompra(Funcionario funcionario) {
+        compra.setFuncionario(funcionario);
     }
 }

@@ -5,6 +5,7 @@
 package RN;
 
 import Persistencia.FuncionarioPers;
+import javax.persistence.NoResultException;
 import model.Funcionario;
 
 /**
@@ -13,26 +14,31 @@ import model.Funcionario;
  */
 public class LoginUsuarioUtil {
 
+    private static Funcionario usuarioLogado;
+
+    public static Funcionario getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public static boolean existeUsuarioLogado() {
+        return usuarioLogado != null;
+    }
+
     private LoginUsuarioUtil() {
     }
-    
-    private class UsuarioRN {
 
-        private FuncionarioPers funcionarioPers;       
-        
-        private Funcionario funcionario;
-
-        public UsuarioRN() {
-            funcionarioPers = new FuncionarioPers();
+    public static boolean login(String nomeUsuario, String senha) {
+        FuncionarioPers pers = new FuncionarioPers();
+        try {
+            Funcionario funcionario = pers.procurarPorNomeUsuario(nomeUsuario);
+            if (funcionario != null && funcionario.getSenha().equals(senha)) {
+                usuarioLogado = funcionario;
+                return true;
+            }
+        } catch (NoResultException ex) {
+            System.out.println("Erro login - não existe funcionario com esse nome de usuário.");
+            ex.printStackTrace();
         }
-
-        public Funcionario getFuncionarioLogado() {
-            return funcionario;
-        }
-
-        public boolean setLoginFuncionario(String usuario, String senha) {
-            this.funcionario = funcionarioPers.procurarPorNomeUsuario(usuario);
-            return funcionario != null && funcionario.getSenha() == senha;
-        }
+        return false;
     }
 }

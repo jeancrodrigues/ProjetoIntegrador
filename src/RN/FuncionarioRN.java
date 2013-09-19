@@ -27,7 +27,7 @@ public class FuncionarioRN {
         func = new Funcionario();
     }
         
-    public Funcionario getFunc() {
+    public Funcionario getFuncionario() {
         return func;
     }
 
@@ -38,8 +38,7 @@ public class FuncionarioRN {
     public boolean gravar(){        
         if(isFuncionarioValido(func)){
             pers.gravar(func);        
-            return true;
-            
+            return true;            
         }
         return false;
     }
@@ -77,12 +76,19 @@ public class FuncionarioRN {
         return false;
     }
 
-    public Object getErrosValidacao() {
+    public List<String> getErrosValidacao() {
         return errosValidacao;
     }
     
     public Iterable<Setor> getListaSetor() {
         SetorPers setorPers = new SetorPers();
         return setorPers.getLista();
+    }
+
+    public void setSenha(String senhaNova) throws Exception {        
+        if( !senhaNova.equals("") && senhaNova.length() < 4){
+            throw new Exception("A nova precisa ter no minímo 4 caracteres.");
+        }                                               
+        func.setSenha(senhaNova);
     }
 }
