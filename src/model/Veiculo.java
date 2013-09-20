@@ -84,6 +84,14 @@ public class Veiculo implements Serializable {
     @JoinColumn(name = "idtipoveiculo", referencedColumnName = "idtipoveiculo")
     @ManyToOne
     private TipoVeiculo tipoVeiculo;
+
+    public TipoVeiculo getTipoVeiculo() {
+        return tipoVeiculo;
+    }
+
+    public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
+    }
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculo")
     private List<Locacao> locacaoList;

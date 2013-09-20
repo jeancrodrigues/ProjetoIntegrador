@@ -28,6 +28,7 @@ import model.Veiculo;
 public class LocacaoVeiculoRN {
 
     private Locacao locacao;
+
     private Cliente cliente;
     private Veiculo veiculo;
     private Motorista motorista;
@@ -118,4 +119,17 @@ public class LocacaoVeiculoRN {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
+
+    public void gravarDevolucao() {
+        pers.gravar(locacao);
+    }
+    
+    public Locacao getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(Locacao locacao) {
+        this.locacao = locacao;
+    }
+    
 }

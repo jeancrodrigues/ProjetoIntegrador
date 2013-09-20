@@ -8,12 +8,14 @@ import Exception.ClienteException;
 import RN.LocacaoVeiculoRN;
 import Util.DataUtil;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Locacao;
 import model.Motorista;
 import model.PessoaFisica;
 import model.PessoaJuridica;
 import model.Promocao;
+import model.TipoVeiculo;
 import model.Veiculo;
 
 /**
@@ -34,7 +36,6 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
      */
     public DevolucaoVeiculo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        setLocationRelativeTo(null);
         initComponents();        
     }
 
@@ -47,7 +48,39 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
     }
     
     private void finalizarDevolucao(){
-                
+        Locacao locacao = locacaoVeiculoRN.getLocacao();
+        locacao.setDatadevolucao(Calendar.getInstance().getTime());
+        locacao.getVeiculo().setDisponivel(true);        
+        locacaoVeiculoRN.gravarDevolucao();          
+        JOptionPane.showMessageDialog(this, "Devolucao efetuada com sucesso");
+        limparCampos();
+    }
+    
+    private void limparCampos(){
+        txtMarca.setText(null);
+        txtModelo.setText(null);
+        txtKm.setText(null);        
+        txtPlaca.setText(null);
+        txtNomeCliente.setText(null);        
+        txtCpfCnpj.setText(null);        
+        txtTelefone.setText(null);
+        txtCelular.setText(null);
+        txtEmail.setText(null);
+        txtModelo.setText(null);
+        txtMarca.setText(null);
+        txtPlaca.setText(null);
+        txtKm.setText(null);        
+        txtTipoLocacao.setText(null);
+        txtPromocao.setText(null);        
+        txtNomeMotorista.setText(null);        
+        txtCpfCnpjMotorista.setText(null);
+        txtCnhMotorista.setText(null);        
+        txtDataLocacao.setText(null);
+        txtDataDevolucao.setText(null);        
+        txtTotalDias.setText(null);
+        txtValorDesconto.setText(null);
+        txtValorLocacao.setText(null);
+        txtValorTotal.setText(null);
     }
     
     private void limparCampos(){
@@ -81,9 +114,17 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
         limparCampos();
         setarCamposCliente(locacao.getCliente());
         setarCamposMotorista(locacao.getMotorista());
-        setarCamposTotalizacao(locacao);
+		setarCamposTotalizacao(locacao);
         setarCamposVeiculo(locacao.getVeiculo());
         setarCamposData(locacao);
+        setarCamposTotalizacao(locacao);
+    }
+    
+    private void setarCamposVeiculo(Veiculo veiculo){
+        txtMarca.setText(veiculo.getMarca());
+        txtModelo.setText(veiculo.getModelo());
+        txtKm.setText(String.valueOf(veiculo.getQuilometragem()));        
+        txtPlaca.setText(veiculo.getPlaca());
     }
     
     private void setarCamposVeiculo(Veiculo veiculo){
@@ -129,6 +170,33 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
         Promocao promocao = locacao.getPromocao();
         if(promocao != null){
             txtPromocao.setText(promocao.getNome());
+            Veiculo veiculo = locacao.getVeiculo();
+            TipoVeiculo tipo = veiculo.getTipoVeiculo();
+            
+            switch(locacao.getTipolocacao().getIdtipolocacao()){
+                case 1: {
+                    valorLocacao = diasDecorridos * tipo.getValorDiario();
+                    valorDesconto = ( valorLocacao * promocao.getPorcentagemDescontoDiario() )/100;
+                } 
+                break;
+                case 2:{
+                    valorLocacao = (( (int) diasDecorridos / 7 ) + ( diasDecorridos % 7 > 0 ? 1 : 0  )  )   * tipo.getValorSemanal();
+                    valorDesconto = ( valorLocacao * promocao.getPorcentagemDescontoSemanal() )/100;
+                } 
+                break;
+                case 3: {
+                    valorLocacao = (( (int) diasDecorridos / 30 )  + ( diasDecorridos % 30 > 0 ? 1 : 0  ) )  * tipo.getValorMensal();
+                    valorDesconto = ( valorLocacao * promocao.getPorcentagemDescontoMensal() )/100 ;
+                }
+                break;                    
+            }
+            
+            valorTotal = valorLocacao - valorDesconto;
+            
+            txtValorLocacao.setText(String.valueOf(valorLocacao));
+            txtValorDesconto.setText(String.valueOf(valorDesconto));
+            txtValorTotal.setText(String.valueOf(valorTotal));
+            
         }
     }
     
@@ -582,11 +650,11 @@ public class DevolucaoVeiculo extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbCpf4)
-                        .addComponent(txtNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

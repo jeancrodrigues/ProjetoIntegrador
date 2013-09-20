@@ -560,7 +560,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        EntityManagerUtil.finalizaEntityManager();
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 

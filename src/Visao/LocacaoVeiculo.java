@@ -571,6 +571,8 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
         if(JOptionPane.showConfirmDialog(this, "Deseja finalizar a locação?","Locação",JOptionPane.YES_NO_OPTION ) == 0 ) {
             System.out.println("gravar locacao");
             gravarLocacao();
+            JOptionPane.showConfirmDialog(this, "Locacao efetuada com sucesso.");            
+            limparCampos();
         }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
@@ -704,6 +706,27 @@ public class LocacaoVeiculo extends javax.swing.JFrame {
             txtPlaca.setText(veiculoLocacao.getPlaca());
             txtKm.setText(String.valueOf(veiculoLocacao.getQuilometragem()));
         }
+    }
+    
+    private void limparCampos(){
+        txtNomeMotorista.setText("");
+        txtCpfMotorista.setText("");
+        txtNumeroCnhMorista.setText("");
+        txtDataValidadeCnhMotorista.setText("");
+        txtTelefoneMotorista.setText("");
+        txtCelularMotorista.setText("");
+        txtEmailMotorista.setText("");
+        txtModelo.setText("");
+        txtMarca.setText("");
+        txtPlaca.setText("");
+        txtKm.setText("");
+        txtNomeCliente.setText("");
+        lbCpf.setText("");
+        txtCpfCnpj.setText("");
+        txtTelefone.setText("");
+        txtCelular.setText("");
+        txtEmail.setText("");
+        
     }
 
     private boolean validaMotorista() {

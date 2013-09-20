@@ -22,6 +22,7 @@ public class VendaRN {
     public VendaRN() {
         pers = new VendaPers();
         veiculosVenda = new ArrayList<Veiculo>();
+        venda = new Venda();
     }
    
     public List<VeiculoWrapper> getVendaWrapperList() {
@@ -44,17 +45,12 @@ public class VendaRN {
         return venda;
     }
 
-    public void setCompra(Venda venda) {
+    public void setVenda(Venda venda) {
         this.venda = venda;
     }
-   
-   public void setCompraById(Integer id) {
-        venda = pers.procurarPorId(id);
-    }
-    public void gravar(){
-        
+    
+    public void gravar(){    
         pers.gravar(venda);
-        
     }
    /*
     public void autorizarCompraSelecionada() {

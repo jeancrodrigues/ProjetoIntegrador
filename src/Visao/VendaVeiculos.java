@@ -26,8 +26,7 @@ public class VendaVeiculos extends javax.swing.JDialog {
     public Venda venda;
     public VendaRN vendaRN;
     private ObjectTableModel<VeiculoWrapper> veiculoModel;
-    
-    
+
     public VendaVeiculos(java.awt.Frame parent, boolean modal, boolean visible, Component comp) {
         super(parent, modal);
         initComponents();
@@ -35,10 +34,12 @@ public class VendaVeiculos extends javax.swing.JDialog {
         setLocationRelativeTo(comp);
         setVisible(modal);
     }
-    public void inicilizar(){
+
+    public void inicilizar() {
         txtData.setText(String.valueOf(DataUtil.dateToString(Calendar.getInstance().getTime())));
         vendaRN = new VendaRN();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -223,7 +224,7 @@ public class VendaVeiculos extends javax.swing.JDialog {
     private void btnAdicionarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarVeiculoActionPerformed
         try {
             BuscarVeiculos buscarVeiculo = new BuscarVeiculos(this, true);
-            buscarVeiculo.setVisible(true);            
+            buscarVeiculo.setVisible(true);
             vendaRN.veiculosVenda.add(buscarVeiculo.getVeiculoRN().getVeiculoSelecionado());
             inicializaTabelaVeiculo();
         } catch (VeiculoException ex) {
@@ -232,11 +233,15 @@ public class VendaVeiculos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarVeiculoActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {
-        vendaRN.gravar();
+        try{
+            if (JOptionPane.showConfirmDialog(this, "Deseja Gravar?") == 0) {
+                vendaRN.gravar();
+            }
+
+            JOptionPane.showMessageDialog(this, "Venda Salva Com Sucesso!\n" + "Aguardando autorização Gerencial");
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(this, ex.getMessage());            
         }
-        JOptionPane.showMessageDialog(this, "Venda Salva Com Sucesso!\n"
-                + "Aguardando autorização Gerencial");
     }//GEN-LAST:event_btnGravarActionPerformed
 
     public void inicializaTabelaVeiculo() {
@@ -244,7 +249,6 @@ public class VendaVeiculos extends javax.swing.JDialog {
         veiculoModel.setData(vendaRN.getVendaWrapperList());
         tbVeiculo.setModel(veiculoModel);
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarVeiculo;
     private javax.swing.JButton btnGravar;
